@@ -10,13 +10,13 @@ import javax.swing.table.DefaultTableModel;
 import com.tan.bean.UserTab;
 import com.tan.dbunit.oracle.OracleUtil;
 
-public class ListTest extends JFrame {
+public class AllTableFrame extends JFrame {
 	private static final long serialVersionUID = 2895333976395911101L;
 
 	private List<UserTab> tabs;
 	private JScrollPane scrollpane;
 	
-	public ListTest() {
+	public AllTableFrame() {
 		// init tables
 		initTables();
 
@@ -63,7 +63,7 @@ public class ListTest extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new ListTest();
+		new AllTableFrame();
 	}
 
 }
