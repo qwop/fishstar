@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     2011-10-27 下午05:15:15                                                        
+
+     project    
+     description
+                   
+     Administrator                                                                
+     ====================================================================== -->
+<project name="adc_config" default="default">
+	<description>
+            description
+    </description>
+
+	<property name="src1" value="src"/>
+	<property name="build" value="build" />
+	<path id="classpath">
+		<fileset dir=".">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: depends                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="depends">
+		<delete dir="${build}" />
+		<mkdir dir="${build}/classes"/>
+	</target>
+
+
+	<!-- ================================= 
+          target: default              
+         ================================= -->
+	<target name="default" depends="depends" description="">
+		<javac srcdir="${src1}"
+         destdir="${build}/classes"
+         debug="on" encoding="utf-8">
+			<classpath refid="classpath">
+			</classpath>
+		</javac>
+
+		<jar destfile="${ant.project.name}.jar" basedir="${build}/classes">
+			<manifest>
+				<attribute name="Main-Class"
+		            value="com.tan.Main"/>
+			</manifest>
+		</jar>
+
+		<delete dir="${build}"/>
+	</target>
+</project>
