@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="src" path="res"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="D:/java.tools/james-2.3.2/lib/avalon-framework-api-4.3.jar"/>
+	<classpathentry kind="lib" path="D:/java.tools/james-2.3.2/lib/avalon-framework-impl-4.3.jar"/>
+	<classpathentry kind="lib" path="D:/java.tools/james-2.3.2/lib/avalon-logkit-2.1.jar"/>
+	<classpathentry kind="lib" path="D:/java.tools/james-2.3.2/lib/commons-collections-2.1.1.jar"/>
+	<classpathentry kind="lib" path="D:/java.tools/james-2.3.2/lib/concurrent-1.3.4.jar"/>
+	<classpathentry kind="lib" path="D:/java.tools/james-2.3.2/lib/excalibur-cli-1.0.jar"/>
+	<classpathentry kind="lib" path="D:/java.tools/james-2.3.2/lib/excalibur-extension-1.0a.jar"/>
+	<classpathentry kind="lib" path="D:/java.tools/james-2.3.2/lib/excalibur-instrument-api-2.1.jar"/>
+	<classpathentry kind="lib" path="D:/java.tools/james-2.3.2/lib/excalibur-instrument-manager-1.0.jar"/>
+	<classpathentry kind="lib" path="D:/java.tools/james-2.3.2/lib/excalibur-io-1.1.jar"/>
+	<classpathentry kind="lib" path="D:/java.tools/james-2.3.2/lib/excalibur-logger-2.1.jar"/>
+	<classpathentry kind="lib" path="D:/java.tools/james-2.3.2/lib/excalibur-monitor-2.1.jar"/>
+	<classpathentry kind="lib" path="D:/java.tools/james-2.3.2/lib/excalibur-pool-api-2.1.jar"/>
+	<classpathentry kind="lib" path="D:/java.tools/james-2.3.2/lib/excalibur-pool-impl-2.1.jar"/>
+	<classpathentry kind="lib" path="D:/java.tools/james-2.3.2/lib/excalibur-thread-api-2.1.jar"/>
+	<classpathentry kind="lib" path="D:/java.tools/james-2.3.2/lib/excalibur-thread-impl-2.1.jar"/>
+	<classpathentry kind="lib" path="D:/java.tools/james-2.3.2/lib/jakarta-oro-2.0.8.jar"/>
+	<classpathentry kind="lib" path="D:/java.tools/james-2.3.2/lib/mx4j-jmx.jar"/>
+	<classpathentry kind="lib" path="D:/java.tools/james-2.3.2/lib/mx4j-tools.jar"/>
+	<classpathentry kind="lib" path="D:/java.tools/james-2.3.2/lib/phoenix-client.jar"/>
+	<classpathentry kind="lib" path="D:/java.tools/james-2.3.2/lib/phoenix-engine.jar"/>
+	<classpathentry kind="lib" path="D:/java.tools/james-2.3.2/lib/spice-classman-1.0.jar"/>
+	<classpathentry kind="lib" path="D:/java.tools/james-2.3.2/lib/spice-loggerstore-0.5.jar"/>
+	<classpathentry kind="lib" path="D:/java.tools/james-2.3.2/lib/spice-salt-0.8.jar"/>
+	<classpathentry kind="lib" path="D:/java.tools/james-2.3.2/lib/spice-xmlpolicy-1.0.jar"/>
+	<classpathentry kind="lib" path="D:/bea/modules/javax.mail_1.1.0.0_1-1.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
