@@ -51,7 +51,7 @@ public class Main extends JFrame {
 	private transient JButton btn1;
 	private transient List<File> pfs;
 	private transient String oldPath = "E:\\adc\\LN_Version2\\build1027";
-	private transient int x = 300,y = 200, width = 800, height = 800;
+	private transient int x = 300,y = 100, width = 800, height = 600;
 	
 	private transient JLabel l1,l2,l3,l4,l5,l6,l7,l8;
 	private transient JTextField ftpIp,ftpPort,ftpUser,ftpPass,ftpPath,frontIp,frontPort,t8;
@@ -90,7 +90,7 @@ public class Main extends JFrame {
 			e.printStackTrace();
 		}
 		
-		//setTitle("adc一键配置");
+		setTitle("adc一键配置");
 		components();
 		
 		setVisible( true );

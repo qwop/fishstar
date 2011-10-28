@@ -127,7 +127,7 @@ public class FileButton extends JButton{
 		StringBuffer buf = new StringBuffer();
 		String prefix;
 		String line;
-		String path = null;
+		String info = null;
 		File outputFile;
 		try {
 			raf = new RandomAccessFile( file, "rw" );
@@ -144,11 +144,11 @@ public class FileButton extends JButton{
 			raf.close();
 			raf = null;
 			if ( main.isReplaceModeSelected() ) {
-				path = file.getAbsolutePath();
+				info = "本文件变更" + file.getName();
 				raf = new RandomAccessFile( file, "rw");
 			} else {
 				outputFile = new File( Main.CUR_DIR, "adc_web_config_" + adc + ".properties" );
-				path = outputFile.getAbsolutePath();
+				info = "创建测试文件:" + outputFile.getName();
 				raf = new RandomAccessFile( outputFile, "rw");
 			}
 			
@@ -164,8 +164,8 @@ public class FileButton extends JButton{
 				e.printStackTrace();
 			}
 			raf = null;
-			System.out.println( "文件变更:" + path);
-			main.appendToTextPane(  "文件变更:" + path );
+			System.out.println( info );
+			main.appendToTextPane(  info );
 		}
 	}
 
