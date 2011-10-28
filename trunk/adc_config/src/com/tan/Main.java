@@ -2,8 +2,11 @@ package com.tan;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,14 +20,13 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JToolTip;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
 
 import com.tan.swing.FileButton;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 /**
  * 
@@ -34,17 +36,24 @@ import java.awt.event.MouseEvent;
 public class Main extends JFrame {
 	private static final long serialVersionUID = 1L;
 	public static final String CUR_DIR = System.getProperty("user.dir");
-	private JButton btn1;
-	private List<File> pfs;
-	private String oldPath = "E:\\adc\\LN_Version2\\build1027";
-	private int x = 300,y = 200, width = 800, height = 500;
+	private static String propFile = "adc_web_config.properties";
+	private static String suffix = "WEB-INF" + File.separator + "classes" + File.separator + propFile;
+	private transient JPanel panel;
+	private transient JPanel btnPanel;
+	private transient JButton btnNewButton_1;
+	private transient Toolkit 		kit 						= Toolkit.getDefaultToolkit();
+	private transient JButton btn1;
+	private transient List<File> pfs;
+	private transient String oldPath = "E:\\adc\\LN_Version2\\build1027";
+	private transient int x = 300,y = 200, width = 800, height = 500;
 	
-	private JLabel l1,l2,l3,l4,l5,l6,l7,l8;
-	private JTextField ftpIp,ftpPort,ftpUser,ftpPass,ftpPath,frontIp,frontPort,t8;
+	private transient JLabel l1,l2,l3,l4,l5,l6,l7,l8;
+	private transient JTextField ftpIp,ftpPort,ftpUser,ftpPass,ftpPath,frontIp,frontPort,t8;
 	
-	private boolean found;
-	private JCheckBox replaceMode ;
-	private JTextArea textPane;
+	private transient boolean found;
+	private transient JCheckBox replaceMode ;
+	private transient JTextArea textPane;
+	
 	public Main() {
 		init();
 		oldPath = CUR_DIR;
@@ -147,12 +156,6 @@ public class Main extends JFrame {
 		panel.add(frontPort);
 		
 		replaceMode = new JCheckBox( "替换本身(不选创建测试文件)", false );
-		replaceMode.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				
-			}
-		});
 		replaceMode.setBounds(134, 188, 229, 23);
 		panel.add(replaceMode);
 		
@@ -178,6 +181,7 @@ public class Main extends JFrame {
 				textPane.setText( "" );
 			}
 		});
+		
 		btnPanel.add(btnNewButton);
 		
 		btnNewButton_1 = new JButton("退出");
@@ -189,11 +193,7 @@ public class Main extends JFrame {
 		btnPanel.add(btnNewButton_1);
 	}
 	
-	private static String propFile = "adc_web_config.properties";
-	private static String suffix = "WEB-INF" + File.separator + "classes" + File.separator + propFile;
-	private JPanel panel;
-	private JPanel btnPanel;
-	private JButton btnNewButton_1;
+
 
 	private void addListeners() {
 		btn1.addActionListener( new ActionListener() {
