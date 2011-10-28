@@ -131,7 +131,6 @@ public class FileButton extends JButton{
 		File outputFile;
 		try {
 			raf = new RandomAccessFile( file, "rw" );
-			
 			while ( null != ( line = raf.readLine() )) {
 				for ( final String newValue : replacements ) {
 					prefix = newValue.substring( 0, newValue.indexOf('=') );
@@ -166,7 +165,6 @@ public class FileButton extends JButton{
 			}
 			raf = null;
 			System.out.println( "文件变更:" + path);
-			
 			main.appendToTextPane(  "文件变更:" + path );
 		}
 	}
