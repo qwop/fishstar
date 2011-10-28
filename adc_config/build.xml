@@ -12,11 +12,11 @@
             description
     </description>
 
-	<property name="src1" value="src"/>
+	<property name="src1" value="src" />
 	<property name="build" value="build" />
 	<path id="classpath">
 		<fileset dir=".">
-			<include name="**/*.jar"/>
+			<include name="**/*.jar" />
 		</fileset>
 	</path>
 
@@ -26,7 +26,7 @@
          - - - - - - - - - - - - - - - - - -->
 	<target name="depends">
 		<delete dir="${build}" />
-		<mkdir dir="${build}/classes"/>
+		<mkdir dir="${build}/classes" />
 	</target>
 
 
@@ -34,20 +34,17 @@
           target: default              
          ================================= -->
 	<target name="default" depends="depends" description="">
-		<javac srcdir="${src1}"
-         destdir="${build}/classes"
-         debug="on" encoding="utf-8">
+		<javac srcdir="${src1}" destdir="${build}/classes" debug="on" encoding="utf-8">
 			<classpath refid="classpath">
 			</classpath>
 		</javac>
 
 		<jar destfile="${ant.project.name}.jar" basedir="${build}/classes">
 			<manifest>
-				<attribute name="Main-Class"
-		            value="com.tan.Main"/>
+				<attribute name="Main-Class" value="com.tan.Main" />
 			</manifest>
 		</jar>
 
-		<delete dir="${build}"/>
+		<delete dir="${build}" />
 	</target>
 </project>
