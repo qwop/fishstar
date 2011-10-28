@@ -38,11 +38,11 @@ public class FileButton extends JButton{
 		if ( adc.indexOf( "adc") < 0 ) {
 			System.err.println( "not contains the adc keyword !");
 			
-			main.dis( file +  " \tnot contains the adc keyword !" );
+			main.appendToTextPane( file +  " \tnot contains the adc keyword !" );
 		}
 		System.out.println( adc );
 		
-		main.dis( adc );
+		main.appendToTextPane( adc );
 	}
 
 	private void addListener() {
@@ -167,7 +167,7 @@ public class FileButton extends JButton{
 			raf = null;
 			System.out.println( "文件变更:" + path);
 			
-			main.dis(  "文件变更:" + path );
+			main.appendToTextPane(  "文件变更:" + path );
 		}
 	}
 
