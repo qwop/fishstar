@@ -24,7 +24,7 @@ public class FileButton extends JButton{
 	private Properties prop;
 	private Main main;
 	private String adc;
-	public FileButton( final File file ) {
+	public FileButton( final Main main, final File file ) {
 		super( file.getAbsolutePath() );
 		this.file = file;
 		addListener() ;
@@ -34,11 +34,15 @@ public class FileButton extends JButton{
 		} catch( Exception e ) {
 			adc = null;
 		}
-		
+		this.main = main;
 		if ( adc.indexOf( "adc") < 0 ) {
 			System.err.println( "not contains the adc keyword !");
+			
+			main.dis( file +  " \tnot contains the adc keyword !" );
 		}
 		System.out.println( adc );
+		
+		main.dis( adc );
 	}
 
 	private void addListener() {
@@ -162,6 +166,8 @@ public class FileButton extends JButton{
 			}
 			raf = null;
 			System.out.println( "文件变更:" + path);
+			
+			main.dis(  "文件变更:" + path );
 		}
 	}
 
