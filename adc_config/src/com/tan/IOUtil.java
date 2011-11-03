@@ -49,9 +49,13 @@ public class IOUtil {
 	}
 
 	public static Properties load(String searchFile) {
+		return load( new File( searchFile ));
+	}
+	
+	public static Properties load( final File file) {
 		Properties p = new Properties();
 		try {
-			p.load( new FileInputStream( searchFile ));
+			p.load( new FileInputStream( file ));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {

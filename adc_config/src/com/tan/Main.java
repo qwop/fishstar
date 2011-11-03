@@ -93,6 +93,8 @@ public class Main extends JFrame {
 		setTitle("adc一键配置");
 		components();
 		
+		setBounds( x, y , width , height);
+		
 		setVisible( true );
 		setDefaultCloseOperation( EXIT_ON_CLOSE );
 		
@@ -100,7 +102,6 @@ public class Main extends JFrame {
 	}
 
 	private void components() {
-		setBounds( x, y , width , height);
 		getContentPane().setLayout(null);
 		
 		panel = new JPanel();
