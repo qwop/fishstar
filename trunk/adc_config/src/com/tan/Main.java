@@ -78,6 +78,7 @@ public class Main extends JFrame {
 	private JButton button_1;
 	
 	private Replacer owsReplacerWebXml, owsReplaceProp,sqlMapReaplcer,sqlMapReportReaplcer;
+	private JButton btnEjb;
 	public Main() {
 		init();
 		oldPath = CUR_DIR;
@@ -330,6 +331,14 @@ public class Main extends JFrame {
 			}
 		});
 		
+		btnEjb = new JButton("EJB");
+		btnEjb.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EarMain.main( null );
+			}
+		});
+		btnPanel.add(btnEjb);
+		
 		btnPanel.add(btnNewButton);
 		btnPanel.add(btnNewButton_1);
 	}
@@ -346,14 +355,12 @@ public class Main extends JFrame {
 
 			private void search( final String dir ) {
 				List<File> pfs = listProps( dir );
-				
 				if ( !found ) {
 					procPfs(pfs);
 				} else {
 					int result = JOptionPane.showConfirmDialog(null, "已经搜寻到"
 							+ pfs.size()
 							+ "个！，是否新目录搜索？");
-					
 					
 					// 是否重新搜索
 					if (result == JOptionPane.YES_OPTION) {
@@ -363,9 +370,9 @@ public class Main extends JFrame {
 							Main.this.pfs.clear();  // 清除
 						}
 						
-						int len = btnPanel.getComponents().length - 5;
+						int len = btnPanel.getComponents().length - 6;
 						for ( int i = 0; i < len; i++ ) {
-								btnPanel.remove( 5 );
+								btnPanel.remove( 6 );
 						}
 						procPfs( null );
 					}
@@ -376,7 +383,6 @@ public class Main extends JFrame {
 				// check the find the files ?
 				 if ( null != pfs && pfs.size() > 0 ) {
 					 // find
-					 
 					 found = true;
 					 if ( found && CUR_DIR.equals( oldPath )) {
 						 JOptionPane.showMessageDialog( null, "当前目录搜寻到" + pfs.size() + "个adc_web_config.properties文件！");
@@ -659,4 +665,6 @@ public class Main extends JFrame {
 	
 	public void appendToTextPane( final Object msg ) {
 		textPane.setText( textPane.getText() + (textPane.getText().length() == 0 ? "" : "\r\n") + String.valueOf( msg ) );
-	}}
+	}
+	
+}
