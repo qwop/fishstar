@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -32,17 +33,17 @@ import com.tan.swing.FileButton;
  */
 public class Main extends JFrame {
 	private static final long serialVersionUID = 1L;
-	public static final String CUR_DIR = System.getProperty("user.dir");
-	private static String propFile = "adc_web_config.properties";
-	private static String suffix = "WEB-INF" + File.separator + "classes" + File.separator + propFile;
-	private static String webXml = "web.xml";
-	private static String owsInitProp = "init.properties";
-	private static String owsWebXMl = "WEB-INF" + File.separator  + webXml;
-	private static String owsProp = "WEB-INF" + File.separator + "classes" + File.separator +owsInitProp;
-	private static String sqlMapSuffix =  "SqlMapConfig.xml";
-	private static String sqlMapReportSuffix =  "SqlMapConfig_adc.xml";
-	private static String sqlMap = "WEB-INF" + File.separator + "classes" + File.separator  + "res" + File.separator + sqlMapSuffix;
-	private static String sqlMapReport = "WEB-INF" + File.separator + "classes" + File.separator  + "res" + File.separator + sqlMapReportSuffix;
+	public  static final String CUR_DIR = System.getProperty("user.dir");
+	private static String ADC_WEB_CONFIG = "adc_web_config.properties";
+	private static String WEBINF_ADC_WEB_CONFIG = "WEB-INF" + File.separator + "classes" + File.separator + ADC_WEB_CONFIG;
+	private static String WEBXML = "web.xml";
+	private static String OWS_INIT_PROPERTIES = "init.properties";
+	private static String WEBINF_WEBXML = "WEB-INF" + File.separator  + WEBXML;
+	private static String WEBINF_CLASSES_OWS_INIT_PROPERTIES = "WEB-INF" + File.separator + "classes" + File.separator +OWS_INIT_PROPERTIES;
+	private static String SQL_MAP_CONFIG =  "SqlMapConfig.xml";
+	private static String SQL_MAP_CONFIG_ADC =  "SqlMapConfig_adc.xml";
+	private static String WEBINF_SQL_MAP_CONFIG = "WEB-INF" + File.separator + "classes" + File.separator  + "res" + File.separator + SQL_MAP_CONFIG;
+	private static String WEBINF_SQL_MAP_CONFIG_ADC = "WEB-INF" + File.separator + "classes" + File.separator  + "res" + File.separator + SQL_MAP_CONFIG_ADC;
 	
 	private transient JPanel panel;
 	private transient JPanel btnPanel;
@@ -282,10 +283,15 @@ public class Main extends JFrame {
 				if ( owsReplacerWebXml != null ) {
 					owsReplacerWebXml.replace( null, null);
 					Main.this.appendToTextPane("ows xml 变更！");
-				}				
+				}else {
+					appendToTextPane( "ows web.xml配置文件未找到!" );
+				}	
+				
 				if ( owsReplaceProp != null ) {
 					owsReplaceProp.replace( "ows.serviceUrl", StringUtil.concatHttpUrl( Main.this.getFrontIp(), Main.this.getFrontPort(), "/adc_ws/Service.jws" ));
 					Main.this.appendToTextPane("ows prop 变更！");
+				}else {
+					appendToTextPane( "ows  init.properties 文件未找到!" );
 				}
 			}
 		});
@@ -297,10 +303,14 @@ public class Main extends JFrame {
 				if ( sqlMapReaplcer != null ) {
 					sqlMapReaplcer.replace( null, null);
 					Main.this.appendToTextPane("sql map 变更！");
-				}				
+				} else {
+					appendToTextPane( "报表SqlMapConfig.xml配置文件未找到!" );
+				}
 				if ( sqlMapReportReaplcer != null ) {
 					sqlMapReportReaplcer.replace( null, null);
 					Main.this.appendToTextPane("sql map report 变更！");
+				} else {
+					appendToTextPane( "报表SqlMapConfig_adc.xml配置文件未找到!" );
 				}
 			}
 		});
@@ -393,6 +403,10 @@ public class Main extends JFrame {
 
 
 			private List<File> listProps( final String path ) {
+				 if ( StringUtil.isEmpty( path ) ) {
+					 JOptionPane.showMessageDialog( null, "路径为空！");
+					 return null;
+				 }
 				 final File root = new File( path );
 				 if ( !root.exists() ) {
 					 JOptionPane.showMessageDialog( null, "未找到adc_web_config.properties文件！");
@@ -405,16 +419,12 @@ public class Main extends JFrame {
 				 
 				 final File[] files = root.listFiles();
 				 
-				 File pf;
 				 List<File> pfs = new ArrayList<File>();
 				 if ( null != files && files.length > 0 ) {
 					 for ( final File dir : files ) {
 						 if ( dir.isDirectory() ) {
-							 searchAdcConfig(pfs, dir);
-							 
-							 
-							 seachOther( dir );
-
+							 searchAdcConfig( pfs, dir );
+							 seachOther( pfs, dir );
 						 }
 					 }
 				 }
@@ -422,79 +432,68 @@ public class Main extends JFrame {
 			}
 			
 			private void searchAdcConfig(List<File> pfs, final File dir) {
-				File pf;
-				pf = new File( dir, suffix );
-				 if ( pf.exists() && pf.isFile() ) {
-					 pfs.add( pf );
-				 }
-				 
-				 pf = new File( dir, "WebContent" + File.separator + suffix );
-				 if ( pf.exists() && pf.isFile() ) {
-					 pfs.add( pf );
-				 }
-				 
-				 pf = new File( dir, "src" + File.separator + propFile );
-				 if ( pf.exists() && pf.isFile() ) {
-					 pfs.add( pf );
-				 }
+				search( pfs, dir, 
+						WEBINF_ADC_WEB_CONFIG,
+						"WebContent" + File.separator + WEBINF_ADC_WEB_CONFIG,
+						"src" + File.separator + ADC_WEB_CONFIG
+				);
 			}
-
-			private void seachOther(File dir) {
-				File pf;
+			
+			
+			private final void search(List<File> pfs, final File dir, final String ... suffixs ) {
+				File pf ;
+				for ( final String suffix : suffixs ) {
+					pf = new File( dir, suffix );
+					
+					if ( pf.exists() && pf.isFile() ) {
+						pfs.add( pf );
+					}
+				}
+			}
+			
+			private final Replacer getReplacer(List<File> pfs, final File dir, final String ... suffixs ) {
+				File pf ;
+				for ( final String suffix : suffixs ) {
+					pf = new File( dir, suffix );
+					
+					if ( pf.exists() && pf.isFile() ) {
+						return new Replacer( pf, Main.this );
+					}
+				}
+				return null;
+			}
+			
+			private void seachOther(List<File> pfs,File dir) {
 				if (dir.getAbsolutePath().indexOf("adc_ows") >= 0) {
 					// search web xml
-					pf = new File(dir, owsWebXMl);
-					if (pf.exists() && pf.isFile()) {
-						owsReplacerWebXml = new Replacer( pf, Main.this );
-					}
-					pf = new File(dir, "WebContent" + File.separator + owsWebXMl);
-					if (pf.exists() && pf.isFile()) {
-						owsReplacerWebXml = new Replacer( pf, Main.this );
-					}
+					owsReplacerWebXml = getReplacer( pfs, dir, 
+							WEBINF_WEBXML,
+							"WebContent" + File.separator + WEBINF_WEBXML
+					);
 					
 					
 					// search web properties
-					pf = new File(dir, owsProp);
-					if (pf.exists() && pf.isFile()) {
-						owsReplaceProp = new Replacer( pf, Main.this );
-					}
-					pf = new File(dir, "WebContent" + File.separator + owsProp);
-					if (pf.exists() && pf.isFile()) {
-						owsReplaceProp = new Replacer( pf, Main.this );
-					}
-					pf = new File(dir, "src" + File.separator + "init.properties");
-					if (pf.exists() && pf.isFile()) {
-						owsReplaceProp = new Replacer( pf, Main.this );
-					}
-				}if (dir.getAbsolutePath().indexOf("adc_report") >= 0) {
+					owsReplaceProp = getReplacer( pfs, dir, 
+							"src" + File.separator + "init.properties",
+							"WebContent" + File.separator + WEBINF_CLASSES_OWS_INIT_PROPERTIES,
+							WEBINF_CLASSES_OWS_INIT_PROPERTIES
+					);
+					
+				}
+				if (dir.getAbsolutePath().indexOf("adc_report") >= 0) {
 					// search web xml
-					pf = new File(dir, sqlMap);
-					if (pf.exists() && pf.isFile()) {
-						sqlMapReaplcer = new Replacer( pf, Main.this );
-					}
-					pf = new File(dir, "WebContent" + File.separator
-							+ sqlMap);
-					if (pf.exists() && pf.isFile()) {
-						sqlMapReaplcer = new Replacer( pf, Main.this );
-					}
-					pf = new File(dir, "src" + File.separator + sqlMapSuffix);
-					if (pf.exists() && pf.isFile()) {
-						sqlMapReaplcer = new Replacer( pf, Main.this );
-					}
-					// search web properties
-					pf = new File(dir, sqlMapReport);
-					if (pf.exists() && pf.isFile()) {
-						sqlMapReportReaplcer = new Replacer( pf, Main.this );
-					}
-					pf = new File(dir, "WebContent" + File.separator
-							+ sqlMapReport);
-					if (pf.exists() && pf.isFile()) {
-						sqlMapReportReaplcer = new Replacer( pf, Main.this );
-					}
-					pf = new File(dir, "src" + File.separator + sqlMapReportSuffix);
-					if (pf.exists() && pf.isFile()) {
-						sqlMapReportReaplcer = new Replacer( pf, Main.this );
-					}
+					sqlMapReaplcer = getReplacer( pfs, dir, 
+							"src" + File.separator + "res" + File.separator  + SQL_MAP_CONFIG,
+							"WebRoot" + File.separator + WEBINF_SQL_MAP_CONFIG,
+							WEBINF_SQL_MAP_CONFIG
+					);
+					
+					
+					sqlMapReportReaplcer = getReplacer( pfs, dir, 
+							"src" + File.separator + "res" + File.separator + SQL_MAP_CONFIG_ADC,
+							"WebRoot" + File.separator +  "res" + File.separator + WEBINF_SQL_MAP_CONFIG_ADC,
+							WEBINF_SQL_MAP_CONFIG_ADC
+					);
 				}
 
 			}
@@ -503,14 +502,70 @@ public class Main extends JFrame {
 
 	protected void notifyPfs() {
 		FileButton fb;
+		filter(  );
 		for ( final File f : pfs ) {
 			fb = new FileButton( this, f );
 			fb.setMain( this );
 //			scrollPane.setColumnHeaderView(fb);
-			btnPanel.add(fb);
+			loadPropsByOp( f );
+			
+			if ( f.getName().indexOf( ADC_WEB_CONFIG ) >= 0 ) {
+				btnPanel.add(fb);
+			}
 		}
+		
 		setVisible( true );
 		//resize( width, height );
+	}
+
+	private void filter() {
+		// 如果有 src 和 web classes 同时存在则将  class 除去
+		boolean hadSrc = false, hadClasses = false;
+		List<File> tofilters = new ArrayList<File>();
+		for ( final File f : pfs ) {
+			if ( f.getAbsolutePath().indexOf( "src" ) >= 0 ) {
+				hadSrc = true;
+			} else if ( f.getAbsolutePath().indexOf( "classes" ) >= 0 ) {
+				hadClasses = true;
+				tofilters.add( f );
+			}
+		}
+		
+		if ( hadSrc && hadClasses ) {
+			for ( final File f : tofilters ) {
+				pfs.remove( f );
+			}
+		}
+	}
+
+	private void loadPropsByOp(File f) {
+		// loading the ftp and front page's information by the adc_op's web config properties
+		if ( f.getAbsolutePath().indexOf( "adc_op" ) >= 0  ) {
+			appendToTextPane( " Loading by the file:  " + f + "\r\n" );
+			Properties p = IOUtil.load( f );
+			
+			ftpPort.setText( p.getProperty( "ftp.port" ) );
+			ftpUser.setText( p.getProperty( "ftp.user" ) );
+			ftpPass.setText( p.getProperty( "ftp.password" ) );
+			ftpPath.setText( p.getProperty( "ftp.path" ) );
+
+			frontIp.setText( StringUtil.getIP( p.getProperty( "front.page.url" ) ) );
+			frontPort.setText( StringUtil.getPort( p.getProperty( "front.page.url" ) ) );
+
+//			dbIP.setText( p.getProperty( "front.page.url" ) );
+//			sid.setText( p.getProperty( "front.page.url" ) );
+//			
+//			dbPort.setText( p.getProperty( "front.page.url" ) );
+//			
+//			reportDbUser.setText( p.getProperty( "front.page.url" ) );
+//			reportDbPass.setText( p.getProperty( "front.page.url" ) );
+//			
+//			dbUser.setText( p.getProperty( "front.page.url" ) );
+//			dbPass.setText( p.getProperty( "front.page.url" ) );
+		}
+		// loading the report information by the 
+		else if ( f.getAbsolutePath().indexOf( "adc_report" ) >= 0 ) {
+		}
 	}
 
 	/**
