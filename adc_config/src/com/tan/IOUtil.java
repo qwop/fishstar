@@ -49,19 +49,7 @@ public class IOUtil {
 	}
 
 	public static Properties load(String searchFile) {
-		return load( new File( searchFile ));
-	}
-	
-	public static Properties load( final File file) {
-		Properties p = new Properties();
-		try {
-			p.load( new FileInputStream( file ));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return p;
+		return load(  new File( searchFile ) );
 	}
 
 	public static void save(String searchFile, String newContent, String encoding) {
@@ -90,6 +78,18 @@ public class IOUtil {
 	
 	public static void save(String searchFile, String newContent) {
 		save( searchFile, newContent, null );
+	}
+
+	public static Properties load(File file) {
+		Properties p = new Properties();
+		try {
+			p.load( new FileInputStream( file ));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return p;
 	}
 
 }
