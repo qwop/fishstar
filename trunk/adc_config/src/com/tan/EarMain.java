@@ -104,6 +104,8 @@ public class EarMain {
 			btnLoadEarFiles.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					//temp();
+					
+					resetTxt();
 					final File root = new File( Main.CUR_DIR );
 					
 					search( root );
