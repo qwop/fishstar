@@ -1,1 +1,1 @@
-java -jar adc_config.jar
+ant
