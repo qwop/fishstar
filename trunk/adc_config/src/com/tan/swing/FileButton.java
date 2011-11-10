@@ -30,17 +30,16 @@ public class FileButton extends JButton{
 		addListener() ;
 		
 		try {
-			adc = file.getParentFile().getParentFile().getParentFile().getName();
+			adc = StringUtil.getAdcProjectKeyWord( file.getAbsolutePath() );
 		} catch( Exception e ) {
 			adc = null;
 		}
 		this.main = main;
-		if ( adc.indexOf( "adc") < 0 ) {
-			System.err.println( "not contains the adc keyword !");
+		if ( null == adc || adc.indexOf( "adc_") < 0 ) {
+			System.err.println( file +  " \tnot contains the adc keyword !");
 			
 			main.appendToTextPane( file +  " \tnot contains the adc keyword !" );
 		}
-		System.out.println( adc );
 		
 		main.appendToTextPane( adc );
 	}
@@ -80,8 +79,9 @@ public class FileButton extends JButton{
 		
 //		#论坛的url
 //		forum.server.url=http://localhost:9999/adc_bbs/SSO/Login
-		check( "forum.server.url", "http://" + main.getFrontIp() + "/adc_bbs/SSO/Login" );
+		//check( "forum.server.url", "http://" + main.getFrontIp() + "/adc_bbs/SSO/Login" );
 		
+		check ( "forum.server.url", StringUtil.concatHttpUrl( main.getFrontIp(), main.getFrontPort(), "/adc_bbs/SSO/Login" ) );
 		
 //		# FTP服务器的IP地址
 //		ftp.server=dolphin-3bce011
@@ -123,6 +123,9 @@ public class FileButton extends JButton{
 	}
 	
 	private void replaceWrite() {
+		if ( null == replacements || replacements.size() == 0 ) {
+			return ;
+		}
 		RandomAccessFile raf = null;
 		StringBuffer buf = new StringBuffer();
 		String prefix;

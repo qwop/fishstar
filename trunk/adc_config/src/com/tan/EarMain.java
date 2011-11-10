@@ -127,6 +127,9 @@ public class EarMain {
 							adcEjb = f1;
 							ssConfig = f2;
 							
+							EarMain.this.appendToTextPane( "Loading file : " + f1  );
+							EarMain.this.appendToTextPane( "Loading file : " + ssConfig  );
+							
 							Properties p1 = IOUtil.load( f1 );
 							Properties p2 = IOUtil.load( f2 );
 							

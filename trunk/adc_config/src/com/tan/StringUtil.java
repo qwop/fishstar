@@ -1,5 +1,7 @@
 package com.tan;
 
+import java.io.File;
+
 public class StringUtil {
 	
 	public static String concatHttpUrl( final String ip, final String port, final String suffix ) {
@@ -87,6 +89,20 @@ public class StringUtil {
 		} else {
 			return "80";
 		}
+	}
+
+	public static String getAdcProjectKeyWord(String absolutePath) {
+		final String keyword = "adc_";
+		int fromIndex = absolutePath.indexOf( keyword );
+		if ( fromIndex >= 0) 	{
+			int toIndex = absolutePath.indexOf( File.separator, fromIndex );
+			if ( toIndex > 0 ) {
+				return absolutePath.substring( fromIndex, toIndex );
+			} else if ( absolutePath.lastIndexOf( File.separator ) == ( fromIndex - File.separator.length() ) ) {
+				return absolutePath.substring( fromIndex );
+			}
+		}
+		return null;
 	}
 
 }
