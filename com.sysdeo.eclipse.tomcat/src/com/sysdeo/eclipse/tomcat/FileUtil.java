@@ -126,13 +126,14 @@ public class FileUtil {
 	 * Recursive delete of a directory.<br>
 	 * The directory itself will be deleted
 	 */
-	public static void removeDir(File dir) throws IOException {
-		File[] files = dir.listFiles();
+	public static void removeDir(File dir) {
+		if ( !dir.exists() ) { return ; }
+		final File[] files = dir.listFiles();
 		for (int i = 0; i < files.length; i++) {
-			if(files[i].isDirectory()) {
+			if (files[i].isDirectory()) {
 				FileUtil.removeDir(files[i]);
 			} else {
-				files[i].delete();	
+				files[i].delete();
 			}
 		}
 		dir.delete();
