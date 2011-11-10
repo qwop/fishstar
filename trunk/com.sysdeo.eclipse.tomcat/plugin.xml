@@ -52,7 +52,17 @@
                toolbarPath="Normal/additions"
                tooltip="%menu.path.label">
          </action>
-                  
+  
+          <action
+               class="com.sysdeo.eclipse.tomcat.actions.CleanActionDelegate"
+               icon="icons/clean.gif"
+               id="com.sysdeo.eclipse.tomcat.clean"
+               label="%menu.clean.label"
+               menubarPath="com.sysdeo.eclipse.tomcat.menu/group"
+               toolbarPath="Normal/additions"
+               tooltip="%menu.clean.label">
+         </action>
+                         
          <action
                label="%menu.restart.label"
                icon="icons/restart.gif"
