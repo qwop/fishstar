@@ -45,7 +45,6 @@ public class CleanActionDelegate implements IWorkbenchWindowActionDelegate {
 	 * @see IActionDelegate#run(IAction)
 	 */
 	public void run(IAction action) {
-		
 		if(TomcatLauncherPlugin.checkTomcatSettingsAndWarn()) {
 			final File tomcatDir = new File( TomcatLauncherPlugin.getDefault().getTomcatDir() ) ;
 			boolean rmdirWork = rmdir( new File( tomcatDir, "work" ) ),
@@ -55,11 +54,9 @@ public class CleanActionDelegate implements IWorkbenchWindowActionDelegate {
 			} else if ( rmdirWork && !rmdirTemp ) {
 				alert( tomcatDir  + " work 目录清空！");
 			} else if ( !rmdirWork && rmdirTemp ) {
-				MessageDialog.openInformation(window.getShell(),
-						title, tomcatDir  + " temp 目录清空！");
+				alert( tomcatDir  + " temp 目录清空！");
 			} else if ( !rmdirWork && !rmdirTemp ) {
-				MessageDialog.openInformation(window.getShell(),
-						title, tomcatDir  + " work/temp 目录未清空！");
+				alert( tomcatDir  + " work/temp 目录未清空！");
 			}
 		}
 	}
