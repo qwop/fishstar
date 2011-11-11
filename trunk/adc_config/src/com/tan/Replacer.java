@@ -41,36 +41,38 @@ public class Replacer {
 				}
 			}
 		} else if ("xml".equals(fileType)) { // for xml file
-			if (content.indexOf("adc_ows") >= 0) { // is adc_ows's web.xml
-													// file
-				for (final String url : urls) {
-					String oldValue = StringUtil.searchOwsXml(content, url);
-					if (null != oldValue) {
-						content = content.replace(oldValue, StringUtil.concatHttpUrl(
-								main.getFrontIp(), main.getFrontPort(),
-								getSuffix(url)));
+			if (searchFile.toLowerCase().endsWith("web.xml")) {
+				if (content.indexOf("adc_ows") >= 0) { // is adc_ows's web.xml
+														// file
+					for (final String url : urls) {
+						String oldValue = StringUtil.searchOwsXml(content, url);
+						if (null != oldValue) {
+							content = content.replace(oldValue, StringUtil.concatHttpUrl(
+									main.getFrontIp(), main.getFrontPort(),
+									getSuffix(url)));
+						}
 					}
 				}
-			}
 
-			if (searchFile.endsWith("SqlMapConfig.xml")) {
-				if (content.indexOf("ibatis") >= 0) { // is adc_ows's
-					// web.xml
-					// file
-					content =   StringUtil.sarchSqlMap( content,  "JDBC.ConnectionURL", "jdbc:oracle:thin:@" + main.getDbIP() + ":" + main.getDbPort() + ":" + main.getSid() ) ;
-					content =   StringUtil.sarchSqlMap( content,  "JDBC.Username", main.getDbUser() ) ;
-					content =   StringUtil.sarchSqlMap( content,  "JDBC.Password", main.getDbPass() ) ;
-					
+				if (searchFile.endsWith("SqlMapConfig.xml")) {
+					if (content.indexOf("ibatis") >= 0) { // is adc_ows's
+						// web.xml
+						// file
+						content =   StringUtil.sarchSqlMap( content,  "JDBC.ConnectionURL", "jdbc:oracle:thin:@" + main.getDbIP() + ":" + main.getDbPort() + ":" + main.getSid() ) ;
+						content =   StringUtil.sarchSqlMap( content,  "JDBC.Username", main.getDbUser() ) ;
+						content =   StringUtil.sarchSqlMap( content,  "JDBC.Password", main.getDbPass() ) ;
+						
+					}
 				}
-			}
-			
-			if (searchFile.endsWith("SqlMapConfig_adc.xml")) {
-				if (content.indexOf("ibatis") >= 0) { // is adc_ows's
-														// web.xml
-														// file
-					content =   StringUtil.sarchSqlMap( content,  "JDBC.ConnectionURL", "jdbc:oracle:thin:@" + main.getDbIP() + ":" + main.getDbPort() + ":" + main.getSid() ) ;
-					content =   StringUtil.sarchSqlMap( content,  "JDBC.Username", main.getReportDbUser() ) ;
-					content =   StringUtil.sarchSqlMap( content,  "JDBC.Password", main.getReportDbPass() ) ;
+				if (searchFile.endsWith("SqlMapConfig_adc.xml")) {
+					if (content.indexOf("ibatis") >= 0) { // is adc_ows's
+															// web.xml
+															// file
+						content =   StringUtil.sarchSqlMap( content,  "JDBC.ConnectionURL", "jdbc:oracle:thin:@" + main.getDbIP() + ":" + main.getDbPort() + ":" + main.getSid() ) ;
+						content =   StringUtil.sarchSqlMap( content,  "JDBC.Username", main.getReportDbUser() ) ;
+						content =   StringUtil.sarchSqlMap( content,  "JDBC.Password", main.getReportDbPass() ) ;
+
+					}
 				}
 			}
 		}
