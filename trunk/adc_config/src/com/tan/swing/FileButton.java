@@ -3,7 +3,6 @@ package com.tan.swing;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
@@ -13,17 +12,34 @@ import java.util.Properties;
 
 import javax.swing.JButton;
 
+import com.tan.IOUtil;
 import com.tan.Main;
 import com.tan.StringUtil;
 
+/**
+ * 
+ * @author dolphin
+ *
+ * 2011-11-11 上午9:38:51
+ */
 public class FileButton extends JButton{
 
 	private static final long serialVersionUID = 1L;
 	
+	final static String RN = System.getProperty( "line.separator", "\r\n" );
+	
+	/** store the file which like d:\default\adc_op\src\adc_web_config.properties*/
 	private File file;
+	/** the properties file's reference */
 	private Properties prop;
+	/** the reference of the main for get the textfield value*/
 	private Main main;
+	/** the adc keyword which like 'adc_op, adc_ec'*/
 	private String adc;
+	
+	/** the value of the properties like {key=value} to replace  */
+	private List<String> replacements = new ArrayList<String>();
+	
 	public FileButton( final Main main, final File file ) {
 		super( file.getAbsolutePath() );
 		this.file = file;
@@ -48,27 +64,10 @@ public class FileButton extends JButton{
 		this.addActionListener( new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//System.out.println( FileButton.this.file );
-				prop = new Properties();
+				// load the properties 
+				prop = IOUtil.load( FileButton.this.file );
 				
-				try {
-					prop.load( new FileInputStream( FileButton.this.file));
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-				
-//				Collection<Object> vals = prop.values();
-//				
-//				for ( final Object val : vals ) {
-//					System.out.println( val );
-//				}
-/*				try {
-					p.save( new FileOutputStream( new File( "c:\\output" ,FileButton.this.file.getName())), "add by tyj !");
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
-				}*/
+				// to replace the 'key word'
 				replace();
 			}
 		});
@@ -102,7 +101,6 @@ public class FileButton extends JButton{
 //		front.page.url=http://qwop:7001/adc_area/login.jsp
 		check( "front.page.url",  StringUtil.concatHttpUrl( main.getFrontIp(), main.getFrontPort(), "/" + (adc != null ? adc : "adc_op" )+ "/login.jsp" ) );
 		
-		
 //		# 文件服务根地址
 //		file.root.url=http://qwop:7001/adc_op/file
 		check( "file.root.url",  StringUtil.concatHttpUrl( main.getFrontIp(), main.getFrontPort(), "/" + (adc != null ? adc : "adc_op" )+ "/file" ) );
@@ -124,6 +122,7 @@ public class FileButton extends JButton{
 	
 	private void replaceWrite() {
 		if ( null == replacements || replacements.size() == 0 ) {
+			main.appendToTextPane( adc + " 无可替换的内容！" );
 			return ;
 		}
 		RandomAccessFile raf = null;
@@ -136,13 +135,13 @@ public class FileButton extends JButton{
 			raf = new RandomAccessFile( file, "rw" );
 			while ( null != ( line = raf.readLine() )) {
 				for ( final String newValue : replacements ) {
-					prefix = newValue.substring( 0, newValue.indexOf('=') );
+					prefix = newValue.substring( 0, newValue.indexOf('=') ); // get the key word by the replacements.
 					
-					if ( line.indexOf( prefix ) >= 0) {
+					if ( line.indexOf( prefix ) >= 0) { // which line  had the key, then replace the line
 						line = newValue;
 					}
 				}
-				buf.append( line  + "\r\n");
+				buf.append( line  + RN);
 			}
 			raf.close();
 			raf = null;
@@ -172,9 +171,6 @@ public class FileButton extends JButton{
 		}
 	}
 
-	private List<String> replacements = new ArrayList<String>();
-	
-	
 	protected void check( final String key, final String newValue ) {
 		if ( prop.containsKey( key) ) { // the properties contains the key value.
 			final String oldValue = prop.getProperty( key ); // get the key -> value
