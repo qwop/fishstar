@@ -76,7 +76,7 @@ public class CleanActionDelegate implements IWorkbenchWindowActionDelegate {
 			return false;
 		}
 		if ( !directory.isDirectory() ) {
-			log( directory + "文件不为目录！" );
+			log( directory + " 文件不为目录！" );
 			return false;
 		}
 		FileUtil.removeDir( directory );
