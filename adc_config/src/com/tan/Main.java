@@ -5,6 +5,8 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +25,8 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.TitledBorder;
+
+import reg.impl.AdcRegImpl;
 
 import com.tan.swing.FileButton;
 
@@ -80,9 +84,15 @@ public class Main extends JFrame {
 	
 	private Replacer owsReplacerWebXml, owsReplaceProp,sqlMapReaplcer,sqlMapReportReaplcer;
 	private JButton btnEjb;
+	
+	private AdcRegImpl adcReg;
+	
 	public Main() {
 		init();
 		oldPath = CUR_DIR;
+		adcReg = new AdcRegImpl();
+		
+		adcReg.setDebug( true );
 	}
 	
 	private void init() {
@@ -99,9 +109,73 @@ public class Main extends JFrame {
 		setBounds( x, y , width , height);
 		
 		setVisible( true );
-		setDefaultCloseOperation( EXIT_ON_CLOSE );
-		
+	//	setDefaultCloseOperation( EXIT_ON_CLOSE );
+		addWindowListener( new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				adcReg.updateValue( "frontIp", frontIp.getText() );
+				
+				adcReg.updateValue( "ftpPort", ftpPort.getText() );
+				
+				adcReg.updateValue( "ftpUser", ftpUser.getText() );
+				
+				adcReg.updateValue( "ftpPass", ftpPass.getText() );
+				
+				adcReg.updateValue( "ftpPath", ftpPath.getText() );
+				
+				adcReg.updateValue( "frontPort", frontPort.getText() );
+				
+				adcReg.updateValue( "dbIP", dbIP.getText() );
+				
+				adcReg.updateValue( "sid", sid.getText() );
+				
+				adcReg.updateValue( "dbPort", dbPort.getText() );
+				
+				adcReg.updateValue( "reportDbUser", reportDbUser.getText() );
+				
+				adcReg.updateValue( "reportDbPass", reportDbPass.getText() );
+				
+				adcReg.updateValue( "dbUser", dbUser.getText() );
+				
+				adcReg.updateValue( "dbPass", dbPass.getText() );			
+				
+				adcReg.dispose();
+				super.windowClosing(e);
+			}
+			
+		});
 		addListeners();
+		
+		resetText();
+	}
+
+	private void resetText() {
+		String value = adcReg.get("frontIp");
+		frontIp.setText(StringUtil.isEmpty(value) ? "192.168.1.34" : value);
+		value = adcReg.get("ftpPort");
+		ftpPort.setText(StringUtil.isEmpty(value) ? "21" : value);
+		value = adcReg.get("ftpUser");
+		ftpUser.setText(StringUtil.isEmpty(value) ? "admin" : value);
+		value = adcReg.get("ftpPass");
+		ftpPass.setText(StringUtil.isEmpty(value) ? "admin" : value);
+		value = adcReg.get("ftpPath");
+		ftpPath.setText(StringUtil.isEmpty(value) ? "adc/file" : value);
+		value = adcReg.get("frontPort");
+		frontPort.setText(StringUtil.isEmpty(value) ? "7001" : value);
+		value = adcReg.get("dbIP");
+		dbIP.setText(StringUtil.isEmpty(value) ? "10.16.69.103" : value);
+		value = adcReg.get("sid");
+		sid.setText(StringUtil.isEmpty(value) ? "orcl" : value);
+		value = adcReg.get("dbPort");
+		dbPort.setText(StringUtil.isEmpty(value) ? "1521" : value);
+		value = adcReg.get("reportDbUser");
+		reportDbUser.setText(StringUtil.isEmpty(value) ? "lnyd_adc2" : value);
+		value = adcReg.get("reportDbPass");
+		reportDbPass.setText(StringUtil.isEmpty(value) ? "lnyd_adc2" : value);
+		value = adcReg.get("dbUser");
+		dbUser.setText(StringUtil.isEmpty(value) ? "lnyd_adc" : value);
+		value = adcReg.get("dbPass");
+		dbPass.setText(StringUtil.isEmpty(value) ? "lnyd_adc" : value);
 	}
 
 	private void components() {
