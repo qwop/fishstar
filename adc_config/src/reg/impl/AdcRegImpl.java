@@ -7,8 +7,6 @@ import java.util.logging.Logger;
 
 import reg.Reg;
 
-import com.tan.StringUtil;
-
 public class AdcRegImpl implements Reg {
 	private Runtime runtime;
 	
