@@ -88,11 +88,11 @@ public class Main extends JFrame {
 	private AdcRegImpl adcReg;
 	
 	public Main() {
-		init();
 		oldPath = CUR_DIR;
 		adcReg = new AdcRegImpl();
 		
 		adcReg.setDebug( true );
+		init();
 	}
 	
 	private void init() {
@@ -109,48 +109,56 @@ public class Main extends JFrame {
 		setBounds( x, y , width , height);
 		
 		setVisible( true );
-	//	setDefaultCloseOperation( EXIT_ON_CLOSE );
+		setDefaultCloseOperation( EXIT_ON_CLOSE );
 		addWindowListener( new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				adcReg.updateValue( "frontIp", frontIp.getText() );
-				
-				adcReg.updateValue( "ftpPort", ftpPort.getText() );
-				
-				adcReg.updateValue( "ftpUser", ftpUser.getText() );
-				
-				adcReg.updateValue( "ftpPass", ftpPass.getText() );
-				
-				adcReg.updateValue( "ftpPath", ftpPath.getText() );
-				
-				adcReg.updateValue( "frontPort", frontPort.getText() );
-				
-				adcReg.updateValue( "dbIP", dbIP.getText() );
-				
-				adcReg.updateValue( "sid", sid.getText() );
-				
-				adcReg.updateValue( "dbPort", dbPort.getText() );
-				
-				adcReg.updateValue( "reportDbUser", reportDbUser.getText() );
-				
-				adcReg.updateValue( "reportDbPass", reportDbPass.getText() );
-				
-				adcReg.updateValue( "dbUser", dbUser.getText() );
-				
-				adcReg.updateValue( "dbPass", dbPass.getText() );			
-				
-				adcReg.dispose();
+				exit();
 				super.windowClosing(e);
 			}
-			
 		});
 		addListeners();
 		
 		resetText();
 	}
-
+	
+	private void exit() {
+		adcReg.updateValue( "ftpIp", ftpIp.getText() );
+		
+		adcReg.updateValue( "frontIp", frontIp.getText() );
+		
+		adcReg.updateValue( "ftpPort", ftpPort.getText() );
+		
+		adcReg.updateValue( "ftpUser", ftpUser.getText() );
+		
+		adcReg.updateValue( "ftpPass", ftpPass.getText() );
+		
+		adcReg.updateValue( "ftpPath", ftpPath.getText() );
+		
+		adcReg.updateValue( "frontPort", frontPort.getText() );
+		
+		adcReg.updateValue( "dbIP", dbIP.getText() );
+		
+		adcReg.updateValue( "sid", sid.getText() );
+		
+		adcReg.updateValue( "dbPort", dbPort.getText() );
+		
+		adcReg.updateValue( "reportDbUser", reportDbUser.getText() );
+		
+		adcReg.updateValue( "reportDbPass", reportDbPass.getText() );
+		
+		adcReg.updateValue( "dbUser", dbUser.getText() );
+		
+		adcReg.updateValue( "dbPass", dbPass.getText() );			
+		
+		adcReg.dispose();
+		
+		System.exit( 1 );
+	}
 	private void resetText() {
-		String value = adcReg.get("frontIp");
+		String value = adcReg.get("ftpIp");
+		ftpIp.setText(StringUtil.isEmpty(value) ? "10.16.19.219" : value);
+		value = adcReg.get("frontIp");
 		frontIp.setText(StringUtil.isEmpty(value) ? "192.168.1.34" : value);
 		value = adcReg.get("ftpPort");
 		ftpPort.setText(StringUtil.isEmpty(value) ? "21" : value);
@@ -395,7 +403,7 @@ public class Main extends JFrame {
 		btnNewButton_1 = new JButton("退出");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.exit( 1 );
+				exit();
 			}
 		});
 		
@@ -467,6 +475,7 @@ public class Main extends JFrame {
 					 
 					 Main.this.notifyPfs();
 					 
+					 Main.this.appendToTextPane( "搜索到 "  + pfs.size() + " 个 properties 文件！");
 					 return true;
 				 } else {
 					 // not find.
