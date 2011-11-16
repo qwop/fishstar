@@ -365,14 +365,15 @@ public class Main extends JFrame {
 		btnOws.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if ( owsReplacerWebXml != null ) {
-					owsReplacerWebXml.replace( null, null);
+					owsReplacerWebXml.replace( null, null, replaceMode.isSelected() );
 					Main.this.appendToTextPane("ows xml 变更！");
 				}else {
 					appendToTextPane( "ows web.xml配置文件未找到!" );
 				}	
 				
 				if ( owsReplaceProp != null ) {
-					owsReplaceProp.replace( "ows.serviceUrl", StringUtil.concatHttpUrl( Main.this.getFrontIp(), Main.this.getFrontPort(), "/adc_ws/Service.jws" ));
+					owsReplaceProp.replace( "ows.serviceUrl", StringUtil.concatHttpUrl( Main.this.getFrontIp(), Main.this.getFrontPort(), "/adc_ws/Service.jws" )
+							,replaceMode.isSelected() );
 					Main.this.appendToTextPane("ows prop 变更！");
 				}else {
 					appendToTextPane( "ows  init.properties 文件未找到!" );
@@ -385,13 +386,13 @@ public class Main extends JFrame {
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if ( sqlMapReaplcer != null ) {
-					sqlMapReaplcer.replace( null, null);
+					sqlMapReaplcer.replace( null, null, replaceMode.isSelected() );
 					Main.this.appendToTextPane("sql map 变更！");
 				} else {
 					appendToTextPane( "报表SqlMapConfig.xml配置文件未找到!" );
 				}
 				if ( sqlMapReportReaplcer != null ) {
-					sqlMapReportReaplcer.replace( null, null);
+					sqlMapReportReaplcer.replace( null, null, replaceMode.isSelected() );
 					Main.this.appendToTextPane("sql map report 变更！");
 				} else {
 					appendToTextPane( "报表SqlMapConfig_adc.xml配置文件未找到!" );
@@ -638,9 +639,9 @@ public class Main extends JFrame {
 			ftpUser.setText( p.getProperty( "ftp.user" ) );
 			ftpPass.setText( p.getProperty( "ftp.password" ) );
 			ftpPath.setText( p.getProperty( "ftp.path" ) );
-
-			frontIp.setText( StringUtil.getIP( p.getProperty( "front.page.url" ) ) );
-			frontPort.setText( StringUtil.getPort( p.getProperty( "front.page.url" ) ) );
+			String frontPageUrl =  p.getProperty( "front.page.url" ) ;
+			frontIp.setText( StringUtil.getIP( p.getProperty( frontPageUrl ) ) );
+			frontPort.setText( StringUtil.getPort( p.getProperty( frontPageUrl ) ) );
 
 //			dbIP.setText( p.getProperty( "front.page.url" ) );
 //			sid.setText( p.getProperty( "front.page.url" ) );

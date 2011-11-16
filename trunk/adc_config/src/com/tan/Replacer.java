@@ -26,7 +26,7 @@ public class Replacer {
 		this( searchFile.getAbsolutePath() , main );
 	}
 	
-	public void replace(final String key, final String newValue) {
+	public void replace(final String key, final String newValue, final boolean replaceMode) {
 		String content = IOUtil.toString(searchFile, "utf-8"),
 			oldContent = content;
 		// adc_ows init.properties.
@@ -79,7 +79,16 @@ public class Replacer {
 		
 		// save the change.
 		if (!oldContent.equals(content)) {
-			IOUtil.save(searchFile, content, "utf-8");
+			
+			if ( replaceMode ) {
+				IOUtil.save(searchFile, content, "utf-8");
+			} else {
+				File file = new File( searchFile );
+				
+				if ( file.isFile() ) {
+					IOUtil.save( file.getName(), content, "utf-8");
+				}
+			}
 		}
 	}
 
