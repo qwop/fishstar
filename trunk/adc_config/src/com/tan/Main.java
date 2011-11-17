@@ -373,7 +373,7 @@ public class Main extends JFrame {
 				}	
 				
 				if ( owsReplaceProp != null ) {
-					owsReplaceProp.replace( "ows.serviceUrl", StringUtil.concatHttpUrl( Main.this.getFrontIp(), Main.this.getFrontPort(), "/adc_ws/Service.jws" )
+					owsReplaceProp.replace( "ows.serviceUrl", StringUtil.concatHttpUrl( Main.this.getFrontIp(), Main.this.getFrontPort(), "/adc_ws/services/WebService" )
 							,replaceMode.isSelected() );
 					Main.this.appendToTextPane("ows prop 变更！");
 				}else {
