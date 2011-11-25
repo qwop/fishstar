@@ -53,26 +53,27 @@ public class Replacer {
 						}
 					}
 				}
-
-				if (searchFile.endsWith("SqlMapConfig.xml")) {
-					if (content.indexOf("ibatis") >= 0) { // is adc_ows's
-						// web.xml
-						// file
-						content =   StringUtil.sarchSqlMap( content,  "JDBC.ConnectionURL", "jdbc:oracle:thin:@" + main.getDbIP() + ":" + main.getDbPort() + ":" + main.getSid() ) ;
-						content =   StringUtil.sarchSqlMap( content,  "JDBC.Username", main.getDbUser() ) ;
-						content =   StringUtil.sarchSqlMap( content,  "JDBC.Password", main.getDbPass() ) ;
-						
-					}
+				
+			}
+			
+			if (searchFile.endsWith("SqlMapConfig.xml")) {
+				if (content.indexOf("ibatis") >= 0) { // is adc_ows's
+					// web.xml
+					// file
+					content =   StringUtil.sarchSqlMap( content,  "JDBC.ConnectionURL", "jdbc:oracle:thin:@" + main.getDbIP() + ":" + main.getDbPort() + ":" + main.getSid() ) ;
+					content =   StringUtil.sarchSqlMap( content,  "JDBC.Username", main.getReportDbUser() ) ;
+					content =   StringUtil.sarchSqlMap( content,  "JDBC.Password", main.getReportDbPass() ) ;
+					
 				}
-				if (searchFile.endsWith("SqlMapConfig_adc.xml")) {
-					if (content.indexOf("ibatis") >= 0) { // is adc_ows's
-															// web.xml
-															// file
-						content =   StringUtil.sarchSqlMap( content,  "JDBC.ConnectionURL", "jdbc:oracle:thin:@" + main.getDbIP() + ":" + main.getDbPort() + ":" + main.getSid() ) ;
-						content =   StringUtil.sarchSqlMap( content,  "JDBC.Username", main.getReportDbUser() ) ;
-						content =   StringUtil.sarchSqlMap( content,  "JDBC.Password", main.getReportDbPass() ) ;
+			}
+			
+			
+			if (searchFile.endsWith("SqlMapConfig_adc.xml")) {
+				if (content.indexOf("ibatis") >= 0) { // is adc_ows's // web.xml // file
+					content =   StringUtil.sarchSqlMap( content,  "JDBC.ConnectionURL", "jdbc:oracle:thin:@" + main.getDbIP() + ":" + main.getDbPort() + ":" + main.getSid() ) ;
+					content =   StringUtil.sarchSqlMap( content,  "JDBC.Username", main.getDbUser() ) ;
+					content =   StringUtil.sarchSqlMap( content,  "JDBC.Password", main.getDbPass() ) ;
 
-					}
 				}
 			}
 		}
