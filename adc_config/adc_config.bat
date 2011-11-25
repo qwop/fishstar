@@ -1,0 +1,1 @@
+java -jar adc_config.jar

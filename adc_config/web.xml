@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="adc_ows" version="2.4"
+	xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+	<!-- Define the basename for a resource bundle for I18N -->
+	<context-param>
+		<param-name>
+			javax.servlet.jsp.jstl.fmt.localizationContext
+		</param-name>
+		<param-value>ssb_application_resource</param-value>
+	</context-param>
+
+	<!-- Fallback locale if no bundles found for browser's preferred locale -->
+	<!-- Force a single locale using param-name 'javax.servlet.jsp.jstl.fmt.locale' -->
+	<context-param>
+		<param-name>
+			javax.servlet.jsp.jstl.fmt.fallbackLocale
+		</param-name>
+		<param-value>zh_CN</param-value>
+	</context-param>
+
+	<!-- add webcontext -->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:ssb-ds.xml,classpath:ssb-dao.xml,classpath:ssb-devices.xml,classpath:ssb-fs.xml
+		</param-value>
+	</context-param>
+	<listener>
+		<listener-class>
+			com.zte.ssb.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+	<!-- end webcontext-->
+
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>
+			com.zte.ssb.web.filter.CharacterEncodingFilter
+		</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>gbk</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+
+	<filter>
+		<filter-name>characterFilter</filter-name>
+		<filter-class>
+			com.zte.ows.adc.filter.CharacterFilter
+		</filter-class>
+	</filter>
+
+	<servlet>
+		<servlet-name>SSBUiLoaderServlet</servlet-name>
+		<servlet-class>
+			com.zte.ssb.ui.uiloader.SSBUiLoaderServlet
+		</servlet-class>
+		<init-param>
+			<param-name>default_locale</param-name>
+			<param-value>zh_CN</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+
+	<servlet>
+		<servlet-name>action</servlet-name>
+		<servlet-class>
+			com.zte.ssb.webcontainer.action.ActionServlet
+		</servlet-class>
+		<init-param>
+			<param-name>config</param-name>
+			<param-value>/WEB-INF/ssb-config.xml</param-value>
+		</init-param>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>3</param-value>
+		</init-param>
+		<init-param>
+			<param-name>detail</param-name>
+			<param-value>3</param-value>
+		</init-param>
+		<load-on-startup>3</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>initServlet</servlet-name>
+		<servlet-class>
+			com.zte.ows.web.action.initServlet
+		</servlet-class>
+		<!-- -->
+		<init-param>
+			<param-name>ImageUrl</param-name>
+			<param-value>http://fdafdsa:7001/adc_ec/file/</param-value>
+		</init-param>
+		<!--  -->
+		<init-param>
+			<param-name>ECLoginUrl</param-name>
+			<param-value>http://fdafdsa:7001/adc_pc/</param-value>
+		</init-param>
+		<!-- 客户经理专区登陆地址 -->
+		<init-param>
+			<param-name>AreaLoginUrl</param-name>
+			<param-value>http://fdafdsa:7001/adc_area/login.jsp</param-value>
+		</init-param>
+		<init-param>
+			<param-name>AreaMenuName</param-name>
+			<param-value>客户经理专区</param-value>
+		</init-param>
+		<!--  -->
+		<init-param>
+			<param-name>SILoginUrl</param-name>
+			<param-value>http://fdafdsa:7001/adc_si/login.jsp</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>*.html</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>*.htm</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>*.js</url-pattern>
+	</filter-mapping>
+
+	<filter-mapping>
+		<filter-name>characterFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<servlet-mapping>
+		<servlet-name>action</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SSBUiLoaderServlet</servlet-name>
+		<url-pattern>*.pagecode</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>initServlet</servlet-name>
+		<url-pattern>/servlet/initServlet</url-pattern>
+
+	</servlet-mapping>
+
+	<!-- currently the W3C havent settled on a media type for WSDL;
+		http://www.w3.org/TR/2003/WD-wsdl12-20030303/#ietf-draft
+		for now we go with the basic 'it's XML' response -->
+	<mime-mapping>
+		<extension>wsdl</extension>
+		<mime-type>text/xml</mime-type>
+	</mime-mapping>
+
+
+	<mime-mapping>
+		<extension>xsd</extension>
+		<mime-type>text/xml</mime-type>
+	</mime-mapping>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+</web-app>
