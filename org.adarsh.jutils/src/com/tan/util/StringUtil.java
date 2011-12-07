@@ -12,13 +12,19 @@ public final class StringUtil {
 			multipleCommentPattern = Pattern.compile(
 					"/\\*\\s*\\w+\\.release\\s*\\(\\s*\\).+\\*/",
 					Pattern.DOTALL);
-
+	public static final Object LN = System.getProperty( "line.separator", "\r\n" );
+	
 	public static boolean isRightReleaseCode(final String sourceCode) {
 		boolean isSingle = singleCommentPattern.matcher(sourceCode).find(), isMultiple = multipleCommentPattern
 				.matcher(sourceCode).find();
 		return !isSingle && !isMultiple;
 	}
-
+	
+	public static void appendln( StringBuffer buf, Object ... args ) {
+		for ( final Object arg : args ) {
+			buf.append( arg ).append( LN );
+		}
+	}
 	/**
 	 * 判断字符串是否为空.
 	 * 
