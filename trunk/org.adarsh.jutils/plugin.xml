@@ -79,14 +79,6 @@
                menubarPath="generate.viewer/string"
                id="dummyGetter.viewerContribution.action"/>
                
-         <action
-               label="分析方法"
-               class="org.adarsh.jutils.actions.AnalyseMethodVAD"
-               icon="icons/tostring.gif"
-               menubarPath="generate.viewer/string"
-               id="analyseMethod.viewerContribution.action"/>
-
-               
          <!--
          <action
                label="Generate Dummy Java"
@@ -144,6 +136,24 @@
             <groupMarker name="string"/>
             <groupMarker name="constructor"/>
          </menu>
+      </objectContribution>
+      <objectContribution
+            id="org.adarsh.jutils.contribution1"
+            objectClass="org.eclipse.core.resources.IProject">
+         <menu
+               id="org.adarsh.jutils.menu1"
+               label="TanUtils"
+               path="additions">
+            <separator
+                  name="group1">
+            </separator>
+         </menu>
+         <action
+               class="org.adarsh.jutils.popup.actions.AnalyseMethodByProject"
+               id="org.adarsh.jutils.newAction"
+               label="分析该项目的所有类方法"
+               menubarPath="org.adarsh.jutils.menu1/group1">
+         </action>
       </objectContribution>
    </extension>
    
