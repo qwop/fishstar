@@ -105,7 +105,7 @@ public class DummySetterGeneratorVAD implements IEditorActionDelegate {
 
 		try {
 			IJavaElement suspect = compUnit.getElementAt(selection.getOffset());
-
+			
 			if (suspect == null) {
 				MessageDialog.openInformation(shell,
 						Messages.getString("tostring.failure.title"),
