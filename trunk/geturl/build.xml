@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     2011-12-8 下午8:04:36                                                        
+
+     geturl    
+     the project to proxy something created by dolphin
+                   
+     Administrator                                                                
+     ====================================================================== -->
+<project name="geturl" default="pack">
+	<description>
+            the project to proxy something created by dolphin
+    </description>
+
+	<property name="web" value="war" />
+	<property name="tomcatHome" value="D:\apache-tomcat-6.0.24" />
+	<property name="src" value="src" />
+	<property name="build" value="build" />
+	<property name="build.classes" value="${build}\classes" />
+	<property name="warfile" value="${ant.project.name}" />
+	<!-- D:\apache-tomcat-6.0.24\lib\servlet-api.jar -->
+	
+	<tstamp>
+	      <format property="now.time" pattern="yyyyMMdd"
+	              locale="zh"/>
+	  </tstamp>
+
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: clean                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="clean">
+		<delete dir="${build}" />
+		<delete dir="${web}/WEB-INF/classes" />
+		<mkdir dir="${build.classes}" />
+	</target>
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: compile                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="compile" depends="clean">
+		<javac srcdir="${src}" destdir="${build.classes}" debug="on" encoding="utf-8" classpathref="${classpath}">
+			<include name="${src}/**/*.java" />
+		</javac>
+	</target>
+
+
+	<!-- ================================= 
+          target: pack              
+         ================================= -->
+	<target name="pack" depends="compile" description="the project to proxy something created by dolphin">
+		<war destfile="${build}/${warfile}-${now.time}.war" webxml="${web}/WEB-INF/web.xml">
+		  <fileset dir="${web}"/>
+		  <classes dir="${build.classes}"/>
+		</war>
+	</target>
+
+
+</project>
