@@ -14,16 +14,20 @@
 
 	<property name="web" value="war" />
 	<property name="tomcatHome" value="D:\apache-tomcat-6.0.24" />
+	<property name="servlet" value="servlet-api.jar" />
 	<property name="src" value="src" />
 	<property name="build" value="build" />
-	<property name="build.classes" value="${build}\classes" />
+	<property name="build.classes" value="${build}/classes" />
+	<property name="web.classes" value="${web}/WEB-INF/classes" />
 	<property name="warfile" value="${ant.project.name}" />
 	<!-- D:\apache-tomcat-6.0.24\lib\servlet-api.jar -->
-	
+
 	<tstamp>
-	      <format property="now.time" pattern="yyyyMMdd"
+		<format property="now.time" pattern="yyyyMMdd"
 	              locale="zh"/>
-	  </tstamp>
+	</tstamp>
+
+
 
 
 	<!-- - - - - - - - - - - - - - - - - - 
@@ -31,9 +35,13 @@
          - - - - - - - - - - - - - - - - - -->
 	<target name="clean">
 		<delete dir="${build}" />
-		<delete dir="${web}/WEB-INF/classes" />
+		<delete dir="${web.classes}" />
+
 		<mkdir dir="${build.classes}" />
+		<delete dir="${web.classes}" />
 	</target>
+
+
 
 	<!-- - - - - - - - - - - - - - - - - - 
           target: compile                      
@@ -42,6 +50,23 @@
 		<javac srcdir="${src}" destdir="${build.classes}" debug="on" encoding="utf-8" classpathref="${classpath}">
 			<include name="${src}/**/*.java" />
 		</javac>
+
+		<javac destdir="${build.classes}"
+			encoding="utf-8" 
+		         debug="on">
+			<src path="${src}"/>
+			
+			<classpath>
+				<fileset dir="${tomcatHome}/lib">
+					<include name="${servlet}"/>
+				</fileset>
+			</classpath>
+
+			<!-- <include name="mypackage/p1/**"/>
+		    <include name="mypackage/p2/**"/>
+		    <exclude name="mypackage/p1/testpackage/**"/>
+		    -->
+		</javac>
 	</target>
 
 
@@ -49,10 +74,22 @@
           target: pack              
          ================================= -->
 	<target name="pack" depends="compile" description="the project to proxy something created by dolphin">
+		<jar destfile="${build}/${warfile}-${now.time}.jar" basedir="${build.classes}"/>
+			
 		<war destfile="${build}/${warfile}-${now.time}.war" webxml="${web}/WEB-INF/web.xml">
-		  <fileset dir="${web}"/>
-		  <classes dir="${build.classes}"/>
+			<fileset dir="${web}"/>
+			<classes dir="${build.classes}"/>
 		</war>
+
+		<!--- move build.classes to the war/WEB-INF/classes -->
+		<move overwrite="true" todir="${web.classes}" includeemptydirs="false" >
+			<fileset dir="${build.classes}" id="id">
+				<include name="**/*.*"/>
+			</fileset>
+		</move>
+		
+		
+		<delete dir="${build.classes}" />
 	</target>
 
 
