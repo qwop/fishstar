@@ -2,13 +2,22 @@ package com.tan.util;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.regex.Pattern;
 
+import javax.servlet.http.HttpServletRequest;
+
 public class StringUtil {
+	
+	
+	public final static String getWebPath( HttpServletRequest req ) {
+		int port = req.getServerPort();
+		return
+				"http://" + req.getServerName() + (80 == port ? "" : ":" + port) +  req.getContextPath();
+	}
+	
 	final static int ENC = 764;
 	static String[] greets = {
 			/*				"远方的你是否无恙？在遥远的思念里，改变的是我的容颜，不变的是永远爱你的心！爱人，真心愿你新年快乐！",

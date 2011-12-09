@@ -162,15 +162,16 @@ public final class ShowServlet extends HttpServlet{
 		//out.write("Length\t" + length + "<br>Encoding\t" + contentEncoding + "<br>type\t" + contentType+ "<a href='./index.jsp'>Home</a>");
 	}
 	
-	private static String getEncoding(String value) {
-		value = value.toLowerCase();
-		// 	text/html; charset=utf-8
-		int idx = value.indexOf("charset=");
-		if (idx >= 0) {
-			return value.substring(idx + 8);
-		} else {
-			return "utf-8";
+	private static String getEncoding( String value ) {
+		if ( !StringUtil.isEmpty( value ) ) {
+			value = value.toLowerCase();
+			// 	text/html; charset=utf-8
+			int idx = value.indexOf("charset=");
+			if (idx >= 0) {
+				return value.substring(idx + 8);
+			}
 		}
+		return "utf-8";
 	}
 
 

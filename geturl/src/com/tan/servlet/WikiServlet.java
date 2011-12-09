@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.tan.util.StringUtil;
+
 /**
  * 
  * @author Dolphin.
@@ -77,13 +79,22 @@ public final class WikiServlet extends HttpServlet {
 				url = uri.substring(idx);
 				if (url != null) {
 					url = URLEncoder.encode("http://zh.m.wikipedia.org/wiki?search=" + url.trim() , "utf-8");
-					resp.sendRedirect("http://dolphinmaple.appspot.com/show.do?url=" + url); // Mobile.
+					resp.sendRedirect( getWebContextPath( req)+ "/show.do?url=" + url); // mobile.
 //					resp.sendRedirect("http://dolphinmaple.appspot.com/show.do?url=http://zh.wikipedia.org/wiki/" + word);
 				}
 			}
 		} else {
 			out.println("No wiki information!");
 		}
+	}
+	
+	private String webPath;
+	
+	private String getWebContextPath( HttpServletRequest req ) {
+		if ( null == webPath ) {
+			webPath = StringUtil.getWebPath( req );
+		}
+		return webPath;
 	}
 	
 	
