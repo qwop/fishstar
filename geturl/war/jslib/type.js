@@ -1,3 +1,19 @@
+var ua = navigator.userAgent.toLowerCase();
+var ie,firefox,opera,safari;
+if (ua.match(/msie ([\d.]+)/)) {
+    ie = ua.match(/msie ([\d.]+)/)[1]
+}
+if (ua.match(/firefox\/([\d.]+)/)) {
+    firefox = ua.match(/firefox\/([\d.]+)/)[1]
+}
+if (ua.match(/opera.([\d.]+)/)) {
+    opera = ua.match(/opera.([\d.]+)/)[1]
+}
+if (ua.match(/version\/([\d.]+)/)) {
+    safari = ua.match(/version\/([\d.]+)/)[1];
+}
+
+
 var _timeout; 
 var _length = _contents.length;
 var _count = 0;
@@ -21,12 +37,27 @@ function appendChar(){
 	_closeable = true;
 	return;
   }
-  var element = document.createElement('<b>'); 
+  
   var c = _contents.charAt(_count++);
-  if (_count % _mod == 0){
-	  element.innerHTML= c + '<BR>'; 
-  } else {
-    element.innerHTML= c; 
+  if ( c == ' ' ) { // fix the nbsp's bug.
+ 	c = '&nbsp';
   }
-  document.getElementById('content').appendChild(element);    
+  if(firefox){
+		  var element = document.createElement('b'); 
+		  if (_count % _mod == 0){
+			  element.innerHTML= c + '<BR>'; 
+		  } else {
+		    element.innerHTML= c; 
+		  }
+		  document.getElementById('content').appendChild(element);        
+    }
+  else if ( ie ) {
+	  var element = document.createElement('<b>'); 
+	  if (_count % _mod == 0){
+		  element.innerHTML= c + '<BR>'; 
+	  } else {
+	    element.innerHTML= c; 
+	  }
+	  document.getElementById('content').appendChild(element); 
+  }   
 } 
