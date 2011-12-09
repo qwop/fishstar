@@ -101,7 +101,7 @@ a {color: white;}
 		{"http://m.baidu.com/tq", "天气"},
 		{"http://wap.baidu.com/pub/rebang.php", "风云榜"},
 		{"http://wap.baidu.com/pub/more.php", "更多"},
-		{"http://dolphinmaple.appspot.com", "主页"}
+		{"", "主页"}
 	};
 	for (byte i = 0; i < links.length; i++) {
 		b.append("<A HREF=\"" + links[i][0] +  "\">" + links[i][1] + "</A>" + ((i == links.length - 1) ? "" : "|"));
