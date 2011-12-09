@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> Function from other js frameworks </title>
+  <meta name="Generator" content="dolphin">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+ </head>
+
+ <body>
+<script type="text/javascript">
+  <!--
+
+	var pn = function( ) {
+		var args = arguments, len = args.length,r;
+		
+		if ( len > 0 ){
+			if ( len == 1 ){
+				r = [ args[0], "<BR/>" ];
+			} else {
+				r = [ "<ul>" ];
+				for ( var i = 0; i < len; i++ ){
+					r.push( "<li>" ); r.push( args[i] );
+				}
+				r.push( "</ul>" );
+			}
+			document.write( r.join( "" ) );
+		}
+	};
+
+
+	// Save a reference to some core methods
+	// 将一些核心方法保存为局部变量
+	var toString = Object.prototype.toString,
+	hasOwn = Object.prototype.hasOwnProperty,
+	push = Array.prototype.push,
+	slice = Array.prototype.slice,
+	trim = String.prototype.trim,
+	indexOf = Array.prototype.indexOf,
+	rdigit = /\d/,
+	// [[Class]] -> type pairs
+	// 字面量，保存成对信息
+	//111319693992692
+	class2type = {};
+
+
+	
+	T =  {
+		merge : function( first, second ) {
+			var i = first.length, j = 0;
+
+			if ( typeof second.length === 'number' ){
+				for ( var l = second.length; j < l; j++ ){
+					first[ i++ ] = second[ j ];
+				}
+			} else {
+				while ( second[ j ] !== undefined ){
+					first[ i++ ] = second[ j++ ];
+				}
+			}
+
+			first.length = i;
+			return first;
+		},
+
+		// make array
+		makeArray: function( array, results ) {
+			var ret = results || [];
+
+			if ( array != null ){
+				var type = typeof array;
+				if ( !array.length || type === 'string' || type == 'function' || type === 'regexp' ){
+					push.call( ret, array );
+				} else {
+					merge( ret, array );
+				}
+			}
+
+			return ret;
+		},
+
+		type: function( obj ) { return obj == null ? String( obj ) : class2type[ toString.call( obj ) ] || "object"; },
+		isNaN: function( obj ) {
+			return obj == null || !rdigit.test( obj ) || isNaN( obj );
+		},
+
+		isWindow: function( obj ){ return obj && typeof obj === "object" && "setInterval" in obj ;},
+
+
+		foot : 'feet'
+	};
+
+	
+	class2type.name = 'Tanyuanji';
+
+	//alert( Object.prototype.toString.call( 'Tanyuanji' ) );
+	//alert( class2type[ toString.call( 'fuck' ) ] );
+	// var w = window, test = 'windows';
+
+	pn(
+		T.merge( [1,2,3], [4,5] ),
+		T.merge( [1,2,3], [] ),
+		T.makeArray( 1,2 ),
+
+		"isNaN( 'fuck' )	:	" + isNaN( 'fuck' ),
+		"isNaN( undefined )	:	" + isNaN( undefined ),
+		"isNaN( window )	:	" + isNaN( window ),
+		"isNaN( null )	:	" + isNaN( null ),
+
+		
+		""
+	);
+  //-->
+  </script>
+ </body>
+</html>
