@@ -13,6 +13,15 @@
 		}
 		return 0;
 	}
+
+
+	private final static String greet(  ) {
+		String value  = StringUtil.greet();
+		if ( null == value || value.trim().length() == 0 )  {
+			return greet();
+		}
+		return value;
+	}
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
@@ -55,7 +64,7 @@ function paste(){
 	}
 }
 
-var _contents = '<%=StringUtil.greet()%>';
+var _contents = '<%=greet()%>';
 </script>
 
 <script type="text/javascript" src="jslib/type.js"></script>

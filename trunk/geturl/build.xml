@@ -13,7 +13,7 @@
     </description>
 
 	<property name="web" value="war" />
-	<property name="tomcatHome" value="D:\apache-tomcat-6.0.24" />
+	<property name="tomcatHome" value="D:\tomcat6" />
 	<property name="servlet" value="servlet-api.jar" />
 	<property name="src" value="src" />
 	<property name="build" value="build" />
@@ -55,7 +55,7 @@
 			encoding="utf-8" 
 		         debug="on">
 			<src path="${src}"/>
-			
+
 			<classpath>
 				<fileset dir="${tomcatHome}/lib">
 					<include name="${servlet}"/>
@@ -75,10 +75,14 @@
          ================================= -->
 	<target name="pack" depends="compile" description="the project to proxy something created by dolphin">
 		<jar destfile="${build}/${warfile}-${now.time}.jar" basedir="${build.classes}"/>
-			
+
 		<war destfile="${build}/${warfile}-${now.time}.war" webxml="${web}/WEB-INF/web.xml">
-			<fileset dir="${web}"/>
-			<classes dir="${build.classes}"/>
+			<fileset dir="${web}" />
+			<!-- <classes dir="${build.classes}"/> -->
+
+			<lib dir="${build}">
+				<include name="*.jar" />
+			</lib>
 		</war>
 
 		<!--- move build.classes to the war/WEB-INF/classes -->
@@ -87,8 +91,8 @@
 				<include name="**/*.*"/>
 			</fileset>
 		</move>
-		
-		
+
+
 		<delete dir="${build.classes}" />
 	</target>
 

@@ -2,6 +2,7 @@ package com.tan.util;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -108,7 +109,14 @@ public class StringUtil {
 //		System.out.println(b);
 //		System.out.println(now());
 		
-//		System.out.println(greet());
+	for ( int i = 0; i < 100; i++ ) {
+		try {
+			Thread.sleep( 25 );
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		System.out.println(greet());
+	}
 		
 		
 	}
@@ -214,11 +222,11 @@ public class StringUtil {
 		String month = now.substring(3, 5);
 		String date = now.substring(6, 8);
 		String hour = now.substring(9, 11);
+		String minute = now.substring( 12, 14 );
+		String second = now.substring( 15 );
 		// Matcher matcher = TIME_PATTERN.matcher(now);
 		// if (matcher.find()) {
 		// String hour = matcher.group(1);
-		
-		
 		
 		String greet = "";
 		if (year.equals("11") ) { // && (month.equals("01") || month.equals("02"))) {
@@ -227,18 +235,26 @@ public class StringUtil {
 		}
 
 		if (hour != null) {
-			int h = Integer.parseInt(hour);
-
+			int h = Integer.parseInt(hour),
+			 	m = Integer.parseInt( minute );
 			if (h >= 0 && h <= 4) {
-				return "深夜了，注意休息!" + greet;
+				return "深夜了，注意休息,注意身体!" + greet;
 			} else if (h > 4 && h <= 6) {
 				return "凌晨好!" + greet;
-			} else if (h >= 7 && h <= 12) {
-				return "早上好!" + greet;
-			} else if (h == 12) {
-				return "中午好，吃饭！" + greet;
+			} else if (h >= 7 && h <= 8) {
+				return "早上好啊,美好的一天又开始了，吃早餐了么？" + greet;
+			} else if (h > 8 && h <= 9) {
+				return "工作中。。。。。？休息中？" + greet;
+			} else if (h > 9 && h <= 10) {
+				return "上午过了一大半，该中场休息一下了！" + greet;
+			} else if (h > 10 && h <= 11 ) {
+				return "要吃午饭了 0_0 ！" + greet;
+			}  else if (h > 11 && h < 12 ) {
+				return "10点了， 该中场休息一下了！" + greet;
+			}  else if (h == 12) {
+				return "中午好，吃过午饭了吗,可以听听歌，午休一下？" + greet;
 			} else if (h > 12 && h <= 13) {
-				return "中午了，可以听听歌，午休一下！" + greet;
+				return "中午了，要开始上班了！" + greet;
 			} else if (h > 13 && h <= 16) {
 				return "下午好!" + greet;
 			} else if (h > 16 && h <= 17) {
@@ -249,8 +265,10 @@ public class StringUtil {
 				return "晚上好,可以看下电视剧，电影!" + greet;
 			} else if (h > 21 && h <= 22) {
 				return "可以睡觉了，晚上!" + greet;
-			} else if (h >= 22 && h <= 24) {
-				return "很晚了可以休息了!" + greet;
+			} else if (h >= 22 && h <= 23) {
+				return "洗洗睡吧!" + greet;
+			} else if (h > 23 && h <= 24) {
+				return "很晚了，再不休息叫你老豆!" + greet;
 			}
 		}
 		
