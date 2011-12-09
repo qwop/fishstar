@@ -3,6 +3,7 @@
     <wb-module deploy-name="geturl">
         <wb-resource deploy-path="/" source-path="/war"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/test"/>
         <property name="context-root" value="geturl"/>
         <property name="java-output-path" value="build/classes"/>
     </wb-module>
