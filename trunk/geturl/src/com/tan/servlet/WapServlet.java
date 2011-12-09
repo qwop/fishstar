@@ -104,6 +104,10 @@ public final class WapServlet extends HttpServlet {
 				String title = null;
 				boolean changedTitle = false;
 				int titleStart,titleEnd;
+				// put the base information.
+				
+				out.write( ( "<BASE HREF=\"" +  getWebContextPath( req ) + "\"/>" ).getBytes() );
+				//out.write( "<BASE HREF=\"" +  getWebContextPath( req ) + "\"/>".getBytes() ); // TODO to deletae
 				while (-1 != (len = in.read(buf, 0, bufSize))) {
 					if (changedTitle) {
 						out.write(buf, 0, len);
@@ -112,7 +116,7 @@ public final class WapServlet extends HttpServlet {
 						title =  new String(buf, 0, len, encoding);
 						if ((titleStart = title.indexOf("<title>")) >= 0 
 								&& (titleEnd = title.indexOf("</title>")) >= 0) {
-							title = title.substring(0, titleStart + "<title>".length()) + (enc == null ? enc : word) + title.substring(titleEnd);
+							title = title.substring(0, titleStart + "<title>".length()) + (" 【Modified by tyj】 O(∩_∩)O~ !") + title.substring(titleEnd);
 							changedTitle = true;
 							out.write(title.getBytes(encoding));
 						}
@@ -120,7 +124,7 @@ public final class WapServlet extends HttpServlet {
 				}
 				// Add the javascript for change the title. When the agent is IE or firefox.
 				if (null != userAgent && (userAgent.indexOf("firefox") >= 0 || userAgent.indexOf("msie") >= 0)) {
-					out.print(generateChangeTitleJs());
+					out.print( generateChangeTitleJs( (enc == null ? enc : word) ) );
 				}
 				
 				// finish.
@@ -151,6 +155,16 @@ public final class WapServlet extends HttpServlet {
 		}
 	}
 	
+	
+	private String webPath;
+	
+	private String getWebContextPath( HttpServletRequest req ) {
+		if ( null == webPath ) {
+			webPath = StringUtil.getWebPath( req );
+		}
+		return webPath;
+	}
+	
 	/**
 	 * Get the header information from the request.
 	 * @param req
@@ -168,17 +182,18 @@ public final class WapServlet extends HttpServlet {
 	 * Generate the change title js.
 	 * @return
 	 */
-	private String generateChangeTitleJs() {
+	private static String generateChangeTitleJs( final String encWord ) {
 		String functionName = "______________title" + new Date().getTime() + "()";
 		String flg = "________flg" + new Date().getTime();
+		String t = "____decodedTitle" + new Date().getTime();
 		StringBuilder builder = new StringBuilder();
 		builder.append("<script>var ")
 			   .append(flg)
-			   .append(" = true;function ")
+			   .append(" = true,").append(t).append("='").append( encWord ).append("';function ")
 			   .append(functionName)
 			   .append(" {document.title = ")
 			   .append(flg)
-			   .append("?decodeURIComponent(document.title):encodeURIComponent(document.title);")
+			   .append("?decodeURIComponent(" + t + "):encodeURIComponent(" + t + ");")
 			   .append(flg)
 			   .append("=!")
 			   .append(flg)
@@ -194,14 +209,18 @@ public final class WapServlet extends HttpServlet {
 	 * @return
 	 */
 	private static String getEncodingByContentType(String type) {
-		if (type != null) {type=type.toLowerCase();}
-		if (type.indexOf("utf-8") >= 0) {return "utf-8";}
-		if (type.indexOf("gbk") >= 0) {return "gbk";}
-		if (type.indexOf("gb2312") >= 0) {return "gb2312";}
-		if (type.indexOf("gb18030") >= 0) {return "gb18030";}
-		if (type.indexOf("big5") >= 0) {return "big5";}
-		if (type.indexOf("shift-jis") >= 0 || type.indexOf("shift-jis") >= 0) {return "shift-jis";}
-		if (type.indexOf("ms932") >= 0) {return "ms932";}
+		if (type != null) {
+		
+			type=type.toLowerCase();
+		
+			if (type.indexOf("utf-8") >= 0) {return "utf-8";}
+			if (type.indexOf("gbk") >= 0) {return "gbk";}
+			if (type.indexOf("gb2312") >= 0) {return "gb2312";}
+			if (type.indexOf("gb18030") >= 0) {return "gb18030";}
+			if (type.indexOf("big5") >= 0) {return "big5";}
+			if (type.indexOf("shift-jis") >= 0 || type.indexOf("shift-jis") >= 0) {return "shift-jis";}
+			if (type.indexOf("ms932") >= 0) {return "ms932";}
+		}
 		return "utf-8";
 	}
 	
@@ -325,5 +344,7 @@ public final class WapServlet extends HttpServlet {
 		System.out.println(index);
 		System.out.println(value.length());
 		System.out.println(value.substring(index + ",".length()));
+		
+		System.out.println( generateChangeTitleJs( "enc" ));
 	}
 }
