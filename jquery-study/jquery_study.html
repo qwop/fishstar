@@ -1,0 +1,125 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> JQuery数组和对象的操作 </title>
+  <meta name="Generator" content="dolphin">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script type="text/javascript" src="jquery/jquery-1.6.4.js"></script>
+ </head>
+
+ <body>
+<script type="text/javascript">
+  <!--
+
+	var pn = function( ) {
+		var args = arguments, len = args.length,r;
+		
+		if ( len > 0 ){
+			if ( len == 1 ){
+				r = [ args[0], "<BR/>" ];
+			} else {
+				r = [ "<ol>" ];
+				for ( var i = 0; i < len; i++ ){
+					r.push( "<li>" ); r.push( args[i] );
+				}
+				r.push( "</ol>" );
+			}
+			document.write( r.join( "" ) );
+		}
+	};
+
+
+	Tan =  {};
+	// 1. Test the jquery's each function.
+	$.each( ['a','b', 'c'], function( i, n ) {
+		pn( "Item #" + i + ":" + n );
+	} );
+
+	pn( '' );
+	$.each( { name : '张三', sex : '男' , age : 11 }, function( i, n ) {
+		pn( "Key : " + i + ",Value: " + n );
+	});
+	
+
+	// 2. Test the jquery's extend function.
+	var settings = { validate: false, limit: 5, name: 'foo' };
+	var options = { validate: true, name: 'bar' };
+
+	$.extend ( settings, options );
+
+	pn( '' );
+	$.each( settings , function( k, v ) {
+		pn( k + ":" + v );
+	} );
+	
+	Tan.extend = function() {
+		var options, name , src, copy, copyIsArray, clone,
+			target = arguments[0] || {},
+			i = 1,
+			length = arguments.length;
+			deep = false;
+		// Handle a deep copy situation.
+		if ( typeof target === 'boolean' ) {
+			deep = target;
+			target = arguments[1] || {};
+			// skip the boolean and the target
+			i = 2;
+		}
+		// Handle case when target is a string or something ( possible in deep copy );
+		if ( typeof target !== 'object' && !Tan.isFunction( target ) ){
+		}
+	};
+
+	// 2. Test the jquery's grep function.
+	var grepResult = $.grep( [0,1,2,3], function( n, i ) {
+		return i < 3 ;
+	} );
+	
+	
+	var inArrayTestArray1 = [ 1,2,3,5,5,5,6,6,7 ];
+
+
+	var arr = $.makeArray( document.getElementsByTagName("div") );
+	arr.reverse(); // 使用数组翻转函数 
+	pn(
+		"grepResult	:	" + grepResult,
+
+
+		"!!false	:	" + !!false,
+		"!!undefined	:	" + !!undefined,
+		"!![]	:	" + !![],
+		"!!{}	:	" + !!{},
+		"!!window	:	" + !!window,
+		"!!document	:	" + !!document,
+
+
+		"inArrayTestArray1	:	" + inArrayTestArray1,
+		"inArrayTestArray1.indexOf( 5 )	:	" + inArrayTestArray1.indexOf( 5 ),
+		"inArrayTestArray1.indexOf.call( inArrayTestArray1, 5 )	:	" + inArrayTestArray1.indexOf.call( inArrayTestArray1, 5 ),
+		"$.inArray( 5, inArrayTestArray1 )	:	" + $.inArray( 5, inArrayTestArray1 ),
+		arr.reverse(),
+
+		"situation"
+	);
+
+
+	// regular expression test.
+	var quickExpr = /^(?:[^#<]*(<[\w\W]+>)[^>]*$|#([\w\-]*)$)/;
+
+
+	var testAbcExpr = /(abc)\1/;
+	pn( 
+		quickExpr.test( "<" ),
+		testAbcExpr.test( "abcabc" ),
+
+		"feet"
+	);
+
+
+	window.scroll( 0, 10000 );
+  //-->
+  </script>
+ </body>
+</html>
