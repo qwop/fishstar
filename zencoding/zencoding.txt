@@ -1,0 +1,43 @@
+Zen HTML Selectors
+E#name
+	div#name 
+E.name
+	div.name div.one.two 
+E#name.one.two	
+	div#name.one.two
+E>E
+	head>link table>tr>td ul#name>li.item
+E+E
+	p+p div#name>p.one+p.two
+E*N
+	p*3 ul#name>li.item*3
+E*N$
+	p.name-$*3 select>option#item-$*3
+E+
+	ul+ table+ dl+
+Zen CSS properties
+	@i @m @f ! expression,exp
+Based on HTML 5 specification draft.
+	html html:xml html:4t html:4s html:xt html:xs html:xxs html:5
+Document Metadata
+	head title base link link:css link:print link:favicon link:touch 
+	link:rss link:atom meta meta:utf meta:win meta:compat
+Scripting
+	script script:src noscript
+Sections
+	body section,sect nav article,art aside h1 hgroup,hgr header,hdr footer,ftr address,adr div
+Grouping Content
+	p hr br pre dialog,dlg blockquote,bq ol ol+ ul ul+ li dl dl+ dt dd
+Text-level Semantics
+	a a:link a:mail q cite em strong,str small mark dfn abbr tr+ th td
+Tabular Data
+	table table+ caption,cap colgroup,colg colgroup+,colg+ col tbody thread tfoot tr
+Comments
+	cc:ie cc:noie
+Forms
+	form form:get form:post fieldset,fset legend,leg label input input:hidden,input:h
+	input:text,input:t input:search input:email input:url input:password,input:p input:datetime
+	input:datetime-local input:date input:month input:week input:time input:number input:range
+	input:color input:checkbox,input:c input:radio,input:r input:file,input:f input:submit,input:s
+	input:image,input:i input:reset input:button,input:b button,btn select select+ optgroup,optg
+	optgroup+,optg+ option,opt 
