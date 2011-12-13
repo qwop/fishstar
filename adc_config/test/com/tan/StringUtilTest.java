@@ -23,6 +23,7 @@ public class StringUtilTest {
 				"adc_op",
 				StringUtil
 						.getAdcProjectKeyWord("D:\\bea\\user_projects\\workspaces\\default\\adc_op\\suffix"));
+		assertEquals( "通过adc_关键字获取当前项目的名称", "adc_ec", StringUtil.getAdcProjectKeyWord( "D:\\Svns\\fishstar\\adc_config\\adc_ec" ) );
 	}
 
 	@Test
