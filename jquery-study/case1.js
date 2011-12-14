@@ -1,3 +1,5 @@
+//// 数组和对象的操作
+
 test("Jquery的第一个测试", function() {
 
 	var actual = "tanyuanji";	
@@ -82,4 +84,15 @@ test( "isPlainObject 字面量测试" , function() {
 	ok( $.isPlainObject( {name: '张三', age: 20, fn	: function() {} } ), "{name: '张三', age: 20, fn	: function() {} }字面量测试通过" );
 	
 
+});
+
+
+test( " test jquery's each function " , function() {
+	var arr = [0,1,2];
+
+	var r = $.each ( arr, function( i , n ) {
+		return false;
+	} );
+
+	alert( r );
 });
