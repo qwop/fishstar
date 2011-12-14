@@ -19,11 +19,11 @@
 			if ( len == 1 ){
 				r = [ args[0], "<BR/>" ];
 			} else {
-				r = [ "<ul>" ];
+				r = [ "<ol>" ];
 				for ( var i = 0; i < len; i++ ){
 					r.push( "<li>" ); r.push( args[i] );
 				}
-				r.push( "</ul>" );
+				r.push( "</ol>" );
 			}
 			document.write( r.join( "" ) );
 		}
@@ -39,7 +39,8 @@
 	trim = String.prototype.trim,
 	indexOf = Array.prototype.indexOf,
 	rdigit = /\d/,
-	// [[Class]] -> type pairs
+	trimLeft = /^\s+/,
+	trimRight = /\s+$/,	// [[Class]] -> type pairs
 	// 字面量，保存成对信息
 	//111319693992692
 	class2type = {};
@@ -97,12 +98,14 @@
 		isPlainObject: function( obj ) {
 			// 非对象， 非 dom 节点, 非window 对象			
 			if ( !obj || T.type( obj ) != 'object' || obj.nodeType || T.isWindow( obj )  ){
+
 				return false;
 			}
 
 			try {
-				if ( obj.constructor && !T.hasOwn.call( obj, "constructor" ) && 
-					 !T.hasOwn.call( obj.constructor.prototype, "isPrototypeOf" ) ){
+				if ( obj.constructor && !hasOwn.call( obj, "constructor" )
+				&&   !hasOwn.call( obj.constructor.prototype, "isPrototypeOf" )
+					 ){
 					 return false;
 				}
 			} catch (e) {
@@ -115,11 +118,20 @@
 			var lastKey;
 			for ( lastKey in obj ){}
 
-			return lastKey === undefined || T.hasOwn.call( obj, key );
+			return lastKey === undefined || hasOwn.call( obj, key );
+		},
+		
+
+		trim : trim ? function( text ) {
+			return text == null ? "" : trim.call( text );
+		} : function( text ) {
+			return text == null ? "" : text.toString().replace( trimLeft, "" ).replace( trimRight, "" );
 		},
 
-		error	: function( msg ) { throw msg; },
 
+
+		error	: function( msg ) { throw msg; },
+		
 		foot : 'feet'
 	};
 
@@ -142,6 +154,8 @@
 
 
 	var a = "字面量";
+
+
 	pn(
 		T.merge( [1,2,3], [4,5] ),
 		T.merge( [1,2,3], [] ),
@@ -154,8 +168,9 @@
 
 		"T.isEmpty( {} )	:" + T.isEmptyObject( {} ),
 		"T.isPlainObject( {} )	:" + T.isPlainObject( {} ),
-		"T.isPlainObject( \"\" )	:" + T.isPlainObject( "" ),
-		"T.isPlainObject( 字面量 )	:" + T.isPlainObject( a ),
+		"T.isPlainObject( new Object )	:" + T.isPlainObject( new Object ),
+		"T.trim( \" some value \" )	:" + T.trim( " some value " ),
+		//"T.isPlainObject( 字面量 )	:" + T.isPlainObject( a ),
 		""
 	);
 

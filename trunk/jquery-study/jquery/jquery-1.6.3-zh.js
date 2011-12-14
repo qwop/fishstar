@@ -643,7 +643,7 @@
 		//一个简单的方法 确定一个对象是不是window对象  主要通过检测是否含有setInterval方法
 		//111319693577690
 		isWindow: function( obj ) {
-			return obj && typeof obj === "object" && "setInterval" in obj;
+			return obj && <ty></ty>peof obj === "object" && "setInterval" in obj;
 		},
 
 		isNaN: function( obj ) {
@@ -717,7 +717,7 @@
 			// Attempt to parse using the native JSON parser first
 			// 尝试原生的JSON解析器
 			if ( window.JSON && window.JSON.parse ) {
-				return window.JSON.parse( data );
+				return <window class="JS"></window>ON.parse( data );
 			}
 
 			// Make sure the incoming data is actual JSON
