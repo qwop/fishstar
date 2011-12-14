@@ -87,6 +87,38 @@
 
 		isWindow: function( obj ){ return obj && typeof obj === "object" && "setInterval" in obj ;},
 
+		isEmptyObject: function( obj ) {
+			for ( var name in obj ){
+				return false;
+			}
+			return true;
+		},
+		
+		isPlainObject: function( obj ) {
+			// 非对象， 非 dom 节点, 非window 对象			
+			if ( !obj || T.type( obj ) != 'object' || obj.nodeType || T.isWindow( obj )  ){
+				return false;
+			}
+
+			try {
+				if ( obj.constructor && !T.hasOwn.call( obj, "constructor" ) && 
+					 !T.hasOwn.call( obj.constructor.prototype, "isPrototypeOf" ) ){
+					 return false;
+				}
+			} catch (e) {
+				// IE 8,9 在某些 宿主对象上抛出例外
+				return false;
+			} 
+
+			// own properties are enumerated firstly, so to speed up.
+			// if last one is own, then all properties are own.
+			var lastKey;
+			for ( lastKey in obj ){}
+
+			return lastKey === undefined || T.hasOwn.call( obj, key );
+		},
+
+		error	: function( msg ) { throw msg; },
 
 		foot : 'feet'
 	};
@@ -97,7 +129,19 @@
 	//alert( Object.prototype.toString.call( 'Tanyuanji' ) );
 	//alert( class2type[ toString.call( 'fuck' ) ] );
 	// var w = window, test = 'windows';
+	
 
+	try {
+		T.error( 'fuck you' );
+	} catch ( e ) {
+		// ignore 
+		pn( "ignore error" );
+	} finally {
+		pn( "finally ignore error" );
+	}
+
+
+	var a = "字面量";
 	pn(
 		T.merge( [1,2,3], [4,5] ),
 		T.merge( [1,2,3], [] ),
@@ -108,9 +152,13 @@
 		"isNaN( window )	:	" + isNaN( window ),
 		"isNaN( null )	:	" + isNaN( null ),
 
-		
+		"T.isEmpty( {} )	:" + T.isEmptyObject( {} ),
+		"T.isPlainObject( {} )	:" + T.isPlainObject( {} ),
+		"T.isPlainObject( \"\" )	:" + T.isPlainObject( "" ),
+		"T.isPlainObject( 字面量 )	:" + T.isPlainObject( a ),
 		""
 	);
+
   //-->
   </script>
  </body>

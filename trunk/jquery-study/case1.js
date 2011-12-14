@@ -46,6 +46,14 @@ test( "jquery正则表达式的测试", function() {
 
 	right = rvalidbraces.test( "|:,|:,|:,|:,|:,|:,|:,              [" );
 	ok( right , "rvalidbraces 测试通过!" );
+
+
+	var quickExpr = /^(?:[^#<]*(<[\w\W]+>)[^>]*$|#([\w\-]*)$)/;
+
+	right = quickExpr.test( "#test" ) 
+	&& quickExpr.test( "#fuck" );
+
+	ok( right, "匹配id测试通过" );
 });
 
 
@@ -60,4 +68,18 @@ test( "JQUERY" , function() {
 
 
 	$( "<div><p>Hello</p></div>" ).appendTo( "body" );
+});
+
+
+
+test( "isPlainObject 字面量测试" , function() {
+	var a = {}, a1 = new Object,
+		c = / /, c1 = new RegExp( "test" );
+
+	ok( $.isPlainObject( {} ), "{}字面量测试通过" );
+	ok( $.isPlainObject( a1 ), " Object 字面量测试通过" );
+	ok( $.isPlainObject( {name: '张三', age: 20 } ), "{name: '张三', age: 20 }字面量测试通过" );
+	ok( $.isPlainObject( {name: '张三', age: 20, fn	: function() {} } ), "{name: '张三', age: 20, fn	: function() {} }字面量测试通过" );
+	
+
 });
