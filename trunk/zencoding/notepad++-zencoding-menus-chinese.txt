@@ -1,0 +1,34 @@
+// 使用后面加空格（半角 或者 全角 ） 汉化 by tyj
+// init engine 
+addMenuItem('展开缩写', 'expand_abbreviation', 'Ctrl+E');
+addMenuItem('缩写包裹', 'wrap_with_abbreviation', 'Ctrl+Shift+A');
+addMenuItem('向外匹配标记', 'match_pair_outward', 'Ctrl+Shift+D');
+addMenuItem('下一个编辑点', 'next_edit_point', 'Ctrl+Alt+]');
+addMenuItem('上一个编辑点', 'prev_edit_point', 'Ctrl+Alt+[');
+addMenuItem('匹配对　', 'matching_pair', 'Ctrl+Alt+L');
+addMenuItem('合并行　', 'merge_lines', 'Ctrl+Alt+M');
+addMenuItem('切换注释注释', 'toggle_comment', 'Alt+/');
+addMenuItem('拆分/加入标签', 'split_join_tag', 'Ctrl+\'');
+addMenuItem('移除标签', 'remove_tag', 'Ctrl+Shift+\'');
+
+// v0.7
+addMenuItem('执行数学表达式　', 'evaluate_math_expression', 'Ctrl+Y');
+
+// don't know how up & down key codes should be written so I commented out this section
+//addMenuItem('Increment number by 1', 'increment_number_by_1', 'Ctrl+Up');
+//addMenuItem('Decrement number by 1', 'decrement_number_by_1', 'Ctrl+down');
+//addMenuItem('Increment number by 0.1', 'increment_number_by_01', 'Alt+UP');
+//addMenuItem('Decrement number by 0.1', 'decrement_number_by_01', 'Alt+DOWN');
+//addMenuItem('Increment number by 10', 'increment_number_by_10', 'Ctrl+Alt+UP');
+//addMenuItem('Decrement number by 10', 'decrement_number_by_10', 'Ctrl+Alt+DOWN');
+
+addMenuItem('递增 1	', 'increment_number_by_1', 'Ctrl+Up');
+addMenuItem('递减 1 　', 'decrement_number_by_1', 'Ctrl+down');
+addMenuItem('递增 0.1 　', 'increment_number_by_01', 'Alt+UP');
+addMenuItem('递减 0.1　', 'decrement_number_by_01', 'Alt+DOWN');
+addMenuItem('递增 10 　', 'increment_number_by_10', 'Ctrl+Alt+UP');
+addMenuItem('递减 10 　', 'decrement_number_by_10', 'Ctrl+Alt+DOWN');
+
+addMenuItem('选择下一个　', 'select_next_item', 'Ctrl+.');
+addMenuItem('选择上一个　', 'select_previous_item', 'Ctrl+,');
+addMenuItem('反省CSS内容', 'reflect_css_value', 'Ctrl+Shift+B');
