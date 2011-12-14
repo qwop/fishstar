@@ -97,7 +97,7 @@
 		//<div>adf</div>   <div></span>  等不能通过
 		rsingleTag = /^<(\w+)\s*\/?>(?:<\/\1>)?$/,
 
-		// JSON RegExp
+		// JSON <regexp></regexp>
 		// json 正则表达式
 		rvalidchars = /^[\],:{}\s]*$/,
 		rvalidescape = /\\(?:["\\\/bfnrt]|u[0-9a-fA-F]{4})/g,
