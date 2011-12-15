@@ -112,3 +112,18 @@ test( " test jquery's Map function " , function() {
 
 	equal( expected, actual, "Map ≤‚ ‘ 2" );
 });
+
+
+test( " jquery's proxy function test " , function() {
+	var obj = {
+		name	:	"John",
+		test	:	function() {
+			alert( this.name );
+			$( "#test" ).unbind( "click", obj.test );
+			$( "#test" ).html( "FUCK YOU!" );
+		}
+	};
+
+
+	$( "#test" ).click( $.proxy( obj.test, obj ) );
+});

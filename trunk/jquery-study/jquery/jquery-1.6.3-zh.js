@@ -225,7 +225,7 @@
 						if ( ret ) {
 							//如果是简单字面量
 							if ( jQuery.isPlainObject( context ) ) {
-								// ret  ["<div>", "div"]
+								// ret  ["<!-- <div> -->", "div"]
 								selector = [ document.createElement( ret[1] ) ];
 								jQuery.fn.attr.call( selector, context, true );
 							} else {
@@ -988,7 +988,6 @@
 			if ( !jQuery.isFunction( fn ) ) {
 				return undefined;
 			}
-
 			// Simulated bind
 			// 模拟绑定
 			var args = slice.call( arguments, 2 ),
