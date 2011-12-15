@@ -87,12 +87,28 @@ test( "isPlainObject ◊÷√Ê¡ø≤‚ ‘" , function() {
 });
 
 
-test( " test jquery's each function " , function() {
-	var arr = [0,1,2];
+test( " test jquery's Map function " , function() {
+	var actual = $.map( [0,1,2], function( n ) {
+		return n + 4;
+	});
 
-	var r = $.each ( arr, function( i , n ) {
-		return false;
+	var expected = '4,5,6';
+	
+	equal( expected , actual , "Map ≤‚ ‘1" );
+
+	var plainObject = {
+		num1: 11,
+		num2: 12,
+		num3: 13,
+		num4: 14,
+		num5: 15
+	};
+
+	actual = $.map( plainObject, function( v ) {
+		return v + 1;
 	} );
 
-	alert( r );
+	expected = "12,13,14,15,16";
+
+	equal( expected, actual, "Map ≤‚ ‘ 2" );
 });
