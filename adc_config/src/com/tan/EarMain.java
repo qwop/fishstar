@@ -323,7 +323,8 @@ public class EarMain {
 						
 						if ( b1 || b2 || b3  || b4 || b5 ) {
 							try {
-								p1.store(new FileOutputStream( "delete.adc_ejb_config.properties" ) , "modify by tyj!");
+//								p1.store(new FileOutputStream( "delete.adc_ejb_config.properties" ) , "modify by tyj!");
+								p1.store(new FileOutputStream( adcEjb ) , "modify by tyj!");
 							} catch (FileNotFoundException e1) {
 								e1.printStackTrace();
 							} catch (IOException e1) {
@@ -338,7 +339,8 @@ public class EarMain {
 						
 						if ( changed ) {
 							try {
-								p2.store(new FileOutputStream( "delete.ssconfig.properties" ) , "modify by tyj!");
+//								p2.store(new FileOutputStream( "delete.ssconfig.properties" ) , "modify by tyj!");
+								p2.store(new FileOutputStream( ssConfig ) , "modify by tyj!");
 							} catch (FileNotFoundException e1) {
 								e1.printStackTrace();
 							} catch (IOException e1) {
