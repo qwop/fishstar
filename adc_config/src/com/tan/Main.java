@@ -599,7 +599,7 @@ public class Main extends JFrame {
 			fb = new FileButton( this, f );
 			fb.setMain( this );
 //			scrollPane.setColumnHeaderView(fb);
-			loadPropsByOp( f );
+			// loadPropsByOp( f ); // not load the proper by the op
 			
 			if ( f.getName().indexOf( ADC_WEB_CONFIG ) >= 0 ) {
 				btnPanel.add(fb);
