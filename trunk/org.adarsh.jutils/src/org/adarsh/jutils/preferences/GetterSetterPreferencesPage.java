@@ -35,6 +35,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import com.tan.util.Editor;
+import com.tan.util.StringUtil;
 
 /**
  * The preference page handler for <tt>JUtils -> Getter Setter Style</tt>.
@@ -147,8 +148,8 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 
 		addField(rgfe);
 		
-		if ( null != editorPath ) {
-			editorPathEditor.setStringValue( editorPath );
+		if ( null != editorPath && editorPath.trim().length() > 0  ) {
+			editorPathEditor.setStringValue( StringUtil.trimQuot( editorPath ) );
 		}
 		
 		addField(editorPathEditor);

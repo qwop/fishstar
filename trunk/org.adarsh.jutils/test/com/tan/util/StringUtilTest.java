@@ -2,6 +2,8 @@ package com.tan.util;
 
 import junit.framework.TestCase;
 
+import org.junit.Test;
+
 /**
  * The class <code>StringUtilTest</code> contains tests for the class {@link
  * <code>StringUtil</code>}
@@ -31,9 +33,14 @@ public class StringUtilTest extends TestCase {
 	public void testIsRightReleaseCode() {
 		final String[] codes = 
 			{
-				"BeanDataHandler handler = getHandler();//\r\n handler.release();",
-				"BeanDataHandler handler = getHandler(); \r\n //handler.release          (            );", // wrong code 1
-				"BeanDataHandler handler = getHandler(); /*\r\n handler.release          (            );*/", // wrong code 2
+					"BeanDataHandler handler = getHandler();//\n " 
+				+	"handler.release();",
+				"BeanDataHandler handler = getHandler(); \r\n" +
+				" //handler.release          (            );", // wrong code 1
+				
+				
+				"BeanDataHandler handler = getHandler(); /*\r\n " +
+				"handler.release          (            );*/", // wrong code 2
 			};
 		
 		
@@ -45,7 +52,7 @@ public class StringUtilTest extends TestCase {
 //		System.out.println( value.matches( "^.+//\\s*\\w+\\.release\\(\\).+$" ) );
 		for ( final String code : codes ) {
 			if ( !StringUtil.isRightReleaseCode( code ) ) {
-				System.out.println( "wrong : " + code);
+				System.err.println( "wrong : " + code);
 			}
 		}
 		
@@ -55,129 +62,110 @@ public class StringUtilTest extends TestCase {
 	 * Run the boolean isEmpty(String) method test
 	 */
 	public void testIsEmpty() {
-		fail("Newly generated method - fix or disable");
+		
 		// add test code here
 		String v = null;
 		boolean result = StringUtil.isEmpty(v);
-		assertTrue(false);
+		assertTrue( result );
 	}
 
 	/**
 	 * Run the void append(StringBuffer, Object[]) method test
 	 */
 	public void testAppend() {
-		fail("Newly generated method - fix or disable");
+		
 		// add test code here
-		StringBuffer b = null;
-		Object[] args = null;
-		StringUtil.append(b, args);
-		assertTrue(false);
+		StringBuffer b = new StringBuffer();
+		
+		StringUtil.append(b, "one", "two");
+		assertEquals( "onetwo", b.toString() ) ;
 	}
 
 	/**
 	 * Run the boolean isNotNull(String) method test
 	 */
 	public void testIsNotNull() {
-		fail("Newly generated method - fix or disable");
-		// add test code here
-		String v = null;
-		boolean result = StringUtil.isNotNull(v);
-		assertTrue(false);
+		assertTrue( StringUtil.isNotNull( "fuck" ) );
+		assertFalse( StringUtil.isNotNull( "null" ) );
 	}
 
 	/**
 	 * Run the boolean isNotEmpty(String) method test
 	 */
 	public void testIsNotEmpty() {
-		fail("Newly generated method - fix or disable");
+		
 		// add test code here
-		String v = null;
-		boolean result = StringUtil.isNotEmpty(v);
-		assertTrue(false);
+
+		assertTrue( StringUtil.isNotEmpty( "fuck" ) );
+		assertTrue( StringUtil.isNotEmpty( "null" ) );
+		assertFalse( StringUtil.isNotEmpty( " " ) );
+		assertFalse( StringUtil.isNotEmpty( "" ) );
+		assertFalse( StringUtil.isNotEmpty( null ) );
 	}
 
 	/**
 	 * Run the boolean isNumber(String) method test
 	 */
 	public void testIsNumber() {
-		fail("Newly generated method - fix or disable");
-		// add test code here
-		String v = null;
-		boolean result = StringUtil.isNumber(v);
-		assertTrue(false);
+		assertTrue(StringUtil.isNumber("12"));
 	}
 
 	/**
 	 * Run the boolean isWhitespace(String) method test
 	 */
 	public void testIsWhitespace() {
-		fail("Newly generated method - fix or disable");
+
 		// add test code here
-		String v = null;
-		boolean result = StringUtil.isWhitespace(v);
-		assertTrue(false);
+		assertTrue(StringUtil.isWhitespace("    "));
 	}
 
 	/**
 	 * Run the String filter(String, char, char) method test
 	 */
 	public void testFilter() {
-		fail("Newly generated method - fix or disable");
+		
 		// add test code here
-		String value = null;
-		char oldChar = 0;
-		char newChar = 0;
+		String value = "one open obtain";
+		char oldChar = 'o';
+		char newChar = 'f';
 		String result = StringUtil.filter(value, oldChar, newChar);
-		assertTrue(false);
+		assertEquals( "fne fpen fbtain", result );
 	}
 
 	/**
 	 * Run the String filter0(String, char, char) method test
 	 */
 	public void testFilter0() {
-		fail("Newly generated method - fix or disable");
+		
 		// add test code here
-		String value = null;
-		char oldChar = 0;
-		char newChar = 0;
+		String value = "one open obtain";
+		char oldChar = 'o';
+		char newChar = 'f';
 		String result = StringUtil.filter0(value, oldChar, newChar);
-		assertTrue(false);
+		assertEquals( "fne fpen fbtain", result );
 	}
 
 	/**
 	 * Run the String getString(String, String) method test
 	 */
 	public void testGetString() {
-		fail("Newly generated method - fix or disable");
-		// add test code here
-		String basename = null;
-		String key = null;
-		String result = StringUtil.getString(basename, key);
-		assertTrue(false);
+		
+	
 	}
 
 	/**
 	 * Run the Object getInstanceSentence(String) method test
 	 */
 	public void testGetInstanceSentence() {
-		fail("Newly generated method - fix or disable");
-		// add test code here
-		String owner = null;
-		Object result = StringUtil.getInstanceSentence(owner);
-		assertTrue(false);
+	
 	}
 
 	/**
 	 * Run the String getComment(String, String, boolean) method test
 	 */
 	public void testGetComment() {
-		fail("Newly generated method - fix or disable");
-		// add test code here
-		String fieldName = null;
-		String string = null;
-		boolean isJavaDoc = false;
-		String result = StringUtil.getComment(fieldName, string, isJavaDoc);
-		assertTrue(false);
+		
+		
 	}
 
 
@@ -186,25 +174,31 @@ public class StringUtilTest extends TestCase {
 	 * Run the String replace(String, String, String) method test
 	 */
 	public void testReplace() {
-		fail("Newly generated method - fix or disable");
-		// add test code here
-		String value = null;
-		String replaceMent = null;
-		String content = null;
-		String result = StringUtil.replace(value, replaceMent, content);
-		assertTrue(false);
+		
+	
 	}
 
 	/**
 	 * Run the String getDummyField(String, String[]) method test
 	 */
 	public void testGetDummyField() {
-		fail("Newly generated method - fix or disable");
-		// add test code here
+		
+	/*	// add test code here
 		String typeSignature = null;
 		String[] strings = null;
 		String result = StringUtil.getDummyField(typeSignature, strings);
-		assertTrue(false);
+		assertTrue(false);*/
+	}
+	
+	
+	@Test
+	public void testTrimQuot() {
+		assertEquals( "两边都有双引号", "fuck", StringUtil.trimQuot( "\"fuck\"" ) );
+		assertEquals( "", "fuck", StringUtil.trimQuot( "\'fuck\"" ) );
+		assertEquals( "", "fuck", StringUtil.trimQuot( "fuck\"" ) );
+		assertEquals( "", "fuck", StringUtil.trimQuot( "\"fuck" ) );
+		assertEquals( "", "fuck", StringUtil.trimQuot( "\'fuck" ) );
+		assertEquals( "", "fuck", StringUtil.trimQuot( "\'fuck\'" ) );
 	}
 }
 

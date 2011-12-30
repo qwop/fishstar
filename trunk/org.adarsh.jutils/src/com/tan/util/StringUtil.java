@@ -492,4 +492,34 @@ public final class StringUtil {
 		return null;
 	}
 
+	public static String trimQuot(String editorPath) {
+		if ( isEmpty( editorPath ) ) {
+			return editorPath;
+		}
+		char c = editorPath.charAt( 0 ) ;
+		if ( isQuot( c ) ) {
+			editorPath = editorPath.substring( 1 );
+		}
+		c = editorPath.charAt( editorPath.length() - 1 ) ;
+		if ( isQuot( c ) ) {
+			editorPath = editorPath.substring( 0 , editorPath.length() - 1 );
+		}
+		return editorPath;
+	}
+
+	static char[] QUOTS = { 
+		'\'', '\"', '“',
+		'”', '‘', '’',
+		'〝', '〞', '＂'
+	};
+	
+	private static boolean isQuot(char c) {
+		for ( int i = 0; i < QUOTS.length; i++ ) {
+			if ( c == QUOTS[i] ) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }
