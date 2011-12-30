@@ -297,8 +297,8 @@ public class PreferenceConstants {
 	public static final String GETTER_SETTER_STYLE_LABEL = Messages.getString("getter.setter.style.label");
 
 	public static final String MODIFY_AUTHOR = Messages
-			.getString("preferences.modify.author");;
+			.getString("preferences.modify.author");
 
 	public static final String MODIFY_AUTHOR_DESCRIPTION = Messages
-			.getString("preferences.modify.author.description");;
+			.getString("preferences.modify.author.description");
 }

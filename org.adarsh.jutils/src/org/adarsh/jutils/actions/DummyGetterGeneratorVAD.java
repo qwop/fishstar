@@ -104,7 +104,10 @@ public class DummyGetterGeneratorVAD implements IEditorActionDelegate {
 		ICompilationUnit compUnit = manager.getWorkingCopy(editorInput);
 
 		Shell shell = this.editorPart.getSite().getShell();
-
+		
+		/** 获取当前配置的的 Setter 样式**/
+		final String style = PREF_STORE.getString(PreferenceConstants.GETTER_SETTER_STYLE);
+		
 		try {
 			IJavaElement suspect = compUnit.getElementAt(selection.getOffset());
 
@@ -167,7 +170,7 @@ public class DummyGetterGeneratorVAD implements IEditorActionDelegate {
 									);
 						}
 					}
-				 Generate.generateDummyGetter(b, fields[i].getElementName(), comment);
+				 Generate.generateDummyGetter(b, fields[i].getElementName(), comment, style);
 				//	b.append("\t// 设置 " +  comment +  "//" + f.getTypeSignature() + " "  +  f.getElementName()  + "\r\n");
 				}
 				
