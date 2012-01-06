@@ -126,4 +126,6 @@ test( " jquery's proxy function test " , function() {
 
 
 	$( "#test" ).click( $.proxy( obj.test, obj ) );
+
+	// $( "#test" ).click( obj.test );
 });

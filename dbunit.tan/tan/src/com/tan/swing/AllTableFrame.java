@@ -1,10 +1,13 @@
 package com.tan.swing;
 
+import java.awt.BorderLayout;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.tan.bean.UserTab;
@@ -15,6 +18,8 @@ public class AllTableFrame extends JFrame {
 
 	private List<UserTab> tabs;
 	private JScrollPane scrollpane;
+	private JButton btn1;
+	private JTextField txt;
 	
 	public AllTableFrame() {
 		// init tables
@@ -56,9 +61,20 @@ public class AllTableFrame extends JFrame {
 	}
 
 	private void initComponents() {
+		setLayout(new BorderLayout());
+		
+		
 		setVisible(true);
 		setBounds(533, 333, 400, 500);
-		add(scrollpane);
+		add(scrollpane, BorderLayout.WEST);
+		
+		btn1 = new JButton();
+		btn1.setText( "过滤" );
+		
+		txt = new JTextField();
+		add( txt, BorderLayout.EAST );
+		add( btn1, BorderLayout.EAST );
+		
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 

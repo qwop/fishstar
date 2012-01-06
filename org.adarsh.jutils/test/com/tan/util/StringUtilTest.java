@@ -182,7 +182,6 @@ public class StringUtilTest extends TestCase {
 	 * Run the String getDummyField(String, String[]) method test
 	 */
 	public void testGetDummyField() {
-		
 	/*	// add test code here
 		String typeSignature = null;
 		String[] strings = null;
