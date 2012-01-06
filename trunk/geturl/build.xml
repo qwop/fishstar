@@ -13,7 +13,7 @@
     </description>
 
 	<property name="web" value="war" />
-	<property name="tomcatHome" value="D:\apache-tomcat-6.0.24" />
+	<property name="tomcatHome" value="D:\tomcat6" />
 	<property name="servlet" value="servlet-api.jar" />
 	<property name="src" value="src" />
 	<property name="build" value="build" />

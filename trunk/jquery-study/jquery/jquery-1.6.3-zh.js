@@ -217,7 +217,9 @@
 
 						// If a single string is passed in and it's a single tag
 						// just do a createElement and skip the rest
-						//如果传入的事一个单独的标签  如  '<div>'   '<div></div>'
+						//如果传入的事一个单独的标签  如  '<test>
+							<div>
+						</test>'   '<div></div>'
 						// 创建一个标签  跳过其它步骤
 						// 
 						ret = rsingleTag.exec( selector );
