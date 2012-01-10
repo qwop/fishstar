@@ -34,7 +34,7 @@ public class TomcatProjectPropertyPage extends PropertyPage implements IWorkbenc
 	private TomcatProjectGeneralPropertyPage generalPropertyPage;
 	private TomcatProjectWebclasspathPropertyPage webClassPathPropertyPage;
 	private TomcatProjectWARPropertyPage warPropertyPage;
-
+	
 	/**
 	 * @see PreferencePage#createContents(Composite)
 	 */
