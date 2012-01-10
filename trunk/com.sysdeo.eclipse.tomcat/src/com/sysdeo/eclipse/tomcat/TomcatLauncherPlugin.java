@@ -53,6 +53,7 @@ public class TomcatLauncherPlugin extends AbstractUIPlugin {
 	static final String TOMCAT_PREF_BASE_KEY = "tomcatBase";	
 	static final String TOMCAT_PREF_CONFIGFILE_KEY = "tomcatConfigFile";
 	static final String TOMCAT_PREF_VERSION_KEY = "tomcatVersion";
+	static final String TOMCAT_PREF_OPEN_CONFIG_KEY = "tomcatOpenConfig";
 	static final String TOMCAT_PREF_JRE_KEY = "tomcatJRE";
 	static final String TOMCAT_PREF_JVM_PARAMETERS_KEY = "jvmParameters";
 	static final String TOMCAT_PREF_JVM_CLASSPATH_KEY = "jvmClasspath";
@@ -78,6 +79,9 @@ public class TomcatLauncherPlugin extends AbstractUIPlugin {
 	static final String TOMCAT_PREF_CONTEXTSDIR_KEY = "contextsDir";
 				
 	private static final String TOMCAT_HOME_CLASSPATH_VARIABLE = "TOMCAT_HOME";
+	public static final String BOTH_FOLDER_XML = "both.folder.xml";
+	public static final String ONLY_OPEN_CONFG_XML = "only.xml";
+	public static final String ONLY_OPEN_FOLDER = "only.folder";
 
 
 	//The shared instance.
@@ -279,7 +283,16 @@ public class TomcatLauncherPlugin extends AbstractUIPlugin {
 				
 		return tomcatBootsrap;
 	}
-
+	
+	public boolean isOpenConfigXml() {
+		IPreferenceStore pref =	TomcatLauncherPlugin.getDefault().getPreferenceStore();
+		String result = pref.getString(TOMCAT_PREF_OPEN_CONFIG_KEY);
+		
+		if ( BOTH_FOLDER_XML.equals( result ) ||  ONLY_OPEN_CONFG_XML.equals( result )  ) {
+			return true;
+		}
+		return false;
+	}
 		
 	public String getManagerAppUrl() {
 		IPreferenceStore pref =	TomcatLauncherPlugin.getDefault().getPreferenceStore();
@@ -494,6 +507,18 @@ public class TomcatLauncherPlugin extends AbstractUIPlugin {
 	public void startup() throws CoreException {
 		super.startup();
 		this.fixTomcatHomeBug();
+	}
+
+
+
+
+	public boolean isOpenConfigFolder() {
+		IPreferenceStore pref =	TomcatLauncherPlugin.getDefault().getPreferenceStore();
+		String result = pref.getString(TOMCAT_PREF_OPEN_CONFIG_KEY);
+		if ( BOTH_FOLDER_XML.equals( result ) ||  ONLY_OPEN_FOLDER.equals( result )  ) {
+			return true;
+		}
+		return false;
 	}
 
 	// Replaced by PreferenceInitializer

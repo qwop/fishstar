@@ -38,6 +38,10 @@ public class TomcatPreferencePage extends PreferencePage implements IWorkbenchPr
 	private BooleanFieldEditor securityEditor;
 
 	static final private int FIELD_WIDTH = 50;
+
+
+
+	private RadioGroupFieldEditor openConfigXml;
 	private RadioGroupFieldEditor version;
 	private DirectoryFieldEditor home;
 	private TomcatDirectoryFieldEditor contextsDir;	
@@ -76,6 +80,21 @@ public class TomcatPreferencePage extends PreferencePage implements IWorkbenchPr
 				composite,
 				true);
 
+		
+		openConfigXml = new RadioGroupFieldEditor(
+				TomcatLauncherPlugin.TOMCAT_PREF_OPEN_CONFIG_KEY,
+				PREF_PAGE_CHOOSECONFIG_LABEL,
+				1,
+				new String[][] {
+					// 1.	只打开配置文件 
+					{PREF_ONLY_OPEN_CONFG_XML_LABEL, TomcatLauncherPlugin.ONLY_OPEN_CONFG_XML},
+					// 2.	同时 定位文件夹 和 配置文件 
+					{PREF_BOTH_FOLDER_XML_LABEL, TomcatLauncherPlugin.BOTH_FOLDER_XML},
+					// 3.	只定位文件夹 
+					{PREF_ONLY_OPEN_CONFG_FOLDER_LABEL, TomcatLauncherPlugin.ONLY_OPEN_FOLDER}
+				},
+				composite,
+				true);
 		
 		Group homeGroup = new Group(composite,SWT.NONE);
 		home = new DirectoryFieldEditor(
@@ -139,6 +158,18 @@ public class TomcatPreferencePage extends PreferencePage implements IWorkbenchPr
 			}
 		});		
 		
+		
+		this.initField( openConfigXml );
+		openConfigXml.setPropertyChangeListener(new IPropertyChangeListener() {
+			public void propertyChange(PropertyChangeEvent event) {
+				if(event.getProperty().equals(FieldEditor.VALUE)) {
+					String value = (String)event.getNewValue();
+					versionChanged(composite, value);		
+				}
+			}
+		});	
+		openConfigXml.store();
+		
 		this.initField(home);
 		this.initField(configMode);
 		modeChanged(configLocationGroup, getPreferenceStore().getString(TomcatLauncherPlugin.TOMCAT_PREF_CONFMODE_KEY));
@@ -177,6 +208,9 @@ public class TomcatPreferencePage extends PreferencePage implements IWorkbenchPr
 		configFile.store();
 		configMode.store();
 		contextsDir.store();
+		
+		openConfigXml.store();
+		
 		TomcatLauncherPlugin.getDefault().initTomcatClasspathVariable();		
 		TomcatLauncherPlugin.getDefault().savePluginPreferences();
 		
