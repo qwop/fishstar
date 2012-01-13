@@ -6,7 +6,6 @@ package com.sysdeo.eclipse.tomcat;
  */
 
 public interface TomcatPluginResources {
-
 	static final String WIZARD_PROJECT_TITLE = TomcatLauncherPlugin
 			.getResourceString("wizard.project.title");
 
