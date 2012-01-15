@@ -1,0 +1,6 @@
+类命名的规范
+	数据结构类型 + 修饰
+	例如: 
+		list + double linked 表示为 List 的双向链表的实现
+		list + single linked 表示为 List 的单向链表的实现
+	
