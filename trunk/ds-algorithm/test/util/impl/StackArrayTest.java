@@ -1,21 +1,22 @@
-package util;
+package util.impl;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import util.impl.StackSingleLinked;
+import util.Stack;
+import util.impl.StackArray;
 
-public class StackSingleLinkedTest {
+public class StackArrayTest {
 	Stack stack;
 
 	@Before
 	public void setUp() throws Exception {
-		stack = new StackSingleLinked();
+		stack = new StackArray();
 	}
 
 	@After
