@@ -52,7 +52,14 @@ public class StackTest {
 		assertFalse( bracketMatch( "}}" ) );
 		assertFalse( bracketMatch( ")()" ) );
 		assertFalse( bracketMatch( "[({()}]" ) );
-
+		
+		
+		assertTrue( bracketMatch(
+				"public static void main(String[] args){" +
+				"	int a = b = 0; // 定义基数  a  b 为 0 " +
+				"	System.out.println( a + b );" +
+				"}") 
+		);
 	}
 
 	private boolean bracketMatch( String str ) {
@@ -88,7 +95,4 @@ public class StackTest {
 		
 		return s.isEmpty();
 	}
-
-	
-
 }
