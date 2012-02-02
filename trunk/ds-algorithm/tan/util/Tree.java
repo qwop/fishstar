@@ -1,5 +1,7 @@
 package util;
 
+import dsa.adt.Iterator;
+
 
 /**
  * 树 ( Tree ) : 树一个集合以及在该集合上定义的一种关系构成
@@ -25,8 +27,8 @@ package util;
  * 深度 ( Depth ) : 树中结点中最大层次数。
  * 高度 ( Height ) : 
  * 度  ( Degree ) : 结点 拥有的子树的数目 
- * 叶子 ( Leaf ) : 度 为 0 的结点 或者 是终端结点
- * 分支结点 / 非终端结点: 度不为0 的结点
+ * 叶子 ( Leaf ) : 度 为  0 的结点 或者 是终端结点
+ * 分支结点 / 非终端结点: 度不为 0 的结点
  * 除根之外的分支结点内部结点
  * 
  * 树中的结点数目 == 树的边数之和 + 1 == 结点的度数之和 + 1
@@ -98,6 +100,13 @@ public interface Tree {
 	 * @param i
 	 */
 	void deleteChild( final TreeNode node, int i );
-	
-	
+
+	// 先序遍历
+	Iterator preOrder();
+
+	// 后序遍历
+	Iterator postOrder();
+
+	// 按层遍历
+	Iterator levelOrder();
 }
