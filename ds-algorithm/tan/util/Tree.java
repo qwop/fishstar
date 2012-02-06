@@ -1,6 +1,5 @@
 package util;
 
-import dsa.adt.Iterator;
 
 
 /**
@@ -25,7 +24,7 @@ import dsa.adt.Iterator;
  * 孩子 ( child ) : c 为  p 的孩子结点
  * 根结点没有父亲，其余的结点只有一个父结点，但是却可能有多个孩子，同一结点的孩子相互称为 兄弟 ( sibling ) 
  * 深度 ( Depth ) : 树中结点中最大层次数。
- * 高度 ( Height ) : 
+ * 高度 ( Height ) : 以该结点为跟的树的高度。
  * 度  ( Degree ) : 结点 拥有的子树的数目 
  * 叶子 ( Leaf ) : 度 为  0 的结点 或者 是终端结点
  * 分支结点 / 非终端结点: 度不为 0 的结点
