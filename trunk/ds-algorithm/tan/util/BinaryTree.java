@@ -1,7 +1,5 @@
 package util;
 
-import dsa.adt.Iterator;
-
 /**
  * 二叉树接口 二叉树: 
  * 	二叉树或是一棵空树，
@@ -14,7 +12,7 @@ import dsa.adt.Iterator;
  *  位于右边的孩子成为右孩子
  * 
  * 左孩子为根的子树为左子树 右孩子为根的子树为右子树
- * 
+ * 性质
  * @author dolphin
  * 
  *         2012-2-2 下午5:19:29
