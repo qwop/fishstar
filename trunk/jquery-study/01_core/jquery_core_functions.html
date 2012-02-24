@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+	<title> JQuery核心函数 </title>
+	<meta name="Generator" content="dolphin">
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<script type="text/javascript" src="../jquery/jquery-1.6.4.js"></script>
+	<link rel="stylesheet" href="../css/css.css" type="text/css" media="screen" />
+	<script type="text/javascript">
+	<!--
+	var _global = $( document ).ready( function() {
+		var divP = $( "div > p" );
+		var rad = $( "input:radio", document.forms[0] );
+		
+		var first = $( "ol" ).first(); 
+		var last = $( "ol" ).last();
+		
+		first.append( "<li><h2>" + divP.html() + "</h2>" );
+		last.append( "<li><code> $( \"div > p\" ) </code>" );
+
+		first.append( "<li><h2>" + rad.val() + "</h2>" );
+		last.append( "<li><code> var rad = ( \"input:radio\", document.forms[0] ); </code>" );
+	} );
+
+
+	$( document.forms[0] ).ready(function() /*callback*/{
+		alert( 'the first form is ready now!' );
+	}) ;
+	//-->
+	</script>
+ </head>
+
+ <body>
+	<h1>Jquery core functions</h1>
+	jQuery( expr, [context] );
+
+	<p>one</p> <div><p class="point" >two</p></div> <p>three</p>
+
+
+	<form method="post" action="">
+		Name: <input type="text" name="name" value="张三">
+		Fav: 
+		<select name="fav">
+			<option value="1" selected>游泳</option>
+			<option value="2">篮球</option>
+		</select>
+
+
+		Flower:
+		<input type="checkbox" name="rose" checked/>
+		<input type="checkbox" name="jasmine"/>
+		
+		Sex: 
+		<label>male</label><input type="radio" name="sex" value="male" checked/>
+		<label>famel</labeL><input type="radio" name="sex" value="fmale"/>
+	</form>
+	<fieldset>
+		<legend>获取的元素</legend>
+		<ol>
+		</ol>
+	</fieldset>
+
+
+	<fieldset>
+		<legend>代码</legend>
+		<ol>
+		</ol>
+	</fieldset>
+ </body>
+</html>

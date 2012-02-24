@@ -1,0 +1,76 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+	<title> JQuery核心函数 - 访问对象 </title>
+	<meta name="Generator" content="dolphin">
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<script type="text/javascript" src="../jquery/jquery-1.6.4.js"></script>
+	<link rel="stylesheet" href="../css/css.css" type="text/css" media="screen" />
+	<script type="text/javascript">
+	<!--
+
+
+
+	$( document.forms[0] ).ready(function() /*callback*/{
+		$( "input" ).each( function() { /*callback*/ 
+			if ( this.type == 'text' ){
+				this.value = 'assign the value by the jquery\'s function ';
+				this.style.backgroundColor = 'pink';
+			}
+		} );
+		
+		var result = $( "ol" ).first();		
+		result.append( "<li>The input size ( by size method )  : " + $( "input" ).size() + "</li>" );
+		result.append( "<li>The input size ( by length attribute )  : " + $( "input" ).length + "</li>" );
+		result.append( "<li>The jquery's selector : " + $( "form:input" ).selector + "</li>" );
+		
+
+		var code = $( "ol" ).last();
+		code.append( "<li> $( 'input' ).size() </li>" );
+		code.append( "<li> $( 'input' ).length </li>" );
+		code.append( "<li> $( 'form:input' ).selector </li>" );
+	}) ;
+	//-->
+	</script>
+ </head>
+
+ <body>
+	<h1>Jquery visited objects</h1>
+	each( callback) size() length selector context get get( index ) index( subject )
+
+	<p>one</p> <div><p class="point" >two</p></div> <p>three</p>
+
+
+	<form method="post" action="">
+		Name: <input type="text" name="name" value="张三">
+		Fav: 
+		<select name="fav">
+			<option value="1" selected>游泳</option>
+			<option value="2">篮球</option>
+		</select>
+
+
+		Flower:
+		<input type="checkbox" name="rose" checked/>
+		<input type="checkbox" name="jasmine"/>
+		
+		Sex: 
+		<label>male</label><input type="radio" name="sex" value="male" checked/>
+		<label>famel</labeL><input type="radio" name="sex" value="fmale"/>
+	</form>
+	<fieldset>
+		<legend>获取的元素</legend>
+		<ol>
+		</ol>
+	</fieldset>
+
+
+	<fieldset>
+		<legend>代码</legend>
+		<ol>
+		</ol>
+	</fieldset>
+ </body>
+</html>
