@@ -1,0 +1,16 @@
+body {
+	font-family: Monaco;
+}
+
+p.point  {
+	border: 1px solid red;
+	color: red;
+	font-weight: bold;
+	width: 50px;
+	height: 20px;
+}
+
+h2 {
+	color: red;
+
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> New Document </title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+ </head>
+
+ <body>
+  <script type="text/javascript">
+  <!--
+	// not group
+	function notgroup (){
+		var str = "abc";
+		var reg = /(?:a)b(c)/g;
+
+		reg.test( str );
+		alert( RegExp.$1 );
+	}
+	notgroup();
+
+	// tomeet, 目标中肯定存在
+	function tomeet (){
+		var str = "ab4";
+		var reg = /ab(?=\d)/g;
+
+		alert( reg.test( str ) ); // true
+	}
+	tomeet();
+
+	// notmeet, 目标中应该不存在
+	function notmeet (){
+		var str = "ab1";
+		var reg = /ab(?!\d)/g;
+		alert( reg.test( str ) ) // false
+	}
+
+	notmeet();
+  //-->
+  </script>
+ </body>
+</html>
