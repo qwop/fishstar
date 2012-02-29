@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+	<title> JQuery核心函数 - 队列控制 ( queue ) </title>
+	<meta name="Generator" content="dolphin">
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<script type="text/javascript" src="../jquery/jquery-1.6.4.js"></script>
+	<link rel="stylesheet" href="../css/css.css" type="text/css" media="screen" />
+	<script type="text/javascript">
+	<!--
+
+	$( document.forms[0] ).ready(function() /*callback*/{
+
+		$("#show").click(function () {
+			  var n = $("div").queue("fx");
+			  $("span").text("Queue length is: " + n.length);
+		});
+
+		var f = $( "ol" ).first(), l = $( "ol" ).last();
+		
+		// show
+		//f.append( "<li>" + dp.data().blah + "</li>" );
+		// code 
+		//l.append( "<li> dp.data( 'blah' , 100 ); </li>" );
+		runIt();
+
+
+
+		// queue( name, callback )
+
+		$( document.body ).click( function(){
+			var dq = $( "div.queue" );
+			dq.animate( {left: '+=200'}, 2000 );
+			dq.queue( function() {
+				$( this ).addClass( "newQueue" );
+				$( this ).dequeue();
+			} );
+
+			dq.animate( {left: '-=200'}, 500 );
+			dq.queue( function() {
+				$( this ).removeClass( "newQueue" );
+				$( this ).dequeue();
+			} );
+
+			dq.slideUp();
+		} );
+	}) ;
+
+	function runIt() {
+		  $("div").show("slow");
+		  $("div").animate({left:'+=200'},2000);
+		  $("div").slideToggle(1000);
+		  $("div").slideToggle("fast");
+		  $("div").animate({left:'-=200'},1500);
+		  $("div").hide("slow");
+		  $("div").show(1200);
+		  $("div").slideUp("normal", runIt);
+	}
+	//-->
+	</script>
+ </head>
+
+ <body>
+	<h1>jQuery queue control - queue . </h1>
+
+	<style>
+  div { margin:3px; width:140px; height:140px;
+        position:absolute; left:0px; top:30px; 
+        background:green; display:none; color: white; }
+  div.newcolor { background:blue; }
+  span { color:red; }
+
+
+	div.queue {
+		margin: 3px; width: 20px; height: 40px;
+		position: absolute; left: 0px; top: 30px;
+		background: green;
+	}
+  </style>
+  <div>show animate slideToggle slideToggle animate hide show slideUp</div>
+
+  	<hr color="red"/>
+	<hr color="red"/>
+	<hr color="red"/>
+	<hr color="red"/>
+	<hr color="red"/>
+	<hr color="red"/>
+	<hr color="red"/>
+	<hr color="red"/>
+	<hr color="red"/>
+
+  <button id="show">Show Length of Queue</button>
+  <span></span>
+	<hr color="red"/>
+	<hr color="blue"/>
+
+
+
+
+<div class="queue">aaaaaaaaaaaa</div>
+
+
+
+
+	<fieldset>
+		<legend>获取的元素</legend>
+		<ol>
+		</ol>
+	</fieldset>
+
+
+	<fieldset>
+		<legend>代码</legend>
+		<ol>
+		</ol>
+	</fieldset>
+ </body>
+</html>
