@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+	<title> JQuery核心函数 - 队列控制 ( queue ) </title>
+	<meta name="Generator" content="dolphin">
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<script type="text/javascript" src="../jquery/jquery-1.6.4.js"></script>
+	<link rel="stylesheet" href="../css/css.css" type="text/css" media="screen" />
+	<script type="text/javascript">
+	<!--
+
+	$( document.forms[0] ).ready(function() /*callback*/{
+
+		$("#show").click(function () {
+			  var n = $("div").queue("fx");
+			  $("span").text("Queue length is: " + n.length);
+		});
+
+		var f = $( "ol" ).first(), l = $( "ol" ).last();
+		
+
+		$("button").click(function () {
+			  $("div").animate({left:'+=200px'}, 2000);
+			  $("div").animate({top:'0px'}, 600);
+			  $("div").queue(function () {
+				  $(this).toggleClass("red");
+				  $(this).dequeue();
+			  });
+			  $("div").animate({left:'10px', top:'30px'}, 700);
+
+			  alert( $( "div" ).attr( "class" ) );
+		});
+	}) ;
+
+
+	//-->
+	</script>
+ </head>
+
+ <body>
+	<h1>jQuery queue control - queue . </h1>
+
+	<style>
+  div.yellow { margin:3px; width:150px; position:absolute;
+        height:50px; left:10px; top:30px; 
+        background-color:yellow; }
+  div.red { background-color:red; }
+
+
+
+  </style>
+  	<hr color="red"/>
+	<hr color="red"/>
+	<hr color="red"/>
+	<hr color="red"/>
+	<hr color="red"/>
+	<hr color="red"/>
+	<hr color="red"/>
+	<hr color="red"/>
+	<hr color="red"/>
+
+  <button id="show">Start</button>
+  <div class="yellow">dequeue</div>
+
+	<hr color="red"/>
+	<hr color="blue"/>
+
+
+	<fieldset>
+		<legend>获取的元素</legend>
+		<ol>
+		</ol>
+	</fieldset>
+
+
+	<fieldset>
+		<legend>代码</legend>
+		<ol>
+		</ol>
+	</fieldset>
+ </body>
+</html>

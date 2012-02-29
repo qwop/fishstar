@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
  <head>
-	<title> JQuery核心函数 - 访问对象 </title>
+	<title> JQuery核心函数 - 数据缓存 </title>
 	<meta name="Generator" content="dolphin">
 	<meta name="Author" content="">
 	<meta name="Keywords" content="">
@@ -11,46 +11,39 @@
 	<script type="text/javascript">
 	<!--
 
-
-
 	$( document.forms[0] ).ready(function() /*callback*/{
-		$( "input" ).each( function() { /*callback*/ 
-			if ( this.type == 'text' ){
-				this.value = 'assign the value by the jquery\'s function ';
-				this.style.backgroundColor = 'pink';
-			}
-		} );
-		
-		var result = $( "ol" ).first();		
+		var dp = $( "p.point" );
+		dp.data( "blah" );
+		dp.data( "blah", "hello" );
+		dp.data( "blah" );
 
-		// size() length
-		result.append( "<li>The input size ( by size method )  : " + $( "input" ).size() + "</li>" );
-		result.append( "<li>The input size ( by length attribute )  : " + $( "input" ).length + "</li>" );
-		
-		//  selector
-		result.append( "<li>The jquery's selector : " + $( "form:input" ).selector + "</li>" );
-		result.append( "<li>The jquery's selector : " + $( "form:input" ).selector + "</li>" );
-		
-		// context 
-		result.append( "<li>" + $( "ul" ).context + "</li>" );
-		result.append( "<li>" + $( "ul" ).context.nodeName + "</li>" );
-		
-		// get get( index )
-		result.append( "<li>" + $( "input" ).get() /*get the arry */+ "</li>" );
-		result.append( "<li>" + $( "input" ).get( 0 ).type + "</li>" );
+		dp.data( "blah" , 86 );
+		dp.data( "blah" );
+		dp.removeData( "blah" );
 
-		var code = $( "ol" ).last();
-		code.append( "<li> $( 'input' ).size() </li>" );
-		code.append( "<li> $( 'input' ).length </li>" );
-		code.append( "<li> $( 'form:input' ).selector </li>" );
+		dp.data( 'blah', 100 );
+		
+		
+		$( "p" ).data( "key", { first: 11, last: "pizza!" } );
+
+		var f = $( "ol" ).first(), l = $( "ol" ).last();
+		
+		// show
+		f.append( "<li>" + dp.data().blah + "</li>" );
+		f.append( "<li>" + $( "p" ).data( "key" ).first + "</li>" );
+		f.append( "<li>" + $( "p" ).data( "key" ).last + "</li>" );
+
+		// code 
+		l.append( "<li> dp.data( 'blah' , 100 ); </li>" );
+		l.append( "<li> $( 'p' ).data( 'key', { first: 11, last: 'pizza!' } ) </li>" );
+		l.append( "<li> $( 'p' ).data( 'key' ).last </li>" );
 	}) ;
 	//-->
 	</script>
  </head>
 
  <body>
-	<h1>Jquery visited objects</h1>
-	each( callback) size() length selector context get get( index ) index( subject )
+	<h1>jQuery data cache . </h1>
 
 	<p>one</p> <div><p class="point" >two</p></div> <p>three</p>
 

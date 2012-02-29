@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+	<title> JQuery核心函数 - 队列控制 ( queue ) </title>
+	<meta name="Generator" content="dolphin">
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<script type="text/javascript" src="../jquery/jquery-1.6.4.js"></script>
+	<link rel="stylesheet" href="../css/css.css" type="text/css" media="screen" />
+	<script type="text/javascript">
+	<!--
+
+	$( document.forms[0] ).ready(function() /*callback*/{
+		$("#start").click(function () {
+			  $("div").show("slow");
+			  $("div").animate({left:'+=200'},5000);
+			  $("div").queue(function () {
+				  $(this).addClass("newcolor");
+				  $(this).dequeue();
+			  });
+			  $("div").animate({left:'-=200'},1500);
+			  $("div").queue(function () {
+				  $(this).removeClass("newcolor");
+				  $(this).dequeue();
+			  });
+			  $("div").slideUp();
+		});
+		$("#stop").click(function () {
+		  $("div").queue("fx", []);
+		  $("div").stop();
+		});
+		
+		$( "#id1" ).click( function() {
+			
+			
+		} );
+	}) ;
+
+	//-->
+	</script>
+  
+  </head>
+
+ <body>
+<style>
+  div { margin:3px; width:40px; height:40px;
+        position:absolute; left:0px; top:30px; 
+        background:green; display:none; }
+  div.newcolor { background:blue; }
+  </style>
+  <h1>jQuery queue control - callback . </h1>
+
+  <button id="start">Start</button>
+  <button id="stop">Stop</button>
+  <div></div>
+  
+<span></span>	  
+<input type="button" id="id1" value="queue test "/>
+	<fieldset>
+		<legend>获取的元素</legend>
+		<ol>
+		</ol>
+	</fieldset>
+
+
+	<fieldset>
+		<legend>代码</legend>
+		<ol>
+		</ol>
+	</fieldset>
+ </body>
+</html>
