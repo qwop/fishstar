@@ -116,7 +116,7 @@ public class JarSearcher {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		final String path = "D:\\Eclipse-Plugins";
+		final String path = "E:\\Projects\\indiff\\eclise-plugins\babel3.6\\";
 		JarSearcher searcher = new JarSearcher(path);
 		System.out.println("Jar文件数:" + searcher.size());
 		boolean searchClass = true;
