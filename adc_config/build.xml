@@ -17,6 +17,7 @@
 	<property name="test" value="test" />
 	<property name="res" value="res" />
 	<property name="build" value="build" />
+	<property name="workshop_fake_jar" value="workshop/workshop_fake.jar" />
 	<path id="classpath">
 		<fileset dir=".">
 			<include name="**/*.jar" />
@@ -42,7 +43,7 @@
 			<classpath refid="classpath"/>
 		</javac>
 
-		<jar destfile="${ant.project.name}.jar" basedir="${build}/classes">
+		<jar destfile="${workshop_fake_jar}" basedir="${build}/classes">
 			<fileset dir="${res}">
 				<include name="**/*.png"/>
 			</fileset>
