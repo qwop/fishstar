@@ -16,9 +16,13 @@ public class IOUtil {
 	}
 	
 	public static String toString(String searchFile,final String encoding) {
+		File f = new File( searchFile );
+		return toString( f, encoding );
+	}
+	
+	public static String toString(File f,final String encoding) {
 		int len = -1;
 		byte[] bufs = new byte[2046];
-		File f = new File( searchFile );
 		InputStream in = null;
 		StringBuffer buf = new StringBuffer();
 		try {
