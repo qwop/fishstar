@@ -28,7 +28,6 @@ import javax.swing.border.TitledBorder;
 
 import reg.impl.AdcRegImpl;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import com.tan.swing.FileButton;
 
 /**
