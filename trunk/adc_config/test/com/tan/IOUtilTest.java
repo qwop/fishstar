@@ -1,8 +1,6 @@
 package com.tan;
 
-import static org.junit.Assert.*;
-
-import java.util.Arrays;
+import java.util.Properties;
 
 import org.junit.Test;
 
@@ -21,5 +19,15 @@ public class IOUtilTest {
 		content =   StringUtil.sarchSqlMap( content,  "JDBC.ConnectionURL", "jdbc:oracle:thin:@qwop:orcl" ) ;
 		content =   StringUtil.sarchSqlMap( content,  "JDBC.Username", "username" ) ;
 		System.out.println(  StringUtil.sarchSqlMap( content,  "JDBC.Password", "password" ) );
+	}
+	
+	
+	@Test
+	public void testProperties() {
+		Properties p = IOUtil.load( "E:\\adc\\LN_Version2\\build1130\\ssconfig.properties" );
+		
+		p.list( System.out );
+
+		System.err.println( p.getProperty( "workflow.path" ) );
 	}
 }

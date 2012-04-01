@@ -1,1 +1,1 @@
-java -jar adc_config.jar
+java -jar adc_config.jar com.tan.WorkshopFake

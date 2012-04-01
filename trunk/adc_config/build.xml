@@ -13,6 +13,9 @@
     </description>
 
 	<property name="src1" value="src" />
+	<property name="fake_src" value="fake" />
+	<property name="test" value="test" />
+	<property name="res" value="res" />
 	<property name="build" value="build" />
 	<path id="classpath">
 		<fileset dir=".">
@@ -32,19 +35,44 @@
 
 	<!-- ================================= 
           target: default              
+				<attribute name="Main-Class" value="com.tan.Main" />
          ================================= -->
-	<target name="default" depends="depends" description="">
-		<javac srcdir="${src1}" destdir="${build}/classes" debug="on" encoding="utf-8">
-			<classpath refid="classpath">
-			</classpath>
+	<target name="weblogic-fake" depends="depends" description="">
+		<javac srcdir="${fake_src}" destdir="${build}/classes" debug="on" encoding="utf-8">
+			<classpath refid="classpath"/>
 		</javac>
 
 		<jar destfile="${ant.project.name}.jar" basedir="${build}/classes">
+			<fileset dir="${res}">
+				<include name="**/*.png"/>
+			</fileset>
 			<manifest>
-				<attribute name="Main-Class" value="com.tan.Main" />
+				<attribute name="Main-Class" value="com.tan.WorkshopFake" />
+				<attribute name="SplashScreen-Image" value="splash-loading.png" />
 			</manifest>
 		</jar>
 
 		<delete dir="${build}" />
 	</target>
+	
+	
+	<target name="default" depends="depends" description="">
+			<javac srcdir="${src1}" destdir="${build}/classes" debug="on" encoding="utf-8">
+				<classpath refid="classpath">
+				</classpath>
+			</javac>
+
+			<jar destfile="${ant.project.name}.jar" basedir="${build}/classes">
+				<fileset dir="${res}">
+					<include name="splash.png"/>
+				</fileset>
+				
+				<manifest>
+					<attribute name="Main-Class" value="com.tan.Main" />
+					<attribute name="SplashScreen-Image" value="splash.png" />
+				</manifest>
+			</jar>
+
+			<delete dir="${build}" />
+		</target>
 </project>
