@@ -7,8 +7,6 @@ import java.util.Date;
 
 import org.junit.Test;
 
-import sun.font.TrueTypeFont;
-
 public class StringUtilTest {
 
 	@Test
