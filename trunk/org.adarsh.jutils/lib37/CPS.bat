@@ -27,3 +27,4 @@ COPY /y D:\Eclipses\eclipse-jee-indigo-win32\eclipse\plugins\org.eclipse.ui.work
 COPY /y D:\Eclipses\eclipse-jee-indigo-win32\eclipse\plugins\org.eclipse.ui.ide_3.7.0.I20110519-0100.jar
 COPY /y D:\Eclipses\eclipse-jee-indigo-win32\eclipse\plugins\org.eclipse.ui.workbench.texteditor_3.7.0.v20110505-0800.jar
 COPY /y D:\Eclipses\eclipse-jee-indigo-win32\eclipse\plugins\org.eclipse.ui.views_3.6.0.I20110412-0800.jar
+COPY /y D:\Eclipses\eclipse-jee-indigo-links-win32\eclipse\plugins\org.eclipse.core.filesystem_1.3.100.v20110423-0524.jar

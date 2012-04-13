@@ -4,15 +4,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.net.URI;
 
-import org.eclipse.core.resources.IFile;
+import org.eclipse.core.filesystem.EFS;
+import org.eclipse.core.filesystem.IFileStore;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
-import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.core.runtime.IPath;
-import org.eclipse.core.runtime.Path;
 import org.eclipse.jdt.core.Flags;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
@@ -60,33 +59,46 @@ public class ExportProjectAction implements IObjectActionDelegate {
 		shell = targetPart.getSite().getShell();
 	}
 
+	
+	public static IFileStore getFileStore(URI uri) {
+		try {
+			return EFS.getStore(uri);
+		} catch (CoreException e) {
+		}
+		return null;
+	}
+	 
 	/**
 	 * @see IActionDelegate#run(IAction)
 	 */
 	public void run(IAction action) {
-		// TreeSelection tree = (TreeSelection) seleciton;
 		IProject[] ps = ResourcesPlugin.getWorkspace().getRoot().getProjects();
-		
 		TreeSelection tree = (TreeSelection) seleciton;
-		
 		TreePath[] treePaths = tree.getPaths();
-		IWorkspace ws      = ResourcesPlugin.getWorkspace();   
-		IProject   project1 = ws.getRoot().getProject("*project_name*"); 
-		
 		if (null != ps) {
-			for (final IProject project : ps) {
-				String pn, path;
-				pn = project.getName();
-				
-				path = project.getFullPath().toOSString();
-				file = new File("c:\\eclipse_all_project.log");
-				appendToFile("项目名称: " + pn + StringUtil.LN);
-				appendToFile("\t项目路径: " + path + StringUtil.LN);
-				/*try {
-					printProjectInfo(project);
-				} catch (CoreException e) {
-					e.printStackTrace();
-				}*/
+			file = new File("c:\\eclipse_all_project.log");
+			appendToFile("");
+			String name, path = null;
+			for (final TreePath tp : treePaths) {
+				Object segment = tp.getFirstSegment();
+				if ( segment instanceof IProject ) {
+					IProject project = ( IProject ) segment;
+					name = project.getName();
+					URI location = project.getLocationURI();
+					IFileStore store = getFileStore(location);
+					if (store != null) {
+						path =  store.toString();
+					}
+					
+/*					appendToFile("项目名称: " + name + StringUtil.LN);
+					appendToFile("\t项目路径: " + path + StringUtil.LN);
+*/					appendToFile(path + StringUtil.LN);
+					/*try {
+						printProjectInfo(project);
+					} catch (CoreException e) {
+						e.printStackTrace();
+					}*/
+				}
 			}
 			if (null != raf) {
 				try {
