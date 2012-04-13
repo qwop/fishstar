@@ -235,21 +235,21 @@ public final class StringUtil {
 	}
 
 	public static void main(String[] args) throws Exception {
-		// System.out.println(getComment("none",
-		// "//common comment 3. public static void main", false));
-		// System.out.println(getComment("none",
-		// "//java comment 4. \r\n private float height;", false));
-		// System.out.println(getComment("none",
-		// "//java comment 5. \n private float height;", false));
-		// System.out.println(getComment("none",
-		// " \n private float height; //java comment 6.;", false));
-		// System.out.println(getComment("none",
-		// "// some thing. \n private Field field; // fdsafdsafdsao 7.;",
-		// false));
-		// System.out.println(getComment("none",
-		// " \r\n \n private float height; //java comment 8.;", false));
-		// System.out.println(getComment("none", " ", true));
-		//
+		 System.out.println(getComment("none",
+		 "//common comment 3. public static void main", false));
+		 System.out.println(getComment("none",
+		 "//java field comment 4. \r\n private float height;", false));
+		 System.out.println(getComment("none",
+		 "//java field comment 5. \n private float height;", false));
+		 System.out.println(getComment("none",
+		 " \n private float height; //java field comment 6.;", false));
+		 System.out.println(getComment("none",
+		 "// prefix comment. \n private Field field; // suffix comment 7.;",
+		 false));
+		 System.out.println(getComment("none",
+		 " \r\n \n private float height; //java comment 8.;", false));
+		 System.out.println(getComment("none", " ", true));
+		
 		//
 		// System.out.println(replace("fdsajfdlsajf/fdsafdsafds/replaceMent/3232",
 		// "replaceMent/", ""));
@@ -290,8 +290,8 @@ public final class StringUtil {
 		 * } else { System.out.println( c + "\t" + f.getName() ); } }
 		 */
 
-		System.out.println(getDummyField("QPerson;"));
-		System.out.println(getDummyField("QSet<QString;>;"));
+	//	System.out.println(getDummyField("QPerson;"));
+	//	System.out.println(getDummyField("QSet<QString;>;"));
 	}
 
 	/**

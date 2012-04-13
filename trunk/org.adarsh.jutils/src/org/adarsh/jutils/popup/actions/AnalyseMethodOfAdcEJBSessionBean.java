@@ -5,19 +5,25 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
+import org.eclipse.core.filebuffers.FileBuffers;
+import org.eclipse.core.filebuffers.ITextFileBufferManager;
+import org.eclipse.core.filebuffers.LocationKind;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jdt.core.Flags;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IMethod;
 import org.eclipse.jdt.core.IPackageFragment;
 import org.eclipse.jdt.core.IPackageFragmentRoot;
+import org.eclipse.jdt.core.ISourceRange;
 import org.eclipse.jdt.core.IType;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.text.BadLocationException;
+import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.TreeSelection;
 import org.eclipse.swt.widgets.Shell;
@@ -27,7 +33,7 @@ import org.eclipse.ui.IWorkbenchPart;
 
 import com.tan.util.StringUtil;
 
-public class AnalyseMethodByProject implements IObjectActionDelegate {
+public class AnalyseMethodOfAdcEJBSessionBean implements IObjectActionDelegate {
 
 	private Shell shell;
 	
@@ -42,7 +48,7 @@ public class AnalyseMethodByProject implements IObjectActionDelegate {
 	/**
 	 * Constructor for Action1.
 	 */
-	public AnalyseMethodByProject() {
+	public AnalyseMethodOfAdcEJBSessionBean() {
 		super();
 	}
 
@@ -112,12 +118,14 @@ public class AnalyseMethodByProject implements IObjectActionDelegate {
 			// K_BINARY would include also included JARS, e.g.
 			// rt.jar
 			if (mypackage.getKind() == IPackageFragmentRoot.K_SOURCE) {
-				appendToFile("包名:  " + mypackage.getElementName() + StringUtil.LN);
+				// appendToFile("包名:  " + mypackage.getElementName() + StringUtil.LN);
 				printICompilationUnitInfo(mypackage);
 			}
 
 		}
 	}
+	
+	IPath path ;
 	private void printICompilationUnitInfo(IPackageFragment mypackage)
 			throws JavaModelException {
 		
@@ -126,7 +134,9 @@ public class AnalyseMethodByProject implements IObjectActionDelegate {
 			// System.out.println("Has number of lines: " + doc.getNumberOfLines());
 			// Document doc = new Document(unit.getSource());
 			// adc_ejb 的以Bean结尾的java文件
+			
 			if ( unit.getElementName().toLowerCase().endsWith("bean.java") ) {
+				path = unit.getPath();
 				printIMethods(unit);
 			}
 		}
@@ -135,14 +145,14 @@ public class AnalyseMethodByProject implements IObjectActionDelegate {
 	private void printIMethods(ICompilationUnit unit) throws JavaModelException {
 		IType[] allTypes = unit.getAllTypes();
 		
-		appendToFile( "源文件: " + unit.getPath().toOSString() + "\t" + unit.getElementName()  + StringUtil.LN);
+		appendToFile( "源文件: " + "\t" + unit.getElementName()  + "\t" + unit.getPath().toOSString() + StringUtil.LN);
 		for (IType type : allTypes) {
 			IMethod[] methods = type.getMethods();
 			for (IMethod method : methods) {
 				
-				if ( Flags.isPublic(  method.getFlags() ) ){ 
+			//	if ( Flags.isPublic(  method.getFlags() ) ){ 
 					printMethodInfo(method, unit);
-				}
+			//	}
 			}
 		}
 	}
@@ -154,10 +164,12 @@ public class AnalyseMethodByProject implements IObjectActionDelegate {
 	private void printMethodInfo(IMethod method, ICompilationUnit unit ) throws JavaModelException {
 		final String source =   method.getSource() ;
 		if ( isRight( source ) ) {
+			
+			/***************** Handler 处理 ******************/
 			String defined = "BeanDataHandler";
 			int idx1 = source.indexOf( defined );
-			
-			if ( idx1 >= 0 ) {
+			// 一. 判断 release
+			if ( idx1 >= 0 ) { 
 				// 1. had the 'BeanDataHandler' Defined
 				String judgeRealse = ".release()";
 				StringBuffer buf = new StringBuffer();
@@ -169,7 +181,7 @@ public class AnalyseMethodByProject implements IObjectActionDelegate {
 					// 是否被注释掉 ？
 					if ( !StringUtil.isRightReleaseCode( source ) ) {
 						StringUtil.appendln( buf, 
-								"\t方法名: " + method.getElementName() +  "\t ********release comment********!"
+								"\t方法名: " + descMethod( method ) +  "\t ********release 被注释********!"
 						);
 					} else {
 						/*appendln( buf, 
@@ -181,8 +193,9 @@ public class AnalyseMethodByProject implements IObjectActionDelegate {
 				} else {
 //					System.out.println("Signature " + method.getSignature());
 //					System.out.println("Return Type " + method.getReturnType());
+					
 					StringUtil.appendln( buf, 
-							"\t方法名: " + method.getElementName() +  "\t ********no release********!"
+							"\t方法名: " + descMethod( method )+  "\t ********release 未释放********!"
 					);
 				}
 				
@@ -195,14 +208,15 @@ public class AnalyseMethodByProject implements IObjectActionDelegate {
 
 					if ( idx3 > 0 && idx4 < 0 ) {
 						StringUtil.appendln( buf, 
-								"\t方法名: " + method.getElementName() +  "\t ********warning had try but not had finally ********!"
+								"\t方法名: " + descMethod( method ) +  "\t ********try no finally 警告********!"
 								);
 					} if ( idx4 < 0 ) {
 						StringUtil.appendln( buf, 
-								"\t方法名: " + method.getElementName() +  "\t ********warning not had finally ********!"
+								"\t方法名: " + descMethod( method ) +  "\t ********no finally 警告********!"
 								);
 					}
 				}
+				/***************** Handler 处理 ******************/
 				
 				appendToFile( buf );
 			}
@@ -210,14 +224,57 @@ public class AnalyseMethodByProject implements IObjectActionDelegate {
 		
 	}
 	
+	
+	/**
+	 * get the description of the method.
+	 * @param method
+	 * @return
+	 */
+	private String descMethod(IMethod method) {
+		ISourceRange range = null;
+		String comment = null;
+		try {
+			final ITextFileBufferManager fileBufferManager = FileBuffers
+					.getTextFileBufferManager();
+			fileBufferManager.connect(path, LocationKind.NORMALIZE, null);
+			IDocument document = fileBufferManager.getTextFileBuffer(path,
+					LocationKind.NORMALIZE).getDocument();
+			range = method.getJavadocRange();
+			if (range != null) {
+				comment = StringUtil.getComment(method.getElementName(),
+						document.get(range.getOffset(), range.getLength()),
+						true);
+			} else {
+				range = method.getSourceRange();
+				if (null != range) {
+					comment = StringUtil.getComment(method.getElementName(),
+							document.get(range.getOffset(), range.getLength()),
+							false);
+				}
+			}
+		} catch (JavaModelException e) {
+			e.printStackTrace();
+		} catch (BadLocationException e) {
+			e.printStackTrace();
+		} catch (CoreException e) {
+			e.printStackTrace();
+		}
+		if ( null != comment ) {
+			return method.getElementName() + "\t" + comment;
+ 		}
+		return method.getElementName() ;
+	}
 
 	
-	
+	/**
+	 * 追加内容到文件中
+	 * @param buf
+	 */
 	private void appendToFile( CharSequence buf ) {
 		if ( buf.length() == 0 ) {
 			return;
 		}
-		if ( raf == null ) {
+		if ( raf == null ) {// the first time for initial the raf
 			try {
 				raf = new RandomAccessFile( file, "rw" );
 			} catch (FileNotFoundException e) {
