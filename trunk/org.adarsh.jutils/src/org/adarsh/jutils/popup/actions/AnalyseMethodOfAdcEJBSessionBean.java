@@ -89,7 +89,7 @@ public class AnalyseMethodOfAdcEJBSessionBean implements IObjectActionDelegate {
 			}
 			
 			
-			if ( null != file && file.exists() && file.isFile() ) {
+			if ( null != file && file.exists() && file.isFile() && file.length() > 0 ) {
 				MessageDialog.openInformation(
 						shell,
 						"TanUtil提示",
@@ -260,7 +260,7 @@ public class AnalyseMethodOfAdcEJBSessionBean implements IObjectActionDelegate {
 			e.printStackTrace();
 		}
 		if ( null != comment ) {
-			return method.getElementName() + "\t" + comment;
+			return method.getElementName() + "\t" + StringUtil.filterJavaDoc( comment );
  		}
 		return method.getElementName() ;
 	}
@@ -289,7 +289,6 @@ public class AnalyseMethodOfAdcEJBSessionBean implements IObjectActionDelegate {
 			} 
 		}
 	}
-
 	/**
 	 * @see IActionDelegate#selectionChanged(IAction, ISelection)
 	 */
