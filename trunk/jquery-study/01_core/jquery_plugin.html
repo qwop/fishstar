@@ -13,9 +13,14 @@
 	// 为 jquery 元素集添加方法
 	$.fn.extend({
 		check: function() {
+
 			return this.each( function() {
 				this.checked = true;
-			} );
+			} ); 
+			
+			
+				
+		
 		},
 		uncheck: function() {
 			return this.each( function() {
@@ -46,7 +51,11 @@
 		$( "#id4" ).click(function(){
 			alert( jQuery.max( 1, 3 ) );
 		});
+		
 
+		$( "a[href*='clear.do']" ).click(function() {
+				return confirm("是否结清？");
+		});
 	}) ;
 
 	//-->
@@ -81,7 +90,13 @@
 <input type="button" id="id3" value="min" />
 <input type="button" id="id4" value="max" />
 
-	
+	<a href="clear.do?payed=false">gi</a>
+	<a href="clear.do?payed=false">gi</a>
+	<a href="clear.do?payed=false">gi</a>
+	<a href="clear.do?payed=false">gi</a>
+
+
+
 	</form>
 	<fieldset>
 		<legend>获取的元素</legend>

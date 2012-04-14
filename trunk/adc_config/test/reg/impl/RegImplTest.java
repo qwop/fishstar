@@ -38,5 +38,9 @@ public class RegImplTest {
 		assertEquals( "Test", adcReg.get( "test" ) );
 		
 		assertEquals( "lnyd_adc2", adcReg.get( "reportDbPass" ) );
+
+
+
+		
 	}
 }
