@@ -522,4 +522,19 @@ public final class StringUtil {
 		return false;
 	}
 
+	public static String filterJavaDoc( String comment ) {
+		if ( !isEmpty( comment ) ) {
+			String replaced = null;
+			try {
+				replaced = comment.replaceAll( "@([a-zA-Z]+)([a-zA-Z\\s])+", "" );
+			} catch ( Throwable e ) {
+			}
+			if ( null != replaced ) {
+				return replaced.trim() ;
+			}
+			return comment;
+		}
+		return null;
+	}
+
 }
