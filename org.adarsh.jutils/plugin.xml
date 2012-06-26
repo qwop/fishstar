@@ -152,9 +152,10 @@
          <action
                class="org.adarsh.jutils.popup.actions.AnalyseMethodOfAdcEJBSessionBean"
                id="org.adarsh.jutils.newAction"
-               label="分析【ADC】项目的所有类方法"
+               label="分析【ADC】项目的 SessionBean 类方法"
                menubarPath="org.adarsh.jutils.menu1/group1">
          </action>
+         
          
         <action
                class="org.adarsh.jutils.popup.actions.ExportProjectAction"
