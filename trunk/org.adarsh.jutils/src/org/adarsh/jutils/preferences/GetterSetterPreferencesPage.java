@@ -54,7 +54,9 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 	
 	private String editorPath;
 	
-	private String style = "1"; // 1,2,3
+	private String getterSetterStyle = PreferenceConstants.STR_STYLE1; // 1,2,3
+	
+	private String  visitedControlStyle = PreferenceConstants.STR_VISITED_CONTROL_PUBLIC_TYPE2;
 	/**
 	 * The preference store associated with this plugin.
 	 */
@@ -100,7 +102,11 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 				editorPath);
 		
 		this.prefStore.setValue(PreferenceConstants.GETTER_SETTER_STYLE,
-				 style );
+				 getterSetterStyle );
+		
+		this.prefStore.setValue( PreferenceConstants.VISITED_CONTROL_STYLE ,
+				visitedControlStyle );
+		
 	}
 
 	/**
@@ -132,7 +138,7 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 		parent.setLayoutData(data);
 		FileFieldEditor editorPathEditor = new FileFieldEditor(PreferenceConstants.EDITOR_PATH, 
 				"&编辑器:", getFieldEditorParent());
-		
+		// style
 		RadioGroupFieldEditor rgfe = new RadioGroupFieldEditor(
 				PreferenceConstants.GETTER_SETTER_STYLE,
 				PreferenceConstants.GETTER_SETTER_STYLE_LABEL,
@@ -147,6 +153,23 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 				true);
 
 		addField(rgfe);
+		
+		// adc analyse method style
+		RadioGroupFieldEditor rgfe1 = new RadioGroupFieldEditor(
+				PreferenceConstants.VISITED_CONTROL_STYLE,
+				"访问控制类型", //PreferenceConstants.GETTER_SETTER_STYLE_LABEL,
+				5,
+				new String[][] {
+						{ PreferenceConstants.VISITED_CONTROL_PUBLIC_TYPE2, PreferenceConstants.STR_VISITED_CONTROL_PUBLIC_TYPE2 },
+						{ PreferenceConstants.VISITED_CONTROL_PRIVATE_TYPE3, PreferenceConstants.STR_VISITED_CONTROL_PRIVATE_TYPE3 },
+						{ PreferenceConstants.VISITED_CONTROL_PROTECTED_TYPE4, PreferenceConstants.STR_VISITED_CONTROL_PROTECTED_TYPE4 } ,
+						{ PreferenceConstants.VISITED_CONTROL_DEFAULT_TYPE1, PreferenceConstants.STR_VISITED_CONTROL_DEFAULT_TYPE1 },
+						{ PreferenceConstants.VISITED_CONTROL_ALL_TYPE5, PreferenceConstants.STR_VISITED_CONTROL_ALL_TYPE5 } ,
+						}, 
+						parent,
+				true);
+
+		addField(rgfe1);
 		
 		if ( null != editorPath && editorPath.trim().length() > 0  ) {
 			editorPathEditor.setStringValue( StringUtil.trimQuot( editorPath ) );
@@ -169,12 +192,15 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 		
 		if ( isChanged ) {
 			if ( PreferenceConstants.STR_STYLE1.equals(event.getNewValue()) ) {
-				style = PreferenceConstants.STR_STYLE1;
+				getterSetterStyle = PreferenceConstants.STR_STYLE1;
 			} else if ( PreferenceConstants.STR_STYLE2.equals(event.getNewValue()) ) {
-				style = PreferenceConstants.STR_STYLE2;
+				getterSetterStyle = PreferenceConstants.STR_STYLE2;
 			} else if ( PreferenceConstants.STR_STYLE3.equals(event.getNewValue()) ) {
-				style = PreferenceConstants.STR_STYLE3;
+				getterSetterStyle = PreferenceConstants.STR_STYLE3;
 			}
+			
+			
+			visitedControlStyle = String.valueOf( event.getNewValue() );
 		}
 		
 	}

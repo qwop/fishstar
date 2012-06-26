@@ -5,12 +5,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
+import org.adarsh.jutils.JUtilsPlugin;
+import org.adarsh.jutils.preferences.PreferenceConstants;
 import org.eclipse.core.filebuffers.FileBuffers;
 import org.eclipse.core.filebuffers.ITextFileBufferManager;
 import org.eclipse.core.filebuffers.LocationKind;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.jdt.core.Flags;
 import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.IJavaProject;
 import org.eclipse.jdt.core.IMethod;
@@ -22,6 +25,7 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jface.action.IAction;
 import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.text.BadLocationException;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.viewers.ISelection;
@@ -34,7 +38,13 @@ import org.eclipse.ui.IWorkbenchPart;
 import com.tan.util.StringUtil;
 
 public class AnalyseMethodOfAdcEJBSessionBean implements IObjectActionDelegate {
-
+	/**
+	 * The preference store associated with the plugin.
+	 */
+	private static final IPreferenceStore PREF_STORE = JUtilsPlugin
+			.getDefault().getPreferenceStore();
+	
+	
 	private Shell shell;
 	
 	/**
@@ -45,6 +55,12 @@ public class AnalyseMethodOfAdcEJBSessionBean implements IObjectActionDelegate {
 	private File file;
 	
 	private RandomAccessFile raf;
+	
+	IPath path ;
+
+
+	private String	visitedControlStyle;
+	
 	/**
 	 * Constructor for Action1.
 	 */
@@ -67,11 +83,13 @@ public class AnalyseMethodOfAdcEJBSessionBean implements IObjectActionDelegate {
 		
 		IProject project = (IProject) tree.getFirstElement();
 		
+		visitedControlStyle = PREF_STORE.getString(PreferenceConstants.VISITED_CONTROL_STYLE);
+		
 		if ( null != project ) {
 			String pn;
 			try {
 					pn = project.getName();
-					file = new File("c:\\output_" + pn + ".log");
+					file = new File("c:\\output_" + pn + "_" + style() +".log");
 					appendToFile("项目名称: " + pn + StringUtil.LN);
 					try {
 						printProjectInfo(project);
@@ -125,7 +143,7 @@ public class AnalyseMethodOfAdcEJBSessionBean implements IObjectActionDelegate {
 		}
 	}
 	
-	IPath path ;
+
 	private void printICompilationUnitInfo(IPackageFragment mypackage)
 			throws JavaModelException {
 		
@@ -150,11 +168,49 @@ public class AnalyseMethodOfAdcEJBSessionBean implements IObjectActionDelegate {
 			IMethod[] methods = type.getMethods();
 			for (IMethod method : methods) {
 				
-			//	if ( Flags.isPublic(  method.getFlags() ) ){ 
+				if ( rightFlag( method ) ){ 
 					printMethodInfo(method, unit);
-			//	}
+				}
 			}
 		}
+	}
+
+	private boolean rightFlag( IMethod method ) throws JavaModelException {
+		if ( PreferenceConstants.STR_VISITED_CONTROL_PUBLIC_TYPE2.equals( visitedControlStyle )  ) {
+			return Flags.isPublic( method.getFlags() ) ;
+		}
+		else if ( PreferenceConstants.STR_VISITED_CONTROL_PRIVATE_TYPE3.equals( visitedControlStyle )  ) {
+			return Flags.isPrivate( method.getFlags() ) ;
+		}
+		else if ( PreferenceConstants.STR_VISITED_CONTROL_PROTECTED_TYPE4.equals( visitedControlStyle )  ) {
+			return Flags.isProtected( method.getFlags() ) ;
+		}
+		else if ( PreferenceConstants.STR_VISITED_CONTROL_ALL_TYPE5.equals( visitedControlStyle )  ) {
+			return true ;
+		} 
+		else // if ( PreferenceConstants.STR_VISITED_CONTROL_DEFAULT_TYPE1.equals( visitedControlStyle )  ) {
+			return 	
+					!Flags.isPublic( method.getFlags() ) &&
+					!Flags.isPrivate( method.getFlags() ) &&
+					!Flags.isProtected( method.getFlags() )
+					;
+	}
+	
+	private Object style()  {
+		if ( PreferenceConstants.STR_VISITED_CONTROL_PUBLIC_TYPE2.equals( visitedControlStyle )  ) {
+			return "public";
+		}
+		else if ( PreferenceConstants.STR_VISITED_CONTROL_PRIVATE_TYPE3.equals( visitedControlStyle )  ) {
+			return "private";
+		}
+		else if ( PreferenceConstants.STR_VISITED_CONTROL_PROTECTED_TYPE4.equals( visitedControlStyle )  ) {
+			return "protected";
+		}
+		else if ( PreferenceConstants.STR_VISITED_CONTROL_ALL_TYPE5.equals( visitedControlStyle )  ) {
+			return "all";
+		} 
+		else // if ( PreferenceConstants.STR_VISITED_CONTROL_DEFAULT_TYPE1.equals( visitedControlStyle )  ) {
+			return "default";
 	}
 	
 	private boolean isRight(String source) {
