@@ -14,9 +14,23 @@
   </style>
  </head>
 
- <body>
+ <body>
+ 
+ <div style="background-color:lightyellow; color: red;" name="id1">
+	dummy
+ </div>
+ 
+
+
+ <input type="button" value="change" />
 <script type="text/javascript">
   <!--
+	$( function(){
+		$( "input" ).click(function(){
+			$( "div id1" ).html( "fuck you" );
+		});
+	} );
+
 
 	var pn = function( ) {
 		var args = arguments, len = args.length,r;
