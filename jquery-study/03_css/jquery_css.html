@@ -1,0 +1,80 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+	<title> JQuery核心函数 ( css ) </title>
+	<meta name="Generator" content="dolphin">
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<script type="text/javascript" src="../jquery/jquery-1.6.4.js"></script>
+	<link rel="stylesheet" href="../css/css.css" type="text/css" media="screen" />
+	<script type="text/javascript">
+	<!--
+	$( document ).ready(function() {
+		var p = $( "p[class='point']" );
+
+		$( "ol" ).first().append( "<li>" + p.text() + "</li>" );
+		$( "ol" ).first().append( "<li>" + p.css( "color" ) + "</li>" );
+		$( "ol" ).first().append( "<li>" + p.css( "background-color" ) + "</li>" );
+		$( "ol" ).first().append( "<li>" + p.css( "width" ) + "</li>" );
+		$( "ol" ).first().append( "<li>" + p.css( "height" ) + "</li>" );
+
+		var pos = p.position();
+
+		$( "ol" ).first().append( "<li>position left: " + pos.left+ "</li>" );
+		$( "ol" ).first().append( "<li>position top: " + pos.top+ "</li>" );
+
+		var p = $("p:first");
+		$("p:last").text( "scrollTop:" + p.scrollTop() );
+
+
+		var test = $( "p" ).filter( function( i, n ) { return $( n ).html() == 'two' ; } );
+
+
+		alert( test.text()  );
+	});
+
+
+	
+	//-->
+	</script>
+ </head>
+
+ <body>
+	<h1>Jquery css</h1>
+	jQuery( expr, [context] );
+
+	<p>one</p> <div><p class="point" >two</p></div> <p>three</p>
+
+	<p>Hello</p><p>2nd Paragraph</p>
+	<form method="post" action="">
+		Name: <input type="text" name="name" value="张三">
+		Fav: 
+		<select name="fav">
+			<option value="1" selected>游泳</option>
+			<option value="2">篮球</option>
+		</select>
+
+
+		Flower:
+		<input type="checkbox" name="rose" checked/>
+		<input type="checkbox" name="jasmine"/>
+		
+		Sex: 
+		<label>male</label><input type="radio" name="sex" value="male" checked/>
+		<label>famel</labeL><input type="radio" name="sex" value="fmale"/>
+	</form>
+	<fieldset>
+		<legend>获取的元素</legend>
+		<ol>
+		</ol>
+	</fieldset>
+
+
+	<fieldset>
+		<legend>代码</legend>
+		<ol>
+		</ol>
+	</fieldset>
+ </body>
+</html>

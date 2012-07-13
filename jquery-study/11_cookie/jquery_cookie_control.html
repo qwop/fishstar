@@ -1,0 +1,133 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+	<title> JQuery核心函数 - Cookie操作 </title>
+	<meta name="Generator" content="dolphin">
+	<meta name="Author" content="">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<script type="text/javascript" src="../jquery/jquery-1.6.4.js"></script>
+	<link rel="stylesheet" href="../css/css.css" type="text/css" media="screen" />
+	<script type="text/javascript">
+	<!--
+	jQuery.cookie = function(name, value, options) {
+		if (typeof value != 'undefined') { // name and value given, set cookie
+			options = options || {};
+			if (value === null) {
+				value = '';
+				options.expires = -1;
+			}
+			var expires = '';
+			if (options.expires && (typeof options.expires == 'number' || options.expires.toUTCString)) {
+				var date;
+				if (typeof options.expires == 'number') {
+					date = new Date();
+					date.setTime(date.getTime() + (options.expires * 24 * 60 * 60 * 1000));
+				} else {
+					date = options.expires;
+				}
+				expires = '; expires=' + date.toUTCString(); // use expires attribute, max-age is not supported by IE
+			}
+			var path = options.path ? '; path=' + options.path : '';
+			var domain = options.domain ? '; domain=' + options.domain : '';
+			var secure = options.secure ? '; secure' : '';
+			document.cookie = [name, '=', encodeURIComponent(value), expires, path, domain, secure].join('');
+		} else { // only name given, get cookie
+			var cookieValue = null;
+			if (document.cookie && document.cookie != '') {
+				var cookies = document.cookie.split(';');
+				for (var i = 0; i < cookies.length; i++) {
+					var cookie = jQuery.trim(cookies[i]);
+					// Does this cookie string begin with the name we want?
+					if (cookie.substring(0, name.length + 1) == (name + '=')) {
+						cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+						break;
+					}
+				}
+			}
+			return cookieValue;
+		}
+	};
+
+	$( document.forms[0] ).ready(function() /*callback*/{
+		// 1. get the cookie's pre_page_num
+		var pre_page_num = $.cookie( 'pre_page_num' );
+		
+	//	alert( pre_page_num );
+
+		if ( pre_page_num ) {
+			// there is the pre_page_num in the cookie
+		//	alert( 'The pre page num in the cookie!' );
+			$( "select" ).val( pre_page_num );
+		}
+
+			$( "select" ).change( function() {
+			// set the cookie
+			$.cookie( 'pre_page_num' , $( this ).val(), { expires: 7 } );
+			// $( 'per_page_num', this.getVal() );
+
+
+			//alert( 'set the pre_page_num in the cookie: '  + $.cookie( 'pre_page_num' ) );
+
+
+		} );
+
+		var cp = currentPage();
+		alert( cp );
+	}) ;
+
+function currentPage(){
+	var cps = $( "div.current" ),
+		size = cps.size();
+		if ( cps  && size > 0 ){
+		var cp = $.grep( cps, function( n , i  ) {
+			var clz = $( n ).attr( 'class' );
+			var text = $( n ).text();
+
+			return clz == 'current' && /\d+/.test( text );
+		});
+
+		if ( cp ){
+			return $( cp ).text();
+		}
+	}
+}
+	
+	//-->
+	</script>
+ </head>
+
+ <body>
+	<h1>Jquery visited objects from the cookie, and control the cookie</h1>
+
+<div class="current pre" id="pre1" >pre</div><div class="current">2</div><div class="current next">next</div>
+
+
+	<hr color="red"/>
+	<hr color="blue"/>
+
+	<form method="post" action="">
+		<select name="pre_page_num">
+			<option value="1" selected>1
+			<option value="5">5
+			<option value="15">15
+			<option value="25">25
+			<option value="35">35
+			<option value="50">50
+		</select>
+	</form>
+
+	<fieldset>
+		<legend>获取的元素</legend>
+		<ol>
+		</ol>
+	</fieldset>
+
+
+	<fieldset>
+		<legend>代码</legend>
+		<ol>
+		</ol>
+	</fieldset>
+ </body>
+</html>
