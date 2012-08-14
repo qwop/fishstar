@@ -54,6 +54,8 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 	
 	private String editorPath;
 	
+	private String explorer;
+	
 	private String getterSetterStyle = PreferenceConstants.STR_STYLE1; // 1,2,3
 	
 	private String  visitedControlStyle = PreferenceConstants.STR_VISITED_CONTROL_PUBLIC_TYPE2;
@@ -73,59 +75,13 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 	 */
 	public void init(IWorkbench workbench) {
 		this.editorPath = Editor.getEditplusPath();
+		this.explorer = "";
 		
 		super.setPreferenceStore(this.prefStore);
-
 		super.setDescription(PreferenceConstants.GETTER_SETTER_DESCRIPTION);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean performOk() {
-		this.performApply();
-
-		return super.performOk();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected void performApply() {
-//		this.prefStore.setValue(PreferenceConstants.COPYCON_JAVADOC_STORE_KEY,
-//				this.javaDocDocument.get());
-//
-//		this.prefStore.setValue(PreferenceConstants.COPYCON_BODY_STORE_KEY,
-//				this.bodyDocument.get());
-		
-		this.prefStore.setValue(PreferenceConstants.EDITOR_PATH,
-				editorPath);
-		
-		this.prefStore.setValue(PreferenceConstants.GETTER_SETTER_STYLE,
-				 getterSetterStyle );
-		
-		this.prefStore.setValue( PreferenceConstants.VISITED_CONTROL_STYLE ,
-				visitedControlStyle );
-		
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected void performDefaults() {
-//		String javadoc = Util.getDefaultCopyConJavaDoc();
-//		String body = Util.getDefaultCopyConImplementation();
-//
-//		this.javaDocDocument.set(javadoc);
-//		this.bodyDocument.set(body);
-//
-//		this.prefStore.setValue(PreferenceConstants.COPYCON_JAVADOC_STORE_KEY,
-//				javadoc);
-//
-//		this.prefStore.setValue(PreferenceConstants.COPYCON_BODY_STORE_KEY,
-//				body);
-	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -136,8 +92,7 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 
 		parent.setLayout(new GridLayout(3, true));
 		parent.setLayoutData(data);
-		FileFieldEditor editorPathEditor = new FileFieldEditor(PreferenceConstants.EDITOR_PATH, 
-				"&编辑器:", getFieldEditorParent());
+
 		// style
 		RadioGroupFieldEditor rgfe = new RadioGroupFieldEditor(
 				PreferenceConstants.GETTER_SETTER_STYLE,
@@ -171,11 +126,21 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 
 		addField(rgfe1);
 		
-		if ( null != editorPath && editorPath.trim().length() > 0  ) {
+		// 编辑器
+		FileFieldEditor editorPathEditor = new FileFieldEditor(PreferenceConstants.EDITOR_PATH, 
+				"&编辑器:", getFieldEditorParent());
+		if (! StringUtil.isEmpty( editorPath ) ) {
 			editorPathEditor.setStringValue( StringUtil.trimQuot( editorPath ) );
 		}
-		
 		addField(editorPathEditor);
+		
+		// 资源管理器
+		FileFieldEditor explorerEditor = new FileFieldEditor(PreferenceConstants.EXPLORER_PATH, 
+				"&Explorer:", getFieldEditorParent());
+		if (! StringUtil.isEmpty( explorer ) ) {
+			explorerEditor.setStringValue( StringUtil.trimQuot( explorer ) );
+		}
+		addField(explorerEditor);
 	}
 	
 	
@@ -204,4 +169,47 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 		}
 		
 	}
+	
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public boolean performOk() {
+		this.performApply();
+
+		return super.performOk();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected void performApply() {
+		this.prefStore.setValue(PreferenceConstants.EXPLORER_PATH,
+				explorer);
+		
+		this.prefStore.setValue(PreferenceConstants.EDITOR_PATH,
+				editorPath);
+		
+		this.prefStore.setValue(PreferenceConstants.GETTER_SETTER_STYLE,
+				 getterSetterStyle );
+		
+		this.prefStore.setValue( PreferenceConstants.VISITED_CONTROL_STYLE ,
+				visitedControlStyle );
+		
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected void performDefaults() {
+		this.prefStore.setValue( PreferenceConstants.EXPLORER_PATH, "" );
+		
+		this.prefStore.setValue( PreferenceConstants.EDITOR_PATH, "" );
+		
+		this.prefStore.setValue( PreferenceConstants.GETTER_SETTER_STYLE, PreferenceConstants.STR_STYLE1 );
+		
+		this.prefStore.setValue( PreferenceConstants.VISITED_CONTROL_STYLE , PreferenceConstants.VISITED_CONTROL_ALL_TYPE5 );
+		
+	}
+
 }
