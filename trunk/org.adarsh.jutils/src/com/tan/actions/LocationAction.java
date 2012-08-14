@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Locale;
 
+import org.adarsh.jutils.internal.SourceManipulator;
+import org.adarsh.jutils.preferences.PreferenceConstants;
 import org.eclipse.core.internal.resources.ResourceInfo;
 import org.eclipse.core.internal.resources.Workspace;
 import org.eclipse.core.resources.IFile;
@@ -40,7 +42,7 @@ public class LocationAction implements IWorkbenchWindowActionDelegate {
 	private String systemBrowser = "explorer";
 	private String line;
 	private boolean isWindows;
-	private boolean isLogger = false; // Debug.
+	private boolean isLogger = true; // Debug.
 	
 	public LocationAction() {
 		String os = System.getProperty("osgi.os");
@@ -121,8 +123,21 @@ public class LocationAction implements IWorkbenchWindowActionDelegate {
 	private void command(String location) {
 		StringBuffer command = new StringBuffer();
 		Runtime runtime = Runtime.getRuntime();
+		String explorerPath =  SourceManipulator.PREF_STORE.getString(PreferenceConstants.EXPLORER_PATH);
 		try {
-			if (isWindows && isFile(location)) {
+			if ( !StringUtil.isEmpty( explorerPath ) && new File( explorerPath ).exists() ) {
+				final File file = new File( location );
+				if ( file.isFile() ) {
+					location = file.getParentFile().getAbsolutePath();
+				}
+				command
+				.append("\"")
+				.append(explorerPath)
+				.append("\" \"")
+				.append(location)
+				.append("\"");
+			}
+			else if ( isWindows && isFile(location)) {
 				command.append(systemBrowser)
 				.append(" /select, \"")
 				.append(location)

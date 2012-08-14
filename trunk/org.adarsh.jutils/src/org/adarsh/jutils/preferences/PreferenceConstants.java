@@ -316,6 +316,8 @@ public class PreferenceConstants {
 
 	public static final String	VISITED_CONTROL_STYLE	= "visited_control_style";
 
+	public static final String EXPLORER_PATH = "explorer.path";
+
 
 
 }
