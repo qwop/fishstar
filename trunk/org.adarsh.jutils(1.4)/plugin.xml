@@ -49,6 +49,7 @@
       <import plugin="org.eclipse.ui"/>
       <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.ui.workbench.texteditor"/>
+      <import plugin="org.eclipse.core.filesystem" version="1.3.100"/>
    </requires>
    
    <extension
@@ -57,7 +58,7 @@
             id="viewerContribution"
             targetID="#CompilationUnitEditorContext">
          <action
-               label="%action.label"
+               label="%toString.label"
                class="org.adarsh.jutils.actions.ToStringGeneratorVAD"
                icon="icons/tostring.gif"
                menubarPath="generate.viewer/string"
@@ -65,7 +66,7 @@
          
          
          <action
-               label="%action.label.0"
+               label="%dummy.setter.label"
                class="org.adarsh.jutils.actions.DummySetterGeneratorVAD"
                icon="icons/tostring.gif"
                menubarPath="generate.viewer/string"
@@ -73,13 +74,11 @@
                
                         
          <action
-               label="%action.label.1"
+               label="%dummy.getter.label"
                class="org.adarsh.jutils.actions.DummyGetterGeneratorVAD"
                icon="icons/tostring.gif"
                menubarPath="generate.viewer/string"
                id="dummyGetter.viewerContribution.action"/>
-               
-
                
          <!--
          <action
@@ -139,6 +138,32 @@
             <groupMarker name="constructor"/>
          </menu>
       </objectContribution>
+      <objectContribution
+            id="org.adarsh.jutils.contribution1"
+            objectClass="org.eclipse.core.resources.IResource">
+         <menu
+               id="org.adarsh.jutils.menu1"
+               label="TanUtils"
+               path="additions">
+            <separator
+                  name="group1">
+            </separator>
+         </menu>
+         <action
+               class="org.adarsh.jutils.popup.actions.AnalyseMethodOfAdcEJBSessionBean"
+               id="org.adarsh.jutils.newAction"
+               label="分析【ADC】项目的 SessionBean 类方法"
+               menubarPath="org.adarsh.jutils.menu1/group1">
+         </action>
+         
+         
+        <action
+               class="org.adarsh.jutils.popup.actions.ExportProjectAction"
+               id="org.adarsh.jutils.export.project.action"
+               label="导出所有项目信息"
+               menubarPath="org.adarsh.jutils.menu1/group1">
+         </action>
+      </objectContribution>
    </extension>
    
    <extension
@@ -177,25 +202,33 @@
             label="%actionSet.label"
             visible="true"
             id="jExplorer.actionSet">
+         <menu
+               label="TanUtils(&amp;M)"
+               id="com.tan.actions.menu">
+            <separator
+                  name="com.tan.actions.menu.group">
+            </separator>
+         </menu>
+            
          <action
                label="%action.label.5"
                icon="icons/jExplorer.png"
                class="com.tan.actions.LocationAction"
                tooltip="%action.tooltip"
-               menubarPath="sampleMenu/sampleGroup"
-               toolbarPath="sampleGroup"
+               menubarPath="com.tan.actions.menu/com.tan.actions.menu.group"
+               toolbarPath="com.tan.actions.menu.group"
                id="com.tan.actions.LocationAction">
          </action>
-         
        	<action
                label="%action.label.6"
                icon="icons/editplus.png"
                class="com.tan.actions.EditplusAction"
                tooltip="%action.tooltip.0"
-               menubarPath="sampleMenu/sampleGroup"
-               toolbarPath="sampleGroup"
+               menubarPath="com.tan.actions.menu/com.tan.actions.menu.group"
+               toolbarPath="com.tan.actions.menu.group"
                id="com.tan.actions.EditplusAction">
          </action>
       </actionSet>
+
    </extension>
 </plugin>
