@@ -35,6 +35,7 @@ import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
 import com.tan.util.Editor;
+import com.tan.util.StringUtil;
 
 /**
  * The preference page handler for <tt>JUtils -> Getter Setter Style</tt>.
@@ -53,7 +54,11 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 	
 	private String editorPath;
 	
-	private String style = "1"; // 1,2,3
+	private String explorer;
+	
+	private String getterSetterStyle = PreferenceConstants.STR_STYLE1; // 1,2,3
+	
+	private String  visitedControlStyle = PreferenceConstants.STR_VISITED_CONTROL_PUBLIC_TYPE2;
 	/**
 	 * The preference store associated with this plugin.
 	 */
@@ -70,55 +75,13 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 	 */
 	public void init(IWorkbench workbench) {
 		this.editorPath = Editor.getEditplusPath();
+		this.explorer = "";
 		
 		super.setPreferenceStore(this.prefStore);
-
 		super.setDescription(PreferenceConstants.GETTER_SETTER_DESCRIPTION);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public boolean performOk() {
-		this.performApply();
-
-		return super.performOk();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected void performApply() {
-//		this.prefStore.setValue(PreferenceConstants.COPYCON_JAVADOC_STORE_KEY,
-//				this.javaDocDocument.get());
-//
-//		this.prefStore.setValue(PreferenceConstants.COPYCON_BODY_STORE_KEY,
-//				this.bodyDocument.get());
-		
-		this.prefStore.setValue(PreferenceConstants.EDITOR_PATH,
-				editorPath);
-		
-		this.prefStore.setValue(PreferenceConstants.GETTER_SETTER_STYLE,
-				 style );
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected void performDefaults() {
-//		String javadoc = Util.getDefaultCopyConJavaDoc();
-//		String body = Util.getDefaultCopyConImplementation();
-//
-//		this.javaDocDocument.set(javadoc);
-//		this.bodyDocument.set(body);
-//
-//		this.prefStore.setValue(PreferenceConstants.COPYCON_JAVADOC_STORE_KEY,
-//				javadoc);
-//
-//		this.prefStore.setValue(PreferenceConstants.COPYCON_BODY_STORE_KEY,
-//				body);
-	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -129,9 +92,8 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 
 		parent.setLayout(new GridLayout(3, true));
 		parent.setLayoutData(data);
-		FileFieldEditor editorPathEditor = new FileFieldEditor(PreferenceConstants.EDITOR_PATH, 
-				"&编辑器:", getFieldEditorParent());
-		
+
+		// style
 		RadioGroupFieldEditor rgfe = new RadioGroupFieldEditor(
 				PreferenceConstants.GETTER_SETTER_STYLE,
 				PreferenceConstants.GETTER_SETTER_STYLE_LABEL,
@@ -147,11 +109,38 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 
 		addField(rgfe);
 		
-		if ( null != editorPath ) {
-			editorPathEditor.setStringValue( editorPath );
-		}
+		// adc analyse method style
+		RadioGroupFieldEditor rgfe1 = new RadioGroupFieldEditor(
+				PreferenceConstants.VISITED_CONTROL_STYLE,
+				"访问控制类型", //PreferenceConstants.GETTER_SETTER_STYLE_LABEL,
+				5,
+				new String[][] {
+						{ PreferenceConstants.VISITED_CONTROL_PUBLIC_TYPE2, PreferenceConstants.STR_VISITED_CONTROL_PUBLIC_TYPE2 },
+						{ PreferenceConstants.VISITED_CONTROL_PRIVATE_TYPE3, PreferenceConstants.STR_VISITED_CONTROL_PRIVATE_TYPE3 },
+						{ PreferenceConstants.VISITED_CONTROL_PROTECTED_TYPE4, PreferenceConstants.STR_VISITED_CONTROL_PROTECTED_TYPE4 } ,
+						{ PreferenceConstants.VISITED_CONTROL_DEFAULT_TYPE1, PreferenceConstants.STR_VISITED_CONTROL_DEFAULT_TYPE1 },
+						{ PreferenceConstants.VISITED_CONTROL_ALL_TYPE5, PreferenceConstants.STR_VISITED_CONTROL_ALL_TYPE5 } ,
+						}, 
+						parent,
+				true);
+
+		addField(rgfe1);
 		
+		// 编辑器
+		FileFieldEditor editorPathEditor = new FileFieldEditor(PreferenceConstants.EDITOR_PATH, 
+				"&编辑器:", getFieldEditorParent());
+		if (! StringUtil.isEmpty( editorPath ) ) {
+			editorPathEditor.setStringValue( StringUtil.trimQuot( editorPath ) );
+		}
 		addField(editorPathEditor);
+		
+		// 资源管理器
+		FileFieldEditor explorerEditor = new FileFieldEditor(PreferenceConstants.EXPLORER_PATH, 
+				"&Explorer:", getFieldEditorParent());
+		if (! StringUtil.isEmpty( explorer ) ) {
+			explorerEditor.setStringValue( StringUtil.trimQuot( explorer ) );
+		}
+		addField(explorerEditor);
 	}
 	
 	
@@ -168,13 +157,59 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 		
 		if ( isChanged ) {
 			if ( PreferenceConstants.STR_STYLE1.equals(event.getNewValue()) ) {
-				style = PreferenceConstants.STR_STYLE1;
+				getterSetterStyle = PreferenceConstants.STR_STYLE1;
 			} else if ( PreferenceConstants.STR_STYLE2.equals(event.getNewValue()) ) {
-				style = PreferenceConstants.STR_STYLE2;
+				getterSetterStyle = PreferenceConstants.STR_STYLE2;
 			} else if ( PreferenceConstants.STR_STYLE3.equals(event.getNewValue()) ) {
-				style = PreferenceConstants.STR_STYLE3;
+				getterSetterStyle = PreferenceConstants.STR_STYLE3;
 			}
+			
+			
+			visitedControlStyle = String.valueOf( event.getNewValue() );
 		}
 		
 	}
+	
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public boolean performOk() {
+		this.performApply();
+
+		return super.performOk();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected void performApply() {
+		this.prefStore.setValue(PreferenceConstants.EXPLORER_PATH,
+				explorer);
+		
+		this.prefStore.setValue(PreferenceConstants.EDITOR_PATH,
+				editorPath);
+		
+		this.prefStore.setValue(PreferenceConstants.GETTER_SETTER_STYLE,
+				 getterSetterStyle );
+		
+		this.prefStore.setValue( PreferenceConstants.VISITED_CONTROL_STYLE ,
+				visitedControlStyle );
+		
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	protected void performDefaults() {
+		this.prefStore.setValue( PreferenceConstants.EXPLORER_PATH, "" );
+		
+		this.prefStore.setValue( PreferenceConstants.EDITOR_PATH, "" );
+		
+		this.prefStore.setValue( PreferenceConstants.GETTER_SETTER_STYLE, PreferenceConstants.STR_STYLE1 );
+		
+		this.prefStore.setValue( PreferenceConstants.VISITED_CONTROL_STYLE , PreferenceConstants.VISITED_CONTROL_ALL_TYPE5 );
+		
+	}
+
 }

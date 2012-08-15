@@ -297,8 +297,27 @@ public class PreferenceConstants {
 	public static final String GETTER_SETTER_STYLE_LABEL = Messages.getString("getter.setter.style.label");
 
 	public static final String MODIFY_AUTHOR = Messages
-			.getString("preferences.modify.author");;
+			.getString("preferences.modify.author");
 
 	public static final String MODIFY_AUTHOR_DESCRIPTION = Messages
-			.getString("preferences.modify.author.description");;
+			.getString("preferences.modify.author.description");
+
+	public static final String	VISITED_CONTROL_DEFAULT_TYPE1		= "default";
+	public static final String	VISITED_CONTROL_PUBLIC_TYPE2		= "public";
+	public static final String	VISITED_CONTROL_PRIVATE_TYPE3		= "private";
+	public static final String	VISITED_CONTROL_PROTECTED_TYPE4		= "protected";
+	public static final String	VISITED_CONTROL_ALL_TYPE5		= "all";
+	
+	public static final String	STR_VISITED_CONTROL_DEFAULT_TYPE1	= "svt1";
+	public static final String	STR_VISITED_CONTROL_PUBLIC_TYPE2	= "svt2";
+	public static final String	STR_VISITED_CONTROL_PRIVATE_TYPE3	= "svt3";
+	public static final String	STR_VISITED_CONTROL_PROTECTED_TYPE4	= "svt4";
+	public static final String	STR_VISITED_CONTROL_ALL_TYPE5		= "svt5";
+
+	public static final String	VISITED_CONTROL_STYLE	= "visited_control_style";
+
+	public static final String EXPLORER_PATH = "explorer.path";
+
+
+
 }
