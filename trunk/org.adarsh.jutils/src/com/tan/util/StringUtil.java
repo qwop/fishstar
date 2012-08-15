@@ -329,9 +329,9 @@ public final class StringUtil {
 		if (isEmpty(typeSignature)) {
 			return null;
 		}
-		if (typeSignature.length() == 1) { // 原生类型 primitive type.
-			char c = typeSignature.charAt(0);
-
+		if ( typeSignature.length() == 1 ) { // 原生类型  primitive type.
+			char c = typeSignature.charAt( 0 );
+			
 			switch (c) {
 			case Signature.C_BOOLEAN: {
 				return " false ";
@@ -427,25 +427,25 @@ public final class StringUtil {
 					}
 				}
 				return " \"string\" ";
-			} else if ("Integer".equals(type)) {
+			} else if ( "Integer".equals( type ) ) {
 				return " Integer.valueOf(1) ";
-			} else if ("Double".equals(type)) {
+			} else if ( "Double".equals( type ) ) {
 				return " Double.valueOf( 1d ) ";
-			} else if ("Float".equals(type)) {
+			} else if ( "Float".equals( type ) ) {
 				return " Float.valueOf( 1f ) ";
-			} else if ("Short".equals(type)) {
+			} else if ( "Short".equals( type ) ) {
 				return " Short.valueOf( (short) 1 ) ";
-			} else if ("Boolean".equals(type)) {
+			} else if ( "Boolean".equals( type ) ) {
 				return " Boolean.valueOf( false ) ";
-			} else if ("Long".equals(type)) {
+			} else if ( "Long".equals( type ) ) {
 				return " Long.valueOf( 1L ) ";
-			} else if ("Character".equals(type)) {
+			} else if ( "Character".equals( type ) ) {
 				return " Character.valueOf( 'A' ) ";
-			} else if ("Byte".equals(type)) {
+			} else if ( "Byte".equals( type ) ) {
 				return " Byte.valueOf( (byte) 1 ) ";
 			} else if ("BigInteger".equals(type)) {
 				return " new BigInteger( \"100\" ) ";
-			} else if ("BigDecimal".equals(type)) {
+			}else if ( "BigDecimal".equals( type ) ) {
 				return " new BigDecimal( \"100\" ) ";
 			} else if (type.indexOf('<') >= 0 && type.indexOf('>') >= 0) {
 				int idx1 = type.indexOf('<'), idx2 = type.indexOf('>');

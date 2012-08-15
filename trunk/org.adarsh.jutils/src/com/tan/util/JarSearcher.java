@@ -116,11 +116,11 @@ public class JarSearcher {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		final String path = "E:\\Projects\\indiff\\eclise-plugins\babel3.6\\";
+		final String path = "D:\\Eclipses\\MyEclipse\\Common\\plugins\\";
 		JarSearcher searcher = new JarSearcher(path);
 		System.out.println("Jar文件数:" + searcher.size());
-		boolean searchClass = true;
-		searcher.setKeyWord("org.eclipse.jface.text.ITextHoverExtension2");
+		boolean searchClass = false;
+		searcher.setKeyWord("has been tampered");
 		searcher.process(searchClass);
 	}
 
@@ -128,7 +128,7 @@ public class JarSearcher {
 		this.keyWord = keyWord.toLowerCase();
 	}
 
-	private static boolean search(JarFile jarFile, JarEntry jarEntry) {
+	private boolean search(JarFile jarFile, JarEntry jarEntry) {
 		int len = -1;
 		byte[] buf = new byte[2046];
 		StringBuffer builder = new StringBuffer();
@@ -150,7 +150,7 @@ public class JarSearcher {
 			in = null;
 		}
 		if (builder.length() > 0) {
-			if (builder.indexOf("Open Declaration") >= 0) {
+			if (builder.indexOf( keyWord ) >= 0) {
 				return true;
 			}
 			builder = null;
