@@ -1,0 +1,59 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+<title>世界末日倒计时</title>
+<meta name="Generator" content="EditPlus">
+<meta name="Author" content="">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+ <style type="text/css">
+@charset "utf-8";
+.BodyCenterTime{height:110px;background-image:url(../p_w_picpath/bg.gif); background-position:-433px 59px; background-repeat:no-repeat; padding-left:15px; padding-right:15px;}
+.BodyCenterTimeTitle{height:30px; line-height:30px; text-align:center;}
+.BodyCenterTimeTitle a{font-size:15px; color:#eb2c12;font-family:"微软雅黑"}
+.HotDate{ height:55px;line-height:35px; text-align:center;font-size:24px;}
+.HotDate div{ float:left; display:block; color: #FFFFFF; text-align:center}
+.HotDateTitle{ background-color: #0033ff; font-size:14px; font-weight:bold; width:150px; margin-bottom:10px;margin-top:10px;margin-right:4px;}
+#RemainD{background-color:#eb2c12;font-size:30px;margin-bottom:10px;margin-top:10px;margin-right:4px;width:125px;}
+#RemainH{background-color:#00cc00;font-size:30px;margin-bottom:10px;margin-top:10px;margin-right:4px;width:82px;}
+#RemainM{background-color: #9900ff;font-size:30px;margin-bottom:10px;margin-top:10px;margin-right:4px;width:82px;}
+#RemainS{background-color: #330000;font-size:30px;margin-bottom:10px;margin-top:10px;width:82px;}
+.HotDateText{ height:25px;}
+.HotDateTextLeft{float:left; line-height:25px;}
+.HotDateTextRight{float:right;line-height:25px; text-align:right;}
+
+ </style>
+ </head>
+
+ <body>
+<DIV class=BodyCenterTime>
+<DIV id=CountMsg class=HotDate>
+<DIV class=HotDateTitle>2012世界末日倒计时</DIV>
+<DIV id=RemainD>000天</DIV>
+<DIV id=RemainH>00时</DIV>
+<DIV id=RemainM>00分</DIV>
+<DIV id=RemainS>00秒</DIV></DIV>
+<SCRIPT language=JavaScript>
+ function GetRTime(){
+ var EndTime= new Date(2012,11,21,0,0); //截止时间
+ var NowTime = new Date();
+ var nMS =EndTime.getTime() - NowTime.getTime();
+ var nD =Math.floor(nMS/(1000 * 60 * 60 * 24));
+ var nH=Math.floor(nMS/(1000*60*60)) % 24;
+ var nM=Math.floor(nMS/(1000*60)) % 60;
+ var nS=Math.floor(nMS/1000) % 60;
+if(nD>= 0){
+ document.getElementById("RemainD").innerHTML=nD+"天";
+ document.getElementById("RemainH").innerHTML=nH+"时";
+ document.getElementById("RemainM").innerHTML=nM+"分";
+ document.getElementById("RemainS").innerHTML=nS+"秒";
+ setTimeout("GetRTime()",1000);
+}else{
+ document.getElementById("CountMsg").innerHTML="庆祝吧，没有世界末日！";
+}
+ }
+ GetRTime();
+ </SCRIPT>
+</DIV>
+ </body>
+</html>
