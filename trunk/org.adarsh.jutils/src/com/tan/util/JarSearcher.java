@@ -75,22 +75,22 @@ public class JarSearcher {
 					name = name.toLowerCase();
 
 					if (searchClass) { // class
-						searchClass(name,file,  jarEntry);
+						searchClassName(name,file,  jarEntry);
 					} else {
-						searchJarContent(name, jarFile, jarEntry);
+						searchEntryContent(name, jarFile, jarEntry);
 					}
 				}
 			}
 		}
 	}
 
-	public void searchJarContent(final String name, final JarFile jarFile,
+	public void searchEntryContent(final String name, final JarFile jarFile,
 			final JarEntry jarEntry) {
 		
 		boolean isRightSuffix = false;
 		String[] suffixs = getFileSuffixs();
 		for (int i = 0; i < suffixs.length; i++) {
-			if (name.endsWith('.' + suffixs[i])) {
+			if (name.toLowerCase().endsWith('.' + suffixs[i].toLowerCase())) {
 				isRightSuffix = true; break;
 			}
 		}
@@ -102,25 +102,53 @@ public class JarSearcher {
 		}
 	}
 
-	public void searchClass(String name, final File jarFile, final JarEntry jarEntry) {
+	public void searchClassName(String name, final File jarFile, final JarEntry jarEntry) {
 		if (name.endsWith(".class")) {
 			name = name.replace('/', '.').replaceAll(".class", "");
-			//System.out.println(name);
-			if (keyWord.equals(name)) {
+			name.toLowerCase();
+			
+			if ( name.indexOf( keyWord ) >= 0 ) {
 				System.out.println(jarFile + "\t" + jarEntry);
 			}
 		}
 	}
 
 	/**
+	 * Jar文件数:1867
+D:\Eclipses\MyEclipse\Common\plugins\org.eclipse.osgi_3.7.2.v20120110-1415.jar	org/eclipse/osgi/internal/signedcontent/SignedContentMessages.properties
+
+SECURITY ALERT:  INTEGRITY CHECK ERROR
+
+This product did not pass the MyEclipse integrity check.  This security check is a prerequisite for launch of MyEclipse.  Please reinstall MyEclipse and try again.
+
+Specific Error: The signature chain used to sign MyEclipse is either not valid or does not belong to Genuitec. MyEclipse features will not start with an unsigned installation.  Reason: SHA1 digest error for org/eclipse/osgi/internal/signedcontent/DigestedInputStream.class
+
+For additional assistance contact support@genuitec.com
+
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		searchContent();
+		
+	/*	final String root = "D:\\Eclipses\\MyEclipse\\Common\\plugins\\";
+		JarSearcher searcher = new JarSearcher(root);
+		System.out.println("Jar文件数:" + searcher.size());
+		boolean searchClass = true;
+		searcher.setKeyWord( "signedcontent" );
+		searcher.process(searchClass);*/
+	}
+
+	private static void searchContent() {
 		final String path = "D:\\Eclipses\\MyEclipse\\Common\\plugins\\";
 		JarSearcher searcher = new JarSearcher(path);
 		System.out.println("Jar文件数:" + searcher.size());
 		boolean searchClass = false;
-		searcher.setKeyWord("has been tampered");
+		
+		
+		searcher.setFileSuffixs( "MF"  );
+		searcher.setFileSuffixs( "properties", "xml", "txt", "ini" );
+		
+		searcher.setKeyWord( "For additional assistance contact" );
 		searcher.process(searchClass);
 	}
 
@@ -150,7 +178,7 @@ public class JarSearcher {
 			in = null;
 		}
 		if (builder.length() > 0) {
-			if (builder.indexOf( keyWord ) >= 0) {
+			if (builder.toString().toLowerCase().indexOf( keyWord ) >= 0) {
 				return true;
 			}
 			builder = null;
@@ -168,7 +196,7 @@ public class JarSearcher {
 		return fileSuffixs;
 	}
 
-	public void setFileSuffixs(String[] fileSuffixs) {
+	public void setFileSuffixs(String ... fileSuffixs) {
 		this.fileSuffixs = fileSuffixs;
 	}
 
