@@ -57,6 +57,36 @@
       <viewerContribution
             id="viewerContribution"
             targetID="#CompilationUnitEditorContext">
+       	<action
+               label="%SetterVADByContent.label"
+               class="com.tan.vad.actions.SetterVADByContent"
+               icon="icons/tostring.gif"
+               menubarPath="generate.viewer/string"
+               id="SetterVADByContent.action"/>
+           
+       	<action
+               label="%SetterVADByGet.label"
+               class="com.tan.vad.actions.SetterVADByGet"
+               icon="icons/tostring.gif"
+               menubarPath="generate.viewer/string"
+               id="SetterVADByGet.action"/>
+           
+       	<action
+               label="%GetterVADByGet.label"
+               class="com.tan.vad.actions.GetterVADByGet"
+               icon="icons/tostring.gif"
+               menubarPath="generate.viewer/string"
+               id="GetterVADByGet.action"/>
+           
+       	<action
+               label="%GetterVADBySysout.label"
+               class="com.tan.vad.actions.GetterVADBySysout"
+               icon="icons/tostring.gif"
+               menubarPath="generate.viewer/string"
+               id="GetterVADBySysout.action"/>
+  
+  
+            
          <action
                label="%toString.label"
                class="org.adarsh.jutils.actions.ToStringGeneratorVAD"
@@ -64,7 +94,7 @@
                menubarPath="generate.viewer/string"
                id="tostring.viewerContribution.action"/>
          
-         
+    <!--       
          <action
                label="%dummy.setter.label"
                class="org.adarsh.jutils.actions.DummySetterGeneratorVAD"
@@ -80,7 +110,7 @@
                menubarPath="generate.viewer/string"
                id="dummyGetter.viewerContribution.action"/>
                
-         <!--
+       
          <action
                label="Generate Dummy Java"
                class="org.adarsh.jutils.actions.DummyJavaGeneratorVAD"
@@ -104,7 +134,9 @@
                icon="icons/constructor.gif"
                class="org.adarsh.jutils.actions.CopyConstructorGeneratorVAD"
                menubarPath="generate.viewer/constructor"
-               id="constructor.viewerContribution.action"/>               
+               id="constructor.viewerContribution.action"/>  
+               
+                            
          <menu
                label="%menu.label"
                path="group.additions"
@@ -112,6 +144,8 @@
             <groupMarker name="string"/>
             <groupMarker name="constructor"/>
          </menu>
+         
+         
       </viewerContribution>
       
       <objectContribution

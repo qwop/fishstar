@@ -1,26 +1,4 @@
-/*
- * JUtils ToString Generator for Eclipse
- * 
- * Copyright (C) 2007  Adarsh Ramamurthy
- * 
- * This library is free software; you can redistribute it and/or modify it 
- * under the terms of the GNU Lesser General Public License as published by 
- * the Free Software Foundation; either version 2.1 of the License, or 
- * (at your option) any later version.
- * 
- * This library is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
- * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public 
- * License for more details.
- * 
- * You should have received a copy of the GNU Lesser General Public License 
- * along with this library; if not, write to the Free Software Foundation, 
- * Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA.
- * 
- * Plugin Home Page: http://eclipse-jutils.sourceforge.net
- */
-
-package org.adarsh.jutils.actions;
+package com.tan.vad;
 
 import org.adarsh.jutils.JUtilsException;
 import org.adarsh.jutils.JUtilsPlugin;
@@ -58,18 +36,7 @@ import org.eclipse.ui.texteditor.ITextEditor;
 import com.tan.util.Generate;
 import com.tan.util.StringUtil;
 
-/**
- * The Viewer Action Delegate for toString.
- * 
- * @author Dolphin
- * 
- * @version 1.0, 2005
- * 
- * @version 2.0, 14th April 2006
- * 
- * @version 3.0, 10th December 2006
- */
-public class DummyGetterGeneratorVAD implements IEditorActionDelegate {
+public abstract class AbstractSetterVAD implements IEditorActionDelegate{
 	/**
 	 * The preference store associated with the plugin.
 	 */
@@ -80,7 +47,13 @@ public class DummyGetterGeneratorVAD implements IEditorActionDelegate {
 	 * The associated <tt>IEditorPart</tt>.
 	 */
 	private IEditorPart editorPart;
-
+	
+	/*
+	 * style
+	 */
+	protected String style;
+	
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -88,6 +61,8 @@ public class DummyGetterGeneratorVAD implements IEditorActionDelegate {
 		this.editorPart = targetEditor;
 	}
 
+	public abstract void setStyle(); 
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -106,11 +81,11 @@ public class DummyGetterGeneratorVAD implements IEditorActionDelegate {
 		Shell shell = this.editorPart.getSite().getShell();
 		
 		/** 获取当前配置的的 Setter 样式**/
-		final String style = PREF_STORE.getString(PreferenceConstants.GETTER_SETTER_STYLE);
+		setStyle();
 		
 		try {
 			IJavaElement suspect = compUnit.getElementAt(selection.getOffset());
-
+			
 			if (suspect == null) {
 				MessageDialog.openInformation(shell,
 						Messages.getString("tostring.failure.title"),
@@ -132,12 +107,8 @@ public class DummyGetterGeneratorVAD implements IEditorActionDelegate {
 			}
 
 			if (theType != null && theType.isClass()) {
-//				SourceManipulator.createToStringWithJavaDoc(theType);
 				
 				IField[] fields = theType.getFields();
-//				IMethod[] method = theType.getMethods();
-//				IAnnotation[] annotations = theType.getAnnotations();
-				
 				
 		        final ITextFileBufferManager fileBufferManager = FileBuffers.getTextFileBufferManager();
 		        final IPath path = compUnit.getPath();
@@ -151,8 +122,11 @@ public class DummyGetterGeneratorVAD implements IEditorActionDelegate {
 		        String comment = "";
 		        StringBuffer b =  new StringBuffer();
 		        String javaName = theType.getElementName();
+		        
 		        Generate.generateDummyObjects(b, javaName);
+		        
 				for (int i = 0; i < fields.length; i++) {
+					
 					range = fields[i].getJavadocRange();
 					if (range != null) {
 						 comment = StringUtil.getComment(
@@ -170,17 +144,20 @@ public class DummyGetterGeneratorVAD implements IEditorActionDelegate {
 									);
 						}
 					}
-				 Generate.generateDummyGetter(b, fields[i].getElementName(), comment, style);
-				//	b.append("\t// 设置 " +  comment +  "//" + f.getTypeSignature() + " "  +  f.getElementName()  + "\r\n");
+					
+					Generate.generateDummyCode(
+							b, 
+							fields[i], 
+							comment,
+							style
+							);
 				}
 				
 				SourceManipulator.createDummySetterWithJavaDoc(theType,
 						 b.toString()
 				);
 				
-				
-				if (PREF_STORE
-						.getBoolean(PreferenceConstants.TOSTRING_AUTOSAVE)) {
+				if (PREF_STORE.getBoolean(PreferenceConstants.TOSTRING_AUTOSAVE)) {
 					compUnit.commitWorkingCopy(false, new NullProgressMonitor());
 				}
 			} else {
@@ -210,6 +187,5 @@ public class DummyGetterGeneratorVAD implements IEditorActionDelegate {
 	 * {@inheritDoc}
 	 */
 	public void selectionChanged(IAction action, ISelection selection) {
-		// selection has changed. But, do nothing.
 	}
 }

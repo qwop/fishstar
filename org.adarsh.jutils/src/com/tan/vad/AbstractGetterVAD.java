@@ -20,7 +20,7 @@
  * Plugin Home Page: http://eclipse-jutils.sourceforge.net
  */
 
-package org.adarsh.jutils.actions;
+package com.tan.vad;
 
 import org.adarsh.jutils.JUtilsException;
 import org.adarsh.jutils.JUtilsPlugin;
@@ -59,12 +59,17 @@ import com.tan.util.Generate;
 import com.tan.util.StringUtil;
 
 /**
- * 生成 Dummy Setter Code
+ * The Viewer Action Delegate for toString.
  * 
- * @author dolphin.
+ * @author Dolphin
  * 
+ * @version 1.0, 2005
+ * 
+ * @version 2.0, 14th April 2006
+ * 
+ * @version 3.0, 10th December 2006
  */
-public class DummySetterGeneratorVAD implements IEditorActionDelegate {
+public abstract class AbstractGetterVAD extends AbstractSetterVAD {
 	/**
 	 * The preference store associated with the plugin.
 	 */
@@ -87,6 +92,9 @@ public class DummySetterGeneratorVAD implements IEditorActionDelegate {
 	 * {@inheritDoc}
 	 */
 	public void run(IAction action) {
+		
+		this.setStyle();
+		
 		IWorkingCopyManager manager = JavaUI.getWorkingCopyManager();
 
 		IEditorInput editorInput = this.editorPart.getEditorInput();
@@ -100,12 +108,9 @@ public class DummySetterGeneratorVAD implements IEditorActionDelegate {
 
 		Shell shell = this.editorPart.getSite().getShell();
 		
-		/** 获取当前配置的的 Setter 样式**/
-		final String style = PREF_STORE.getString(PreferenceConstants.GETTER_SETTER_STYLE);
-
 		try {
 			IJavaElement suspect = compUnit.getElementAt(selection.getOffset());
-			
+
 			if (suspect == null) {
 				MessageDialog.openInformation(shell,
 						Messages.getString("tostring.failure.title"),
@@ -165,13 +170,11 @@ public class DummySetterGeneratorVAD implements IEditorActionDelegate {
 									);
 						}
 					}
-					Generate.generateDummyCode(
-							b, 
-							fields[i], 
-							comment,
-							style
-							);
-				//	b.append("\t// 设置 " +  comment +  "//" + f.getTypeSignature() + " "  +  f.getElementName()  + "\r\n");
+				 Generate.generateDummyGetter(
+						 b, 
+						 fields[i].getElementName(), 
+						 comment, 
+						 style);
 				}
 				
 				SourceManipulator.createDummySetterWithJavaDoc(theType,
@@ -201,7 +204,6 @@ public class DummySetterGeneratorVAD implements IEditorActionDelegate {
 
 			Logger.error("Fatal error while generating toString", e);
 		} catch (BadLocationException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
