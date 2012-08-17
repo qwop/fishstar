@@ -8,7 +8,9 @@ import java.io.InputStreamReader;
 public class Editor {
 	private static String EDITPLUS_PATH = null; // 缓存 Editplus路径.
 	
-	final static String ABSOLUTE_PATH = "HKEY_CLASSES_ROOT\\Applications\\EDITPLUS.EXE\\shell\\edit\\command"; //注册表的绝对项
+	final static String[] ABSOLUTE_PATHS = {
+		"HKEY_CLASSES_ROOT\\Applications\\EDITPLUS.EXE\\shell\\open\\command"
+	}; //注册表的绝对项
 	final static String DATA_TYPE = "REG_SZ"; //注册表的值的数据类型
 	final static String[] EIDTPLUS_KYE_WORDS = { "EDITPLUS.EXE",
 			"EDITPLUS1.EXE", "EDITPLUS2.EXE", "EDITPLUS3.EXE", "EDITPLUS4.EXE",
@@ -25,9 +27,14 @@ public class Editor {
 		if (EDITPLUS_PATH != null) {
 			return EDITPLUS_PATH;
 		} else {
-			String absolutePath = analyse(readCmd(ABSOLUTE_PATH));
-			if (null != absolutePath && new File(absolutePath).isFile()) {
-				EDITPLUS_PATH = "\"" + absolutePath + "\"";
+			for ( int i = 0; i < ABSOLUTE_PATHS.length; i++ ) {
+				String absolutePath = analyse(readCmd( ABSOLUTE_PATHS[ i ] ));
+				if (null != absolutePath && new File(absolutePath).isFile()) {
+					EDITPLUS_PATH = "\"" + absolutePath + "\"";
+					if ( null != EDITPLUS_PATH )   {
+						return EDITPLUS_PATH;
+					}
+				}
 			}
 		}
 		return EDITPLUS_PATH;
@@ -64,6 +71,7 @@ public class Editor {
 	private static String readCmd(final String path) {
 		Process p = null;
 		final String command = "reg query \"" + path + "\" /ve "; ///t " + DATA_TYPE;
+		System.out.println( command );
 		try {
 			p = Runtime.getRuntime().exec(command);
 		} catch (IOException e) {
