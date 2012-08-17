@@ -24,6 +24,8 @@ public class Editor {
 	}
 
 	public static String getEditplusPath() {
+		EDITPLUS_PATH = guess();
+		
 		if (EDITPLUS_PATH != null) {
 			return EDITPLUS_PATH;
 		} else {
@@ -31,6 +33,7 @@ public class Editor {
 				String absolutePath = analyse(readCmd( ABSOLUTE_PATHS[ i ] ));
 				if (null != absolutePath && new File(absolutePath).isFile()) {
 					EDITPLUS_PATH = "\"" + absolutePath + "\"";
+					
 					if ( null != EDITPLUS_PATH )   {
 						return EDITPLUS_PATH;
 					}
@@ -41,6 +44,61 @@ public class Editor {
 	}
 
 
+
+	private static String guess() {
+		String[] drivers = {
+				"C:",
+				"D:",
+				"E:",
+				"F:",
+				"G:",
+				"A:",
+				"B:",
+		};
+		
+		String[] programFiles = {
+				"Program Files",
+				"Program",
+				"Programs",
+				"softs",
+				"soft",
+				"software",
+				"softwares",
+				"软件",
+		};
+		
+		String[] editpluDirs = {
+				"EditPlus3",
+				"EditPlus 3",
+				"EditPlus5",
+				"EditPlus 5",
+				"EditPlus4",
+				"EditPlus 4",
+				"EditPlus 2",
+				"EditPlus2",
+				"EditPlus",
+		};
+		
+		final String exe = "EDITPLUS.EXE";
+		
+		for( int i = 0; i < drivers.length; i++ ) {
+			for( int j = 0; j < programFiles.length; j++ ) {
+				for( int m = 0; m < editpluDirs.length; m++ ) {
+					String path = drivers[i] + File.separatorChar + 
+							programFiles[j] + File.separatorChar  + 
+							editpluDirs[m] + File.separatorChar  + exe;
+					
+					File file = new File( path );
+					
+					if ( file.isFile() && file.exists() ) {
+						return "\"" + file.getAbsolutePath() + "\"";
+					}
+					
+				}
+			}
+		}
+		return null;
+	}
 
 	final static String analyse(final String data) {
 		final String dataUpperCase = data.toUpperCase();
