@@ -56,7 +56,7 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 	
 	private String explorer;
 	
-	private String getterSetterStyle = PreferenceConstants.STR_STYLE1; // 1,2,3
+	private String getterSetterStyle = PreferenceConstants.STR_STYLE_BY_CONTENT; // 1,2,3
 	
 	private String  visitedControlStyle = PreferenceConstants.STR_VISITED_CONTROL_PUBLIC_TYPE2;
 	/**
@@ -100,9 +100,9 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 				3,
 				new String[][] {
 						{ PreferenceConstants.STYLE1,
-								PreferenceConstants.STR_STYLE1 },
+								PreferenceConstants.STR_STYLE_BY_CONTENT },
 						{ PreferenceConstants.STYLE2,
-								PreferenceConstants.STR_STYLE2 },
+								PreferenceConstants.STR_STYLE_BY_GET },
 						{ PreferenceConstants.STYLE3,
 								PreferenceConstants.STR_STYLE3 } }, parent,
 				true);
@@ -156,10 +156,10 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 		// changed and string selected... populate appropriate values.
 		
 		if ( isChanged ) {
-			if ( PreferenceConstants.STR_STYLE1.equals(event.getNewValue()) ) {
-				getterSetterStyle = PreferenceConstants.STR_STYLE1;
-			} else if ( PreferenceConstants.STR_STYLE2.equals(event.getNewValue()) ) {
-				getterSetterStyle = PreferenceConstants.STR_STYLE2;
+			if ( PreferenceConstants.STR_STYLE_BY_CONTENT.equals(event.getNewValue()) ) {
+				getterSetterStyle = PreferenceConstants.STR_STYLE_BY_CONTENT;
+			} else if ( PreferenceConstants.STR_STYLE_BY_GET.equals(event.getNewValue()) ) {
+				getterSetterStyle = PreferenceConstants.STR_STYLE_BY_GET;
 			} else if ( PreferenceConstants.STR_STYLE3.equals(event.getNewValue()) ) {
 				getterSetterStyle = PreferenceConstants.STR_STYLE3;
 			}
@@ -206,7 +206,7 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 		
 		this.prefStore.setValue( PreferenceConstants.EDITOR_PATH, "" );
 		
-		this.prefStore.setValue( PreferenceConstants.GETTER_SETTER_STYLE, PreferenceConstants.STR_STYLE1 );
+		this.prefStore.setValue( PreferenceConstants.GETTER_SETTER_STYLE, PreferenceConstants.STR_STYLE_BY_CONTENT );
 		
 		this.prefStore.setValue( PreferenceConstants.VISITED_CONTROL_STYLE , PreferenceConstants.VISITED_CONTROL_ALL_TYPE5 );
 		

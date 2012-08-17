@@ -21,8 +21,8 @@ public final class Generate {
 	 * @param comment 对应的Field的注释
 	 * @param style 样式类型 
 	 * <ul>
-	 * 	<li>PreferenceConstants.STR_STYLE1 样式1 vo.setAge( 2 );</li>
-	 * 	<li>PreferenceConstants.STR_STYLE2 样式2 vo.setAge( po.getAge() );</li>
+	 * 	<li>PreferenceConstants.STR_STYLE_BY_CONTENT 样式1 vo.setAge( 2 );</li>
+	 * 	<li>PreferenceConstants.STR_STYLE_BY_GET 样式2 vo.setAge( po.getAge() );</li>
 	 * 	<li>PreferenceConstants.STR_STYLE3 样式3 待设定</li>
 	 * </ul>
 	 */
@@ -43,7 +43,7 @@ public final class Generate {
 			e.printStackTrace();
 		}
 		
-		if (  PreferenceConstants.STR_STYLE2.equals( style )  ) {
+		if (  PreferenceConstants.STR_STYLE_BY_GET.equals( style )  ) {
 			generateDummyCode( b,  name, comment );
 		}  else if (  PreferenceConstants.STR_STYLE3.equals( style )  ) {
 			generateDummyCode( b,  name, comment );
@@ -70,14 +70,14 @@ public final class Generate {
 				name.substring(1), dummy;
 		
 		if ( null == dummys || dummys.length == 0  || dummys[0] == null ) {
-			dummy = "po.get" + methodSuffix + "()";
+			dummy = "src.get" + methodSuffix + "()";
 		} else {
 			dummy = dummys[0];
 		}
 		
 		StringUtil.append(b,
 				INDENT, "// 设置", comment , N,
-				INDENT,"vo.set" , methodSuffix,'(',dummy,");", N
+				INDENT,"dest.set" , methodSuffix,'(',dummy,");", N
 		);
 	}
 	
@@ -91,12 +91,14 @@ public final class Generate {
 		if (  PreferenceConstants.STR_STYLE3.equals( style )  ) { // sysout
 			StringUtil.append(b,
 					INDENT , "// 获取" , comment , N  ,
-					INDENT , "System.out.println( \"", comment, ":\\t\" + po.get" , methodSuffix  , "() );"  , N
+					INDENT , "System.out.println( \"", 
+						comment, ":\\t\" + src.get" , methodSuffix, "()" +
+							" );"  , N
 					);
 		} else {
 			StringUtil.append(b,
 					INDENT , "// 获取" , comment , N  ,
-					INDENT , "po.get" , methodSuffix  , "();"  , N
+					INDENT , "src.get" , methodSuffix  , "();"  , N
 					);
 		}
 	}
@@ -123,10 +125,15 @@ public final class Generate {
 				 INDENT + "}"+ N 
 		);
 	}
-
+	
+	/**
+	 * 构造对象
+	 * @param b
+	 * @param javaName
+	 */
 	public final static void generateDummyObjects(final StringBuffer b, final String javaName) {
-		b.append(INDENT + javaName  + " vo = " + "new " + javaName + "();" + N);
-		b.append(INDENT + javaName  + " po = " + "new " + javaName + "();" + N);
+		b.append(INDENT + javaName  + " dest = " + "new " + javaName + "();" + N);
+		b.append(INDENT + javaName  + " src = " + "new " + javaName + "();" + N);
 	}
 	
 	
