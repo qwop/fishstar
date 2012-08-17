@@ -63,6 +63,10 @@ public final class Generate {
 			final String name,
 			final String comment,
 			final String[] dummys) {
+		if (name == null || "serialVersionUID".equals(name)){
+			return;
+		}
+		
 		final String methodSuffix = Character.toUpperCase(name.charAt(0)) + name.substring(1), dummy;
 		
 		if ( null == dummys || dummys.length == 0  || dummys[0] == null ) {
@@ -80,19 +84,27 @@ public final class Generate {
 	}
 	
 	public final static void generateDummyGetter(final StringBuffer b, final String name,
-			final String comment) {
+			final String comment, final String style ) {
 		if (name == null || "serialVersionUID".equals(name)){
 			return;
 		}
 		String methodSuffix = Character.toUpperCase(name.charAt(0)) +  name.substring(1);
 		
-		StringUtil.append(b,
-			new String[] {
-				INDENT , "// 获取" , comment , N  ,
-				INDENT , "po.get" , methodSuffix  , "();"  , N
-			}
-//			INDENT , "System.out.println(po.get" , methodSuffix  , "());"  , N
-		);
+		if (  PreferenceConstants.STR_STYLE3.equals( style )  ) { // sysout
+			StringUtil.append(b,
+						new String[] {
+							INDENT , "// 获取" , comment , N  ,
+							INDENT , "System.out.println( \"", comment, ":\\t\" + po.get" , methodSuffix  , "() );"  , N
+						}
+			);
+		} else {
+			StringUtil.append(b,
+					new String[] {
+					INDENT , "// 获取" , comment , N  ,
+					INDENT , "po.get" , methodSuffix  , "();"  , N
+						}
+			);
+		}
 	}
 
 	public final static void generateGetterSetter(final StringBuffer b, final String name,

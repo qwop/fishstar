@@ -75,22 +75,22 @@ public class JarSearcher {
 					name = name.toLowerCase();
 
 					if (searchClass) { // class
-						searchClass(name,file,  jarEntry);
+						searchClassName(name,file,  jarEntry);
 					} else {
-						searchJarContent(name, jarFile, jarEntry);
+						searchEntryContent(name, jarFile, jarEntry);
 					}
 				}
 			}
 		}
 	}
 
-	public void searchJarContent(final String name, final JarFile jarFile,
+	public void searchEntryContent(final String name, final JarFile jarFile,
 			final JarEntry jarEntry) {
 		
 		boolean isRightSuffix = false;
 		String[] suffixs = getFileSuffixs();
 		for (int i = 0; i < suffixs.length; i++) {
-			if (name.endsWith('.' + suffixs[i])) {
+			if (name.toLowerCase().endsWith('.' + suffixs[i].toLowerCase())) {
 				isRightSuffix = true; break;
 			}
 		}
@@ -102,11 +102,12 @@ public class JarSearcher {
 		}
 	}
 
-	public void searchClass(String name, final File jarFile, final JarEntry jarEntry) {
+	public void searchClassName(String name, final File jarFile, final JarEntry jarEntry) {
 		if (name.endsWith(".class")) {
 			name = name.replace('/', '.').replaceAll(".class", "");
-			//System.out.println(name);
-			if (keyWord.equals(name)) {
+			name.toLowerCase();
+			
+			if ( name.indexOf( keyWord ) >= 0 ) {
 				System.out.println(jarFile + "\t" + jarEntry);
 			}
 		}
@@ -116,11 +117,31 @@ public class JarSearcher {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		final String path = "D:\\Eclipse-Plugins";
-		JarSearcher searcher = new JarSearcher(path);
+		searchContent();
+		
+	/*	final String root = "D:\\Eclipses\\MyEclipse\\Common\\plugins\\";
+		JarSearcher searcher = new JarSearcher(root);
 		System.out.println("Jar文件数:" + searcher.size());
 		boolean searchClass = true;
-		searcher.setKeyWord("org.eclipse.jface.text.ITextHoverExtension2");
+		searcher.setKeyWord( "signedcontent" );
+		searcher.process(searchClass);*/
+	}
+
+	private static void searchContent() {
+		final String path = "D:\\Eclipses\\MyEclipse\\Common\\plugins\\";
+		JarSearcher searcher = new JarSearcher(path);
+		System.out.println("Jar文件数:" + searcher.size());
+		boolean searchClass = false;
+		
+		
+		searcher.setFileSuffixs( new String[] {
+				"MF"
+		});
+		searcher.setFileSuffixs( new String[] {
+				 "properties", "xml", "txt", "ini"
+		} );
+		
+		searcher.setKeyWord( "For additional assistance contact" );
 		searcher.process(searchClass);
 	}
 
@@ -128,7 +149,7 @@ public class JarSearcher {
 		this.keyWord = keyWord.toLowerCase();
 	}
 
-	private static boolean search(JarFile jarFile, JarEntry jarEntry) {
+	private boolean search(JarFile jarFile, JarEntry jarEntry) {
 		int len = -1;
 		byte[] buf = new byte[2046];
 		StringBuffer builder = new StringBuffer();
@@ -150,7 +171,7 @@ public class JarSearcher {
 			in = null;
 		}
 		if (builder.length() > 0) {
-			if (builder.indexOf("Open Declaration") >= 0) {
+			if (builder.toString().toLowerCase().indexOf( keyWord ) >= 0) {
 				return true;
 			}
 			builder = null;

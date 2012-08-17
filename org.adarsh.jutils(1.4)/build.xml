@@ -28,7 +28,7 @@
 	<property name="resources" value="./resources" />
 	<property name="javadoc" value="./javadoc" />
 	<property name="build" value="./build" />
-	<property name="lib" value="E:\Projects\fishstar\org.adarsh.jutils\lib33" />
+	<property name="lib" value="lib33" />
 	<property name="docs" value="./docs" />
 	<property name="classes" value="${build}/classes" />
 	<property name="config" value="./config" />

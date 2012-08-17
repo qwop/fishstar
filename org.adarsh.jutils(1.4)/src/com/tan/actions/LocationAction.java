@@ -42,7 +42,7 @@ public class LocationAction implements IWorkbenchWindowActionDelegate {
 	private String systemBrowser = "explorer";
 	private String line;
 	private boolean isWindows;
-	private boolean isLogger = false; // Debug.
+	private boolean isLogger = true; // Debug.
 	
 	public LocationAction() {
 		String os = System.getProperty("osgi.os");
