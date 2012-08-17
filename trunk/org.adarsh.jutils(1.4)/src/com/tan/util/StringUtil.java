@@ -42,7 +42,7 @@ public final class StringUtil {
 			}
 		}
 	}
-	
+
 	/**
 	 * Not null.
 	 * 
