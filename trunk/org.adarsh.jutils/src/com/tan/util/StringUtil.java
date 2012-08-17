@@ -537,4 +537,8 @@ public final class StringUtil {
 		return null;
 	}
 
+	public static void appendln(StringBuffer buf, String string) {
+		buf.append( string );
+	}
+
 }
