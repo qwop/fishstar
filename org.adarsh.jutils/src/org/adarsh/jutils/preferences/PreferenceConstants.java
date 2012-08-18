@@ -318,6 +318,16 @@ public class PreferenceConstants {
 
 	public static final String EXPLORER_PATH = "explorer.path";
 
+	public static final String SELF_DEFINE_FORM_LABEL = "自定义生成表单";
+	public static final String SELF_DEFINE_THEAD_LABEL = "自定义生成表头thead";
+	public static final String SELF_DEFINE_TBODY_LABEL = "自定义生成表内容tbody";
+	public static final String SELF_DEFINE_TFOOT_LABEL = "自定义生成表尾tfoot";
+
+	public static String SELF_DEFINE_FORM_KEY = "com.tan.form";
+	public static String SELF_DEFINE_THEAD_KEY = "com.tan.thead";
+	public static String SELF_DEFINE_TBODY_KEY = "com.tan.tbody";
+	public static String SELF_DEFINE_TFOOT_KEY = "com.tan.tfoot";
+
 
 
 }

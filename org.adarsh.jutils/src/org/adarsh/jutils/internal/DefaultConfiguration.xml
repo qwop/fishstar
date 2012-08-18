@@ -108,4 +108,41 @@ public ${class_name}(${class_name} ${class_instance})
 
         </implementation>
     </copy-constructor>
+    
+    
+    <self-define>
+    <!-- 
+    	#dummy#
+    	#comment#
+    	#name#
+    	#dto#
+    	
+    	<form action="" method="post" onsubmit="return check();">
+     -->
+    	<form>
+    		<![CDATA[
+			<label for="#name#">#comment#：</label>
+			<input type="text" class="input" name="#name#" id="#name#" value="${#dto#.#name#}"/>
+			
+    		]]>
+    	</form>
+    	
+    	<thead>
+    		<![CDATA[
+	         	<th>#comment#</th>
+    		]]>
+    	</thead>
+    	
+    	<tbody>
+    		<![CDATA[
+	    		<td>${#dto#.#name#}</td>
+    		]]>
+    	</tbody>
+    	
+    	<tfoot>
+    		<![CDATA[
+	    		<td colspan="8"><jsp:include page="/page.jsp" /></td>
+    		]]>
+    	</tfoot>
+    </self-define>
 </configuration>

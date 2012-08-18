@@ -20,13 +20,18 @@
  * Plugin Home Page: http://eclipse-jutils.sourceforge.net
  */
 
-package org.adarsh.jutils.preferences;
+package com.tan.preferences;
 
 import org.adarsh.jutils.JUtilsPlugin;
+import org.adarsh.jutils.internal.Util;
+import org.adarsh.jutils.preferences.PreferenceConstants;
+import org.adarsh.jutils.preferences.PreferenceUtils;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.FileFieldEditor;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.preference.RadioGroupFieldEditor;
+import org.eclipse.jface.text.Document;
+import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -65,6 +70,17 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 	private final IPreferenceStore prefStore = this.jUtilsPlugin
 			.getPreferenceStore();
 
+
+	/**
+	 * Contains the text for displaying the Self-Define content in a
+	 * <tt>SourceViewer</tt>.
+	 */
+	private Document formDoc = new Document();
+	private Document theadDoc = new Document();
+	private Document tbodyDoc = new Document();
+	private Document tfootDoc = new Document();
+	
+
 	public GetterSetterPreferencesPage() {
 		super(GRID);
 		super.setPreferenceStore(this.prefStore);
@@ -76,6 +92,40 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 	public void init(IWorkbench workbench) {
 		this.editorPath = Editor.getEditplusPath();
 		this.explorer = "";
+		
+		
+		
+		/** set the self defined.**/
+		String form = this.prefStore.getString(PreferenceConstants.SELF_DEFINE_FORM_KEY);
+		String thead = this.prefStore.getString(PreferenceConstants.SELF_DEFINE_THEAD_KEY);
+		String tbody = this.prefStore.getString(PreferenceConstants.SELF_DEFINE_TBODY_KEY);
+		String tfoot = this.prefStore.getString(PreferenceConstants.SELF_DEFINE_TFOOT_KEY);
+		
+		
+		
+
+		// if something is null, fetch the true copy.
+		if (Util.isNullString(form)) {
+			form = Util.getDefaultSelfDefineForm();
+		}
+		if (Util.isNullString(thead)) {
+			thead = Util.getDefaultSelfDefineTHead();
+		}
+		if (Util.isNullString(tbody)) {
+			tbody = Util.getDefaultSelfDefineTBody();
+		}
+		if (Util.isNullString(tfoot)) {
+			tfoot = Util.getDefaultSelfDefineTFoot();
+		}
+
+
+		this.formDoc.set( form );
+		this.theadDoc.set( thead );
+		this.tbodyDoc.set( tbody );
+		this.tfootDoc.set( tfoot );
+		/** set the self defined.**/
+		
+		
 		
 		super.setPreferenceStore(this.prefStore);
 		super.setDescription(PreferenceConstants.GETTER_SETTER_DESCRIPTION);
@@ -141,6 +191,13 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 			explorerEditor.setStringValue( StringUtil.trimQuot( explorer ) );
 		}
 		addField(explorerEditor);
+		
+		
+		// 配置自定义生成模板
+		PreferenceUtils.createViewer(parent, PreferenceConstants.SELF_DEFINE_FORM_LABEL, this.formDoc);
+		PreferenceUtils.createViewer(parent, PreferenceConstants.SELF_DEFINE_THEAD_LABEL, this.theadDoc);
+		PreferenceUtils.createViewer(parent, PreferenceConstants.SELF_DEFINE_TBODY_LABEL, this.tbodyDoc);
+		PreferenceUtils.createViewer(parent, PreferenceConstants.SELF_DEFINE_TFOOT_LABEL, this.tfootDoc);
 	}
 	
 	
