@@ -206,6 +206,15 @@
             class="org.adarsh.jutils.preferences.JUtilsPreferencesPage"
             id="jutils"
             name="%page.name"/>
+            
+	  <!-- 配置项 -->
+      <page
+            class="com.tan.preferences.GetterSetterPreferencesPage"
+            category="jutils"
+            name="%page.name.2"
+            id="getterSetter.page"/>
+            
+            
       <page
             class="org.adarsh.jutils.preferences.ToStringPreferencesPage"
             category="jutils"
@@ -217,11 +226,6 @@
             category="jutils"
             name="%page.name.1"
             id="constructor.page"/>
-      <page
-            class="org.adarsh.jutils.preferences.GetterSetterPreferencesPage"
-            category="jutils"
-            name="%page.name.2"
-            id="getterSetter.page"/>
 			
 	</extension>
    

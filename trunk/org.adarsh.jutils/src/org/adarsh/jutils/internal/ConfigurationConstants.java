@@ -53,6 +53,13 @@ public class ConfigurationConstants {
 	 */
 	public static final String JAVADOC_TAG = "java-doc";
 
+	public static final String SELF_DEFINE_TAG = "self-define";
+	public static final String FORM_TAG = "form";
+	public static final String THEAD_TAG = "thead";
+	public static final String TBODY_TAG = "tbody";
+	public static final String TFOOT_TAG = "tfoot";
+	
+	
 	/**
 	 * Represents tag for <tt>implementation</tt>.
 	 */
