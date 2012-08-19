@@ -36,43 +36,4 @@ public class Person {
 	public void setWeight( double weight ) {
 		this.weight = weight;
 	}
-	public static void main(final String[] args ) {
-		Person vo = new Person();
-		Person po = new Person();
-		// 获取姓名
-		System.out.println( "姓名:\t" + po.getName() );
-		// 获取年龄
-		System.out.println( "年龄:\t" + po.getAge() );
-		// 获取身高
-		System.out.println( "身高:\t" + po.getHeight() );
-		// 获取体重
-		System.out.println( "体重:\t" + po.getWeight() );
-	}
-	
-	
-	public void dummy() {
-		Person vo = new Person();
-		Person po = new Person();
-		// 获取姓名
-		po.getName();
-		// 获取年龄
-		po.getAge();
-		// 获取身高
-		po.getHeight();
-		// 获取体重
-		po.getWeight();
-	}
-	
-	public void dummySet() {
-		Person dest = new Person();
-		Person src = new Person();
-		// 设置姓名
-		dest.setName(src.getName());
-		// 设置年龄
-		dest.setAge(src.getAge());
-		// 设置身高
-		dest.setHeight(src.getHeight());
-		// 设置体重
-		dest.setWeight(src.getWeight());
-	}
 }
