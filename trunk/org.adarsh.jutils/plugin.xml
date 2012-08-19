@@ -207,7 +207,14 @@
             id="jutils"
             name="%page.name"/>
             
-	  <!-- 配置项 -->
+	  <!-- 自动生成配置项 -->
+      <page
+            class="com.tan.preferences.GenPreferencesPage"
+            category="jutils"
+            name="自定义生成"
+            id="self-define.page"/>
+            
+	  <!-- getter setter 配置项 -->
       <page
             class="com.tan.preferences.GetterSetterPreferencesPage"
             category="jutils"

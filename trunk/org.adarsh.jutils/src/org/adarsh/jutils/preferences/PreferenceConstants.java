@@ -279,6 +279,10 @@ public class PreferenceConstants {
 
 	public static final String EDITOR_PATH = "editor.path";
 
+	public static final String SELF_DEFINE_GEN_DESC = "self defined auto generate!";
+			//Messages.getString("self.define.desc");
+	
+	
 	public static final String GETTER_SETTER_DESCRIPTION = Messages
 			.getString("getter.setter.desc");
 
