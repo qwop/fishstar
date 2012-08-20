@@ -28,9 +28,7 @@ import org.adarsh.jutils.preferences.PreferenceConstants;
 import org.adarsh.jutils.preferences.PreferenceUtils;
 import org.eclipse.jface.preference.BooleanFieldEditor;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
-import org.eclipse.jface.preference.FileFieldEditor;
 import org.eclipse.jface.preference.IPreferenceStore;
-import org.eclipse.jface.preference.RadioGroupFieldEditor;
 import org.eclipse.jface.text.Document;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.layout.GridData;
@@ -38,8 +36,6 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
-
-import com.tan.util.StringUtil;
 
 /**
  * The preference page handler for <tt>JUtils -> Getter Setter Style</tt>.
@@ -88,8 +84,6 @@ public class GenPreferencesPage extends FieldEditorPreferencePage
 		String thead = this.prefStore.getString(PreferenceConstants.SELF_DEFINE_THEAD_KEY);
 		String tbody = this.prefStore.getString(PreferenceConstants.SELF_DEFINE_TBODY_KEY);
 		String tfoot = this.prefStore.getString(PreferenceConstants.SELF_DEFINE_TFOOT_KEY);
-		
-		
 		
 
 		// if something is null, fetch the true copy.
@@ -189,31 +183,32 @@ public class GenPreferencesPage extends FieldEditorPreferencePage
 	 * {@inheritDoc}
 	 */
 	protected void performApply() {
-//		this.prefStore.setValue(PreferenceConstants.EXPLORER_PATH,
-//				explorer);
-//		
-//		this.prefStore.setValue(PreferenceConstants.EDITOR_PATH,
-//				editorPath);
-//		
-//		this.prefStore.setValue(PreferenceConstants.GETTER_SETTER_STYLE,
-//				 getterSetterStyle );
-//		
-//		this.prefStore.setValue( PreferenceConstants.VISITED_CONTROL_STYLE ,
-//				visitedControlStyle );
-		
+		this.prefStore.setValue(PreferenceConstants.SELF_DEFINE_FORM_KEY, this.formDoc.get());
+		this.prefStore.setValue(PreferenceConstants.SELF_DEFINE_THEAD_KEY, this.theadDoc.get());
+		this.prefStore.setValue(PreferenceConstants.SELF_DEFINE_TBODY_KEY, this.tbodyDoc.get());
+		this.prefStore.setValue(PreferenceConstants.SELF_DEFINE_TFOOT_KEY, this.tfootDoc.get());
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	protected void performDefaults() {
-		this.prefStore.setValue( PreferenceConstants.EXPLORER_PATH, "" );
 		
-		this.prefStore.setValue( PreferenceConstants.EDITOR_PATH, "" );
+		String form = Util.getDefaultSelfDefineForm();
+		String thead = Util.getDefaultSelfDefineTHead();
+		String tbody = Util.getDefaultSelfDefineTBody();
+		String tfoot = Util.getDefaultSelfDefineTFoot();
+
+		this.formDoc.set( form );
+		this.theadDoc.set( thead );
+		this.tbodyDoc.set( tbody );
+		this.tfootDoc.set( tfoot );
+
 		
-		this.prefStore.setValue( PreferenceConstants.GETTER_SETTER_STYLE, PreferenceConstants.STR_STYLE_BY_CONTENT );
-		
-		this.prefStore.setValue( PreferenceConstants.VISITED_CONTROL_STYLE , PreferenceConstants.VISITED_CONTROL_ALL_TYPE5 );
+		this.prefStore.setValue(PreferenceConstants.SELF_DEFINE_FORM_KEY, form);
+		this.prefStore.setValue(PreferenceConstants.SELF_DEFINE_THEAD_KEY, thead);
+		this.prefStore.setValue(PreferenceConstants.SELF_DEFINE_TBODY_KEY, tbody);
+		this.prefStore.setValue(PreferenceConstants.SELF_DEFINE_TFOOT_KEY, tfoot);
 		
 	}
 

@@ -1,5 +1,8 @@
 package com.tan.vad;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.adarsh.jutils.JUtilsException;
 import org.adarsh.jutils.JUtilsPlugin;
 import org.adarsh.jutils.Messages;
@@ -33,27 +36,34 @@ import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.texteditor.ITextEditor;
 
-import com.tan.util.Generate;
 import com.tan.util.StringUtil;
 
 public abstract class AbstractGenVAD implements IEditorActionDelegate{
 	/**
 	 * The preference store associated with the plugin.
 	 */
-	private static final IPreferenceStore PREF_STORE = JUtilsPlugin
+	public static final IPreferenceStore PREF_STORE = JUtilsPlugin
 			.getDefault().getPreferenceStore();
 
 	/**
 	 * The associated <tt>IEditorPart</tt>.
 	 */
 	private IEditorPart editorPart;
-	
 	/*
 	 * style
 	 */
-	protected String doc
-	;
+	protected Map<String,String> headMap;
+	protected Map<String,String> middleMap;
+	protected Map<String,String> tailMap;
+	protected StringBuffer content;
 	
+	protected abstract void getDoc();
+	// order 1.
+	protected abstract void head();
+	// order 2.
+	protected abstract void middle()  ;
+	// order 3.
+	protected abstract void tail() ;
 	
 	/**
 	 * {@inheritDoc}
@@ -66,6 +76,8 @@ public abstract class AbstractGenVAD implements IEditorActionDelegate{
 	 * {@inheritDoc}
 	 */
 	public void run(IAction action) {
+		getDoc();
+		
 		IWorkingCopyManager manager = JavaUI.getWorkingCopyManager();
 
 		IEditorInput editorInput = this.editorPart.getEditorInput();
@@ -87,7 +99,6 @@ public abstract class AbstractGenVAD implements IEditorActionDelegate{
 				MessageDialog.openInformation(shell,
 						Messages.getString("tostring.failure.title"),
 						Messages.getString("tostring.failure.message"));
-
 				return;
 			}
 
@@ -117,12 +128,29 @@ public abstract class AbstractGenVAD implements IEditorActionDelegate{
 		        IDocument document = fileBufferManager.getTextFileBuffer(path, LocationKind.NORMALIZE).getDocument();
 		        ISourceRange range = null;
 		        String comment = "";
-		        StringBuffer b =  new StringBuffer();
 		        
-		        /** #dto# */
-		        String javaName = theType.getElementName();
+		        content =  new StringBuffer();
 		        
+		        /**1. 头 **/
+		    	headMap = new HashMap<String,String>();
+		    	/** #dto# */
+		    	String dto = theType.getElementName();
+		    	headMap.put( "#dto#", dto );
+		        head();
+		        
+		        
+		        /** variables */
+		        String elementName;
 				for (int i = 0; i < fields.length; i++) {
+					
+					elementName= fields[ i ].getElementName();
+					
+					/** filter value.*/
+					if (elementName == null || "serialVersionUID".equals(elementName)){
+						continue;
+					}
+					/** filter value.*/
+					
 					range = fields[i].getJavadocRange();
 					if (range != null) {
 						 comment = StringUtil.getComment(
@@ -141,16 +169,32 @@ public abstract class AbstractGenVAD implements IEditorActionDelegate{
 						}
 					}
 					
-					Generate.generateDummyCode(
-							b, 
-							fields[i], /**#name#*/
-							comment, /**#comment#*/
-							"" /**#dto#*/
-							);
+					
+					/** 2. 中间 */
+			    	middleMap = new HashMap<String,String>();
+			    	/** #dto# */
+			    	middleMap.put( "#dto#", dto );
+			    	middleMap.put( "#name#", elementName );
+			    	middleMap.put( "#comment#", comment );
+			    	
+					middle();
+					
+//					Generate.generateDummyCode(
+//							content, 
+//							fields[i], /**#name#*/
+//							comment, /**#comment#*/
+//							"" /**#dto#*/
+//							);
 				}
+				/** 3. 尾部 */
 				
-				SourceManipulator.createDummySetterWithJavaDoc(theType,
-						 b.toString()
+				tailMap = new HashMap<String,String>();
+		    	/** #dto# */
+				tailMap.put( "#dto#", dto );
+				tail();
+				
+				SourceManipulator.createDummyHtml(theType,
+						 content.toString()
 				);
 				
 				if (PREF_STORE.getBoolean(PreferenceConstants.TOSTRING_AUTOSAVE)) {

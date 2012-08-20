@@ -1,6 +1,8 @@
 package com.tan.util;
 
 import java.text.MessageFormat;
+import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -13,6 +15,13 @@ public final class StringUtil {
 					"/\\*\\s*\\w+\\.release\\s*\\(\\s*\\).+\\*/",
 					Pattern.DOTALL);
 	public static final Object LN = System.getProperty( "line.separator", "\r\n" );
+	
+	public static final String INDENT_REG = "(?m)^";
+	
+	public static final String INDENT1 = "	";
+	public static final String INDENT2 = "		";
+	public static final String INDENT3 = "			";
+	public static final String INDENT4 = "				";
 	
 	public static boolean isRightReleaseCode(final String sourceCode) {
 		boolean isSingle = singleCommentPattern.matcher(sourceCode).find(), isMultiple = multipleCommentPattern
@@ -539,6 +548,11 @@ public final class StringUtil {
 
 	public static void appendln(StringBuffer buf, String string) {
 		buf.append( string );
+	}
+
+	public static void add(List<Map<String, String>> heads, String key,
+			String value) {
+		
 	}
 
 }

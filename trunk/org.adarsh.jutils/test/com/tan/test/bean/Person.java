@@ -75,4 +75,5 @@ public class Person {
 		// 设置体重
 		dest.setWeight(src.getWeight());
 	}
+
 }
