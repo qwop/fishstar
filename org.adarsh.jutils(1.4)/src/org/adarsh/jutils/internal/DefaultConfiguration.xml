@@ -1,32 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!--
-
-  JUtils ToString Generator for Eclipse
-  
-  Copyright (C) 2007  Adarsh Ramamurthy
-  
-  This library is free software; you can redistribute it and/or modify it 
-  under the terms of the GNU Lesser General Public License as published by 
-  the Free Software Foundation; either version 2.1 of the License, or 
-  (at your option) any later version.
-  
-  This library is distributed in the hope that it will be useful, but 
-  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
-  or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public 
-  License for more details.
-  
-  You should have received a copy of the GNU Lesser General Public License 
-  along with this library; if not, write to the Free Software Foundation, 
-  Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA.
-  
-  Plugin Home Page: http://eclipse-jutils.sourceforge.net
-
--->
+<!-- JUtils ToString Generator for Eclipse Copyright (C) 2007 Adarsh Ramamurthy 
+	This library is free software; you can redistribute it and/or modify it under 
+	the terms of the GNU Lesser General Public License as published by the Free 
+	Software Foundation; either version 2.1 of the License, or (at your option) 
+	any later version. This library is distributed in the hope that it will be 
+	useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
+	or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser General Public License 
+	for more details. You should have received a copy of the GNU Lesser General 
+	Public License along with this library; if not, write to the Free Software 
+	Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 
+	USA. Plugin Home Page: http://eclipse-jutils.sourceforge.net -->
 
 <configuration>
-    <to-string>
-        <java-doc><![CDATA[
+	<to-string>
+		<java-doc><![CDATA[
 /**
  * Constructs a <code>String</code> with all attributes
  * in name = value format.
@@ -35,9 +23,9 @@
  * of this object.
  */
 		]]>
-        </java-doc>
+		</java-doc>
 
-        <implementation type="string"><![CDATA[
+		<implementation type="string"><![CDATA[
 public String toString()
 {
     final String TAB = "    ";
@@ -52,9 +40,9 @@ public String toString()
     return retValue;
 }
 		]]>
-        </implementation>
+		</implementation>
 
-        <implementation type="stringbuffer"><![CDATA[
+		<implementation type="stringbuffer"><![CDATA[
 public String toString()
 {
     final String TAB = "    ";
@@ -69,9 +57,9 @@ public String toString()
     return retValue.toString();
 }
 		]]>
-        </implementation>
+		</implementation>
 
-        <implementation type="stringbuilder"><![CDATA[
+		<implementation type="stringbuilder"><![CDATA[
 public String toString()
 {
     final String TAB = "    ";
@@ -86,26 +74,53 @@ public String toString()
     return retValue.toString();
 }
 		]]>
-        </implementation>
-    </to-string>
+		</implementation>
+	</to-string>
 
-    <copy-constructor>
-        <java-doc><![CDATA[
+	<copy-constructor>
+		<java-doc><![CDATA[
 /**
  * Copy Constructor
  *
  * @param ${class_instance} a <code>${class_name}</code> object
  */
         ]]>
-        </java-doc>
+		</java-doc>
 
-        <implementation><![CDATA[
+		<implementation><![CDATA[
 public ${class_name}(${class_name} ${class_instance}) 
 {
     this.${attribute} = ${class_instance}.${attribute};
 }
     	]]>
 
-        </implementation>
-    </copy-constructor>
+		</implementation>
+	</copy-constructor>
+
+
+	<self-define>
+		<!-- #dummy# #comment# #name# #dto# <form action="" method="post" onsubmit="return 
+			check();"> -->
+		<form><![CDATA[
+<label for="#name#">#comment#：</label>
+<input type="text" class="input" name="#name#" id="#name#" value="${#dto#.#name#}"/>
+    		]]>
+    		
+		</form>
+
+		<thead><![CDATA[
+	         	<th>#comment#</th>
+    		]]>
+		</thead>
+
+		<tbody><![CDATA[
+	    		<td>${#dto#.#name#}</td>
+    		]]>
+		</tbody>
+
+		<tfoot><![CDATA[
+	    		<td colspan="8"><jsp:include page="/page.jsp" /></td>
+    		]]>
+		</tfoot>
+	</self-define>
 </configuration>

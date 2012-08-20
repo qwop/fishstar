@@ -14,6 +14,13 @@ public final class StringUtil {
 					Pattern.DOTALL);
 	public static final Object LN = System.getProperty( "line.separator", "\r\n" );
 	
+	public static final String INDENT_REG = "(?m)^";
+	
+	public static final String INDENT1 = "	";
+	public static final String INDENT2 = "		";
+	public static final String INDENT3 = "			";
+	public static final String INDENT4 = "				";
+	
 	public static boolean isRightReleaseCode(final String sourceCode) {
 		boolean isSingle = singleCommentPattern.matcher(sourceCode).find(), isMultiple = multipleCommentPattern
 				.matcher(sourceCode).find();

@@ -20,9 +20,10 @@
  * Plugin Home Page: http://eclipse-jutils.sourceforge.net
  */
 
-package org.adarsh.jutils.preferences;
+package com.tan.preferences;
 
 import org.adarsh.jutils.JUtilsPlugin;
+import org.adarsh.jutils.preferences.PreferenceConstants;
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
 import org.eclipse.jface.preference.FileFieldEditor;
 import org.eclipse.jface.preference.IPreferenceStore;
@@ -65,6 +66,8 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 	private final IPreferenceStore prefStore = this.jUtilsPlugin
 			.getPreferenceStore();
 
+
+
 	public GetterSetterPreferencesPage() {
 		super(GRID);
 		super.setPreferenceStore(this.prefStore);
@@ -81,7 +84,6 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 		super.setDescription(PreferenceConstants.GETTER_SETTER_DESCRIPTION);
 	}
 
-	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -90,11 +92,11 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 
 		GridData data = new GridData(GridData.FILL_BOTH);
 
-		parent.setLayout(new GridLayout(3, true));
+		parent.setLayout(new GridLayout( 3, true));
 		parent.setLayoutData(data);
 
 		// style
-		RadioGroupFieldEditor rgfe = new RadioGroupFieldEditor(
+		/*RadioGroupFieldEditor rgfe = new RadioGroupFieldEditor(
 				PreferenceConstants.GETTER_SETTER_STYLE,
 				PreferenceConstants.GETTER_SETTER_STYLE_LABEL,
 				3,
@@ -107,7 +109,7 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 								PreferenceConstants.STR_STYLE3 } }, parent,
 				true);
 
-		addField(rgfe);
+		addField(rgfe);*/
 		
 		// adc analyse method style
 		RadioGroupFieldEditor rgfe1 = new RadioGroupFieldEditor(
