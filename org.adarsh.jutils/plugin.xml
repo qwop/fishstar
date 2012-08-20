@@ -84,6 +84,24 @@
                icon="icons/tostring.gif"
                menubarPath="generate.viewer/string"
                id="GetterVADBySysout.action"/>
+               
+               
+        <!--generate html form by java bean--> 
+       	<action
+               label="Gen form"
+               class="com.tan.vad.actions.GenFormVAD"
+               icon="icons/tostring.gif"
+               menubarPath="generate.viewer/string"
+               id="GenFormVAD.action"/>
+               
+               
+        <!--generate html table by java bean--> 
+       	<action
+               label="Gen table"
+               class="com.tan.vad.actions.GenTableVAD"
+               icon="icons/tostring.gif"
+               menubarPath="generate.viewer/string"
+               id="GenTableVAD.action"/>
   
   
             
