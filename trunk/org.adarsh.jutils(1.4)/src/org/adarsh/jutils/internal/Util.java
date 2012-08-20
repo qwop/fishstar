@@ -42,7 +42,48 @@ public class Util {
 	public static boolean isNullString(String string) {
 		return string == null || string.equals("");
 	}
-
+	
+	/**
+	 * 自定义默认 thead
+	 * retrieves the default self define .
+	 * @return a <tt>String</tt> containing the Self-Define.
+	 */
+	public static String getDefaultSelfDefineTHead() {
+		return ConfigurationXMLParser.retrieveTagContents(
+				ConfigurationConstants.SELF_DEFINE_TAG,
+				ConfigurationConstants.THEAD_TAG);
+	}
+	/**
+	 * 自定义默认 tbody
+	 * retrieves the default self define .
+	 * @return a <tt>String</tt> containing the Self-Define.
+	 */
+	public static String getDefaultSelfDefineTBody() {
+		return ConfigurationXMLParser.retrieveTagContents(
+				ConfigurationConstants.SELF_DEFINE_TAG,
+				ConfigurationConstants.TBODY_TAG);
+	}
+	/**
+	 * 自定义默认 tfoot
+	 * retrieves the default self define .
+	 * @return a <tt>String</tt> containing the Self-Define.
+	 */
+	public static String getDefaultSelfDefineTFoot() {
+		return ConfigurationXMLParser.retrieveTagContents(
+				ConfigurationConstants.SELF_DEFINE_TAG,
+				ConfigurationConstants.TFOOT_TAG);
+	}
+	/**
+	 * 自定义默认 form
+	 * retrieves the default self define .
+	 * @return a <tt>String</tt> containing the Self-Define.
+	 */
+	public static String getDefaultSelfDefineForm() {
+		return ConfigurationXMLParser.retrieveTagContents(
+				ConfigurationConstants.SELF_DEFINE_TAG,
+				ConfigurationConstants.FORM_TAG);
+	}
+	
 	/**
 	 * Retrieves the default toString JavaDoc.
 	 * 

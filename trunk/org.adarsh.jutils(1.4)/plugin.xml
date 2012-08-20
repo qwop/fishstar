@@ -83,6 +83,24 @@
                icon="icons/tostring.gif"
                menubarPath="generate.viewer/string"
                id="GetterVADBySysout.action"/>
+               
+               
+        <!--generate html form by java bean--> 
+       	<action
+               label="Gen form"
+               class="com.tan.vad.actions.GenFormVAD"
+               icon="icons/tostring.gif"
+               menubarPath="generate.viewer/string"
+               id="GenFormVAD.action"/>
+               
+               
+        <!--generate html table by java bean--> 
+       	<action
+               label="Gen table"
+               class="com.tan.vad.actions.GenTableVAD"
+               icon="icons/tostring.gif"
+               menubarPath="generate.viewer/string"
+               id="GenTableVAD.action"/>
   
   
             
@@ -133,7 +151,9 @@
                icon="icons/constructor.gif"
                class="org.adarsh.jutils.actions.CopyConstructorGeneratorVAD"
                menubarPath="generate.viewer/constructor"
-               id="constructor.viewerContribution.action"/>               
+               id="constructor.viewerContribution.action"/>  
+               
+                            
          <menu
                label="%menu.label"
                path="group.additions"
@@ -141,6 +161,8 @@
             <groupMarker name="string"/>
             <groupMarker name="constructor"/>
          </menu>
+         
+         
       </viewerContribution>
       
       <objectContribution
@@ -194,6 +216,22 @@
             class="org.adarsh.jutils.preferences.JUtilsPreferencesPage"
             id="jutils"
             name="%page.name"/>
+            
+	  <!-- 自动生成配置项 -->
+      <page
+            class="com.tan.preferences.GenPreferencesPage"
+            category="jutils"
+            name="自定义生成"
+            id="self-define.page"/>
+            
+	  <!-- getter setter 配置项 -->
+      <page
+            class="com.tan.preferences.GetterSetterPreferencesPage"
+            category="jutils"
+            name="%page.name.2"
+            id="getterSetter.page"/>
+            
+            
       <page
             class="org.adarsh.jutils.preferences.ToStringPreferencesPage"
             category="jutils"
@@ -205,11 +243,6 @@
             category="jutils"
             name="%page.name.1"
             id="constructor.page"/>
-      <page
-            class="org.adarsh.jutils.preferences.GetterSetterPreferencesPage"
-            category="jutils"
-            name="%page.name.2"
-            id="getterSetter.page"/>
 			
 	</extension>
    
