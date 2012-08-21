@@ -198,7 +198,14 @@ public final class StringUtil {
 		return owner + " start = new " + owner + "();";
 		// return owner + ' ' + owner.toLowerCase() + " = new " + owner + "();";
 	}
-
+	
+	/**
+	 * 获取指定字段的注释内容， 过滤掉相关注释符号.
+	 * @param fieldName		字段名称.
+	 * @param string		包含注释的java字段注释.
+	 * @param isJavaDoc		是否为文档注释
+	 * @return
+	 */
 	public static String getComment(final String fieldName, String string,
 			boolean isJavaDoc) {
 		if (isEmpty(string)) {
