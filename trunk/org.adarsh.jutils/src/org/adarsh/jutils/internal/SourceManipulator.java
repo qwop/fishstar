@@ -142,7 +142,7 @@ public class SourceManipulator {
 					.getBoolean("tostring.sort");
 
 			if (isSort) {
-				Arrays.sort(fields, new Comparator<Object>() {
+				Arrays.sort(fields, new Comparator() {
 					public int compare(Object arg1, Object arg2) {
 						IField field1 = (IField) arg1;
 						IField field2 = (IField) arg2;
@@ -275,7 +275,7 @@ public class SourceManipulator {
 					.getBoolean("copycon.sort");
 
 			if (isSort) {
-				Arrays.sort(fields, new Comparator<Object>() {
+				Arrays.sort(fields, new Comparator() {
 					public int compare(Object arg1, Object arg2) {
 						IField field1 = (IField) arg1;
 						IField field2 = (IField) arg2;

@@ -18,7 +18,6 @@ public class GenFormVAD extends AbstractGenVAD{
 	
 	private String form ;
 	
-	@Override
 	protected void getDoc() {
 		form = PREF_STORE.getString( PreferenceConstants.SELF_DEFINE_FORM_KEY );
 		
@@ -27,7 +26,6 @@ public class GenFormVAD extends AbstractGenVAD{
 		}
 	}
 
-	@Override
 	protected void head() {
 		content
 		.append(  "<form action=\"\" method=\"post\" onsubmit=\"return check();\">" )
@@ -35,9 +33,8 @@ public class GenFormVAD extends AbstractGenVAD{
 		;
 	}
 
-	@Override
 	protected void middle() {
-		Set<String> keys = middleMap.keySet();
+		Set keys = middleMap.keySet();
 		
 		if ( null != keys && keys.size() > 0 ) {
 			String key, value,
@@ -45,11 +42,11 @@ public class GenFormVAD extends AbstractGenVAD{
 			;
 			
 			boolean changed = false;
-			for ( Iterator<String> iter = keys.iterator(); iter.hasNext(); ) {
-				key = iter.next();
+			for ( Iterator iter = keys.iterator(); iter.hasNext(); ) {
+				key = ( String ) iter.next();
 				
 				if ( null != key ) {
-					formHtml = formHtml.replaceAll( key, middleMap.get( key ) );
+					formHtml = formHtml.replaceAll( key, (String) middleMap.get( key ) );
 					changed = true;
 				}
 			}
@@ -63,7 +60,6 @@ public class GenFormVAD extends AbstractGenVAD{
 		
 	}
 
-	@Override
 	protected void tail() {
 		content
 		.append(  "</form>" )

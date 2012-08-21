@@ -52,9 +52,9 @@ public abstract class AbstractGenVAD implements IEditorActionDelegate{
 	/*
 	 * style
 	 */
-	protected Map<String,String> headMap;
-	protected Map<String,String> middleMap;
-	protected Map<String,String> tailMap;
+	protected Map headMap;
+	protected Map middleMap;
+	protected Map tailMap;
 	protected StringBuffer content;
 	
 	protected abstract void getDoc();
@@ -132,7 +132,7 @@ public abstract class AbstractGenVAD implements IEditorActionDelegate{
 		        content =  new StringBuffer();
 		        
 		        /**1. 头 **/
-		    	headMap = new HashMap<String,String>();
+		    	headMap = new HashMap();
 		    	/** #dto# */
 		    	String dto = theType.getElementName();
 		    	headMap.put( "#dto#", dto );
@@ -171,7 +171,7 @@ public abstract class AbstractGenVAD implements IEditorActionDelegate{
 					
 					
 					/** 2. 中间 */
-			    	middleMap = new HashMap<String,String>();
+			    	middleMap = new HashMap();
 			    	/** #dto# */
 			    	middleMap.put( "#dto#", dto );
 			    	middleMap.put( "#name#", elementName );
@@ -188,7 +188,7 @@ public abstract class AbstractGenVAD implements IEditorActionDelegate{
 				}
 				/** 3. 尾部 */
 				
-				tailMap = new HashMap<String,String>();
+				tailMap = new HashMap();
 		    	/** #dto# */
 				tailMap.put( "#dto#", dto );
 				tail();
