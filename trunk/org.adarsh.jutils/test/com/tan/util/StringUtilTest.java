@@ -1,5 +1,6 @@
 package com.tan.util;
 
+import static com.tan.util.StringUtil.*;
 import junit.framework.TestCase;
 
 import org.junit.Test;
@@ -164,12 +165,73 @@ public class StringUtilTest extends TestCase {
 	 * Run the String getComment(String, String, boolean) method test
 	 */
 	public void testGetComment() {
+		/****
+		 * fuck
+		 * @param args
+		 * @throws Exception
+		 */
+		
+		
+		
+			 System.out.println(getComment("none",
+			 "//common comment 3. public static void main", false));
+			 System.out.println(getComment("none",
+			 "//java field comment 4. \r\n private float height;", false));
+			 System.out.println(getComment("none",
+			 "//java field comment 5. \n private float height;", false));
+			 System.out.println(getComment("none",
+			 " \n private float height; //java field comment 6.;", false));
+			 System.out.println(getComment("none",
+			 "// prefix comment. \n private Field field; // suffix comment 7.;",
+			 false));
+			 
+			 System.out.println(getComment("none",
+					 " \r\n \n private float height; //java comment 8.;", false));
+			 
+			 
+			 System.out.println(getComment("height",
+					 " \r\n \n private float height; // \"height\".", false));
+			 
+			 
+			 System.out.println(getComment("height",
+			 " \r\n \n private float height; // height.", false));
+			 
+			 
+			 System.out.println(getComment("none", " ", true));
+			 
+			 
+			 
+			 System.out.println(getComment("",
+
+	"/****\n" +
+	"\t * fuck\n" + 
+	"\t * @param args\n" + 
+	"\t * @throws Exception\n" + 
+	"\t */"
+
+
+					 , true));
+			
+		}
+
+
+	public void testdelLastSymbol() {
+		assertEquals( "", delLastSymbol( "" ) , "" );
+		assertEquals( "", delLastSymbol( "1" ) , "1" );
+		assertEquals( "", delLastSymbol( "1，" ) , "1" );
+		assertEquals( "", delLastSymbol( "1、" ) , "1" );
+		assertEquals( "", delLastSymbol( "1。" ) , "1" );
+		assertEquals( "", delLastSymbol( "1." ) , "1" );
+		assertEquals( "", delLastSymbol( "1." ) , "1" );
+		assertEquals( "", delLastSymbol( "1." ) , "1" );
+		assertEquals( "", delLastSymbol( "1." ) , "1" );
+		assertEquals( "", delLastSymbol( "1." ) , "1" );
+		assertEquals( "", delLastSymbol( "1." ) , "1" );
+		assertEquals( "", delLastSymbol( "1." ) , "1" );
 		
 		
 	}
-
-
-
+	
 	/**
 	 * Run the String replace(String, String, String) method test
 	 */

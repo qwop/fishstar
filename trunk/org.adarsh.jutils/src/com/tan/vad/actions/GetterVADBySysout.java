@@ -14,9 +14,8 @@ public class GetterVADBySysout extends AbstractGetterVAD {
 	 * <li>PreferenceConstants.STR_STYLE3 样式3 待设定</li>
 	 * </ul>
 	 */
-	@Override
 	public void setStyle() {
-		this.style = PreferenceConstants.STR_STYLE3;
+		this.style = PreferenceConstants.STR_STYLE_SYSOUT;
 	}
 
 }

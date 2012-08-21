@@ -29,8 +29,8 @@ public class Editor {
 		if (EDITPLUS_PATH != null) {
 			return EDITPLUS_PATH;
 		} else {
-			for ( final String path : ABSOLUTE_PATHS ) {
-				String absolutePath = analyse(readCmd( path ));
+			for ( int i = 0; i < ABSOLUTE_PATHS.length; i++ ) {
+				String absolutePath = analyse(readCmd( ABSOLUTE_PATHS[ i ] ));
 				if (null != absolutePath && new File(absolutePath).isFile()) {
 					EDITPLUS_PATH = "\"" + absolutePath + "\"";
 					

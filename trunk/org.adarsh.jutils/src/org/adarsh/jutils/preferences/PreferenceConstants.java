@@ -294,7 +294,7 @@ public class PreferenceConstants {
 
 	public static final String STR_STYLE_BY_CONTENT = "1";
 	public static final String STR_STYLE_BY_GET = "2";
-	public static final String STR_STYLE3 = "3";
+	public static final String STR_STYLE_SYSOUT = "3";
 
 	public static final String GETTER_SETTER_STYLE = "getter.setter.style";
 

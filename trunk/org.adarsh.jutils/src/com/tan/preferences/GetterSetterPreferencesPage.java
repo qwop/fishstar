@@ -125,7 +125,7 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 						}, 
 						parent,
 				true);
-
+		
 		addField(rgfe1);
 		
 		// 编辑器
@@ -162,8 +162,8 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 				getterSetterStyle = PreferenceConstants.STR_STYLE_BY_CONTENT;
 			} else if ( PreferenceConstants.STR_STYLE_BY_GET.equals(event.getNewValue()) ) {
 				getterSetterStyle = PreferenceConstants.STR_STYLE_BY_GET;
-			} else if ( PreferenceConstants.STR_STYLE3.equals(event.getNewValue()) ) {
-				getterSetterStyle = PreferenceConstants.STR_STYLE3;
+			} else if ( PreferenceConstants.STR_STYLE_SYSOUT.equals(event.getNewValue()) ) {
+				getterSetterStyle = PreferenceConstants.STR_STYLE_SYSOUT;
 			}
 			
 			

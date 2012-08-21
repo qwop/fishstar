@@ -3,11 +3,11 @@ package com.tan.test.bean;
 
 
 public class Person {
-	/** 姓名*/
+	/** 姓名,*/
 	private String name;
-	// 年龄
+	// 年龄.
 	private int age;
-	private float height; // 身高
+	private float height; // '身高.
 	/**
 	 * 体重
 	 */
@@ -75,5 +75,34 @@ public class Person {
 		// 设置体重
 		dest.setWeight(src.getWeight());
 	}
+	public void dummyHtml() {/**
+	<table class="">
+		<thead>
+			<tr>
+				<th>姓名, <a href="#">姓名,</a></th>
+				<th>年龄 <a href="#">年龄</a></th>
+				<th>身高 <a href="#">身高</a></th>
+				<th>体重 <a href="#">体重</a></th>
+	
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>${Person.name}</td>
+				<td>${Person.age}</td>
+				<td>${Person.height}</td>
+				<td>${Person.weight}</td>
+	
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="8">test</td>
+	
+			</tr>
+		</tfoot>
+	</table>
+	*/}
+	
 
 }
