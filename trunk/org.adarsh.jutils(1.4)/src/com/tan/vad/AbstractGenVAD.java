@@ -52,7 +52,7 @@ public abstract class AbstractGenVAD implements IEditorActionDelegate{
 	/*
 	 * style
 	 */
-	protected Map	headMap;
+	protected Map headMap;
 	protected Map middleMap;
 	protected Map tailMap;
 	protected StringBuffer content;

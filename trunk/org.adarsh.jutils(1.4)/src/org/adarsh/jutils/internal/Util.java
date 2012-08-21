@@ -44,7 +44,7 @@ public class Util {
 	}
 	
 	/**
-	 * ×Ô¶¨ÒåÄ¬ÈÏ thead
+	 * è‡ªå®šä¹‰é»˜è®¤ thead
 	 * retrieves the default self define .
 	 * @return a <tt>String</tt> containing the Self-Define.
 	 */
@@ -54,7 +54,7 @@ public class Util {
 				ConfigurationConstants.THEAD_TAG);
 	}
 	/**
-	 * ×Ô¶¨ÒåÄ¬ÈÏ tbody
+	 * è‡ªå®šä¹‰é»˜è®¤ tbody
 	 * retrieves the default self define .
 	 * @return a <tt>String</tt> containing the Self-Define.
 	 */
@@ -64,7 +64,7 @@ public class Util {
 				ConfigurationConstants.TBODY_TAG);
 	}
 	/**
-	 * ×Ô¶¨ÒåÄ¬ÈÏ tfoot
+	 * è‡ªå®šä¹‰é»˜è®¤ tfoot
 	 * retrieves the default self define .
 	 * @return a <tt>String</tt> containing the Self-Define.
 	 */
@@ -74,7 +74,7 @@ public class Util {
 				ConfigurationConstants.TFOOT_TAG);
 	}
 	/**
-	 * ×Ô¶¨ÒåÄ¬ÈÏ form
+	 * è‡ªå®šä¹‰é»˜è®¤ form
 	 * retrieves the default self define .
 	 * @return a <tt>String</tt> containing the Self-Define.
 	 */
