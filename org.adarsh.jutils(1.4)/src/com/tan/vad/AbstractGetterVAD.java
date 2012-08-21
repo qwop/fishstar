@@ -50,7 +50,6 @@ import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.ITextSelection;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.IEditorActionDelegate;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.IEditorPart;
 import org.eclipse.ui.texteditor.ITextEditor;
@@ -177,13 +176,18 @@ public abstract class AbstractGetterVAD extends AbstractSetterVAD {
 						 style);
 				}
 				
-				SourceManipulator.createDummySetterWithJavaDoc(theType,
-						 b.toString()
-				);
 				
+				if ( PreferenceConstants.STR_STYLE_SYSOUT.equals( style ) ) {
+					SourceManipulator.createDummySysout(theType,
+							b.toString()
+							);
+				} else {
+					SourceManipulator.createDummyGetterWithJavaDoc(theType,
+							b.toString()
+							);
+				}
 				
-				if (PREF_STORE
-						.getBoolean(PreferenceConstants.TOSTRING_AUTOSAVE)) {
+				if (PREF_STORE.getBoolean(PreferenceConstants.TOSTRING_AUTOSAVE)) {
 					compUnit.commitWorkingCopy(false, new NullProgressMonitor());
 				}
 			} else {

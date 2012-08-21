@@ -205,8 +205,16 @@
                id="org.adarsh.jutils.newAction"
                label="分析【ADC】项目的 SessionBean 类方法"
                menubarPath="org.adarsh.jutils.menu1/group1">
-        
          </action>
+         
+         
+        <!--<action
+               class="org.adarsh.jutils.popup.actions.ExportProjectAction"
+               id="org.adarsh.jutils.export.project.action"
+               label="导出所有项目信息"
+               menubarPath="org.adarsh.jutils.menu1/group1">
+         </action> -->
+	 
       </objectContribution>
    </extension>
    
