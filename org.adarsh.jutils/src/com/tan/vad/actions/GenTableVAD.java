@@ -56,7 +56,6 @@ public class GenTableVAD extends AbstractGenVAD{
 	
 	private StringBuffer  thead, tbody, tfoot;
 	
-	@Override
 	protected void getDoc() {
 		theadDoc = PREF_STORE.getString(PreferenceConstants.SELF_DEFINE_THEAD_KEY);
 		tbodyDoc = PREF_STORE.getString(PreferenceConstants.SELF_DEFINE_TBODY_KEY);
@@ -74,7 +73,6 @@ public class GenTableVAD extends AbstractGenVAD{
 		}
 	}
 
-	@Override
 	protected void head() {
 		
 		thead = new StringBuffer();
@@ -83,9 +81,8 @@ public class GenTableVAD extends AbstractGenVAD{
 		
 	}
 
-	@Override
 	protected void middle() {
-		Set<String> keys = middleMap.keySet();
+		Set keys = middleMap.keySet();
 		
 		if ( null != keys && keys.size() > 0 ) {
 			String key, value,
@@ -94,11 +91,11 @@ public class GenTableVAD extends AbstractGenVAD{
 			;
 			
 			boolean changed = false;
-			for ( Iterator<String> iter = keys.iterator(); iter.hasNext(); ) {
-				key = iter.next();
+			for ( Iterator iter = keys.iterator(); iter.hasNext(); ) {
+				key = ( String ) iter.next();
 				
 				if ( null != key ) {
-					value = middleMap.get( key );
+					value = ( String )middleMap.get( key );
 					
 					theadHtml = theadHtml.replaceAll( key, value );
 					tbodyHtml = tbodyHtml.replaceAll( key, value );
@@ -116,7 +113,6 @@ public class GenTableVAD extends AbstractGenVAD{
 		
 	}
 
-	@Override
 	protected void tail() {
 		content
 		.append( "<table class=\"\">" ).append( StringUtil.LN )

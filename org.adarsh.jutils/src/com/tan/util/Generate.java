@@ -77,7 +77,7 @@ public final class Generate {
 		
 		StringUtil.append(b,
 				INDENT, "// 设置", comment , N,
-				INDENT,"dest.set" , methodSuffix,'(',dummy,");", N
+				INDENT,"dest.set" , methodSuffix,"(",dummy,");", N
 		);
 	}
 	

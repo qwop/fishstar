@@ -43,7 +43,6 @@ public class Main extends JFrame {
 		
 		b1.addActionListener( new ActionListener () {
 
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				// get the current class path, is the "jutils.jar" file.
 				final String cp = System.getProperty( "java.class.path" ).toLowerCase();
