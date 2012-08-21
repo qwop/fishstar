@@ -12,6 +12,18 @@ public class Person {
 	 * 体重
 	 */
 	private double weight;
+	
+    private String strareapath; // 地区路径
+    // private String strareaname;// 区域名称（所属区域）
+
+    
+    /**
+     * 关联： strspid; //合作伙伴ID 联系人信息
+     * 
+     */
+    private String strleaderman; // 公司领导姓名
+    
+	
 	public String getName() {
 		return name;
 	}
@@ -36,73 +48,34 @@ public class Person {
 	public void setWeight( double weight ) {
 		this.weight = weight;
 	}
-	public static void main(final String[] args ) {
-		Person vo = new Person();
-		Person po = new Person();
-		// 获取姓名
-		System.out.println( "姓名:\t" + po.getName() );
-		// 获取年龄
-		System.out.println( "年龄:\t" + po.getAge() );
-		// 获取身高
-		System.out.println( "身高:\t" + po.getHeight() );
-		// 获取体重
-		System.out.println( "体重:\t" + po.getWeight() );
+	public String getStrareapath() {
+		return strareapath;
 	}
-	
-	
-	public void dummy() {
-		Person vo = new Person();
-		Person po = new Person();
-		// 获取姓名
-		po.getName();
-		// 获取年龄
-		po.getAge();
-		// 获取身高
-		po.getHeight();
-		// 获取体重
-		po.getWeight();
+	public void setStrareapath(String strareapath) {
+		this.strareapath = strareapath;
 	}
-	
-	public void dummySet() {
+	public String getStrleaderman() {
+		return strleaderman;
+	}
+	public void setStrleaderman(String strleaderman) {
+		this.strleaderman = strleaderman;
+	}
+	public static void main( String[] args ) {
 		Person dest = new Person();
 		Person src = new Person();
-		// 设置姓名
-		dest.setName(src.getName());
-		// 设置年龄
-		dest.setAge(src.getAge());
-		// 设置身高
-		dest.setHeight(src.getHeight());
-		// 设置体重
-		dest.setWeight(src.getWeight());
+		// 获取姓名,.
+		System.out.printf( "%-20s %-10s\n", "姓名,\t" , src.getName() );
+		// 获取年龄.
+		System.out.printf( "%-20s %-10s\n", "年龄\t" , src.getAge() );
+		// 获取身高.
+		System.out.printf( "%-20s %-10s\n", "身高\t" , src.getHeight() );
+		// 获取体重.
+		System.out.printf( "%-20s %-10s\n", "体重\t" , src.getWeight() );
+		// 获取地区路径.
+		System.out.printf( "%-20s %-10s\n", "地区路径\t" , src.getStrareapath() );
+		// 获取关联： strspid; //合作伙伴ID 联系人信息.
+		System.out.printf( "%-20s %-10s\n", "关联： strspid; //合作伙伴ID 联系人信息\t" , src.getStrleaderman() );
 	}
-	public void dummyHtml() {/**
-	<table class="">
-		<thead>
-			<tr>
-				<th>姓名, <a href="#">姓名,</a></th>
-				<th>年龄 <a href="#">年龄</a></th>
-				<th>身高 <a href="#">身高</a></th>
-				<th>体重 <a href="#">体重</a></th>
 	
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>${Person.name}</td>
-				<td>${Person.age}</td>
-				<td>${Person.height}</td>
-				<td>${Person.weight}</td>
 	
-			</tr>
-		</tbody>
-		<tfoot>
-			<tr>
-				<td colspan="8">test</td>
-	
-			</tr>
-		</tfoot>
-	</table>
-	*/}
-	
-
 }
