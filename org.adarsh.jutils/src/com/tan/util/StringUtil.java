@@ -40,7 +40,7 @@ public final class StringUtil {
 	 * @param v
 	 * @return
 	 */
-	public final static boolean isEmpty(String v) {
+	public final static boolean isEmpty( final String v ) {
 		return v == null || v.trim().length() == 0;
 	}
 
@@ -58,13 +58,13 @@ public final class StringUtil {
 	 * @param v
 	 * @return
 	 */
-	public final static boolean isNotNull(String v) {
+	public final static boolean isNotNull( final String v) {
 		return v != null && v.trim().length() != 0
 				&& !"null".equals(v.trim().toLowerCase());
 	}
 
 	/**
-	 * 判断字符串是否为空.
+	 * 判断字符串是否不为空.
 	 * 
 	 * @param v
 	 * @return
@@ -205,7 +205,8 @@ public final class StringUtil {
 			return null;
 		}
 		string = string.trim();
-		if (isJavaDoc) { // JavaDoc注释
+		if ( isJavaDoc ) { // JavaDoc注释
+			
 			if (string.startsWith("/*")) {
 				string = string.substring(2);
 			} else if (string.startsWith("/**")) {
@@ -217,90 +218,88 @@ public final class StringUtil {
 			} else if (string.endsWith("**/")) {
 				string = string.substring(0, string.length() - 3);
 			}// 删除结束标记 */ 或者 **/
-			return string.replaceAll("\\*", "").trim(); // 过滤掉 * 字符.
+			string =  string.replaceAll("\\*", "").trim(); // 过滤掉 * 字符.
+			
 		}
-		int lineIdx = string.indexOf("\r\n");
-		if (lineIdx < 0) {
-			lineIdx = string.indexOf("\n");
-		}// 获取回车换行位置。
-
-		int commentStart = string.indexOf("//"); // 是否有// 标记
-		if (commentStart == 0) {// 以//开头.
-			if (lineIdx > 0) {
-				string = string.substring(2, lineIdx).trim();
-			} else {
-				string = string.substring(2).trim();
+		else {
+			int lineIdx = string.indexOf("\r\n");
+			if (lineIdx < 0) {
+				lineIdx = string.indexOf("\n");
+			}// 获取回车换行位置。
+			int commentStart = string.indexOf("//"); // 是否有// 标记
+			
+			if ( commentStart == 0 ) {// 以//开头.
+				if (lineIdx > 0) {
+					string = string.substring(2, lineIdx).trim();
+				} else {
+					string = string.substring(2).trim();
+				}
+			} else if ( commentStart > 0 ) { // 注释// 不是处于标记开头
+				string = string.substring(commentStart + 2).trim();
+			}  else if ( commentStart < 0 ) {
+				// not found the comment //
+				string = fieldName;
 			}
-		} else if (commentStart > 0) { // 注释// 不是处于标记开头
-			string = string.substring(commentStart + 2).trim();
-		} else {
+		}
+		
+		string = string.trim();
+		
+		if ( string.length() > 1 ) {
+			
+			string = filterJavaDoc( string );
+			
+			string = trimQuot( string );
+			
+			string = delLastSymbol( string );
+			
+		}
+		
+		
+		if ( isEmpty( string ) ) {
 			// 未找到 注释//标记.
 			if (!isEmpty(fieldName)) {
 				return fieldName;
 			}
 			return "**未找到注释/字段**";
+			
 		}
+		
 		return string;
 	}
-
-	public static void main(String[] args) throws Exception {
-		 System.out.println(getComment("none",
-		 "//common comment 3. public static void main", false));
-		 System.out.println(getComment("none",
-		 "//java field comment 4. \r\n private float height;", false));
-		 System.out.println(getComment("none",
-		 "//java field comment 5. \n private float height;", false));
-		 System.out.println(getComment("none",
-		 " \n private float height; //java field comment 6.;", false));
-		 System.out.println(getComment("none",
-		 "// prefix comment. \n private Field field; // suffix comment 7.;",
-		 false));
-		 System.out.println(getComment("none",
-		 " \r\n \n private float height; //java comment 8.;", false));
-		 System.out.println(getComment("none", " ", true));
-		
-		//
-		// System.out.println(replace("fdsajfdlsajf/fdsafdsafds/replaceMent/3232",
-		// "replaceMent/", ""));
-		// try
-		// {
-		//
-		// System.out.println(Arrays.toString(Preferences.userRoot().node("/shell").keys()));
-		// System.out.println(Arrays.toString(Preferences.systemRoot().node("/Software").keys()));
-		// }
-		// catch (BackingStoreException e)
-		// {
-		// // TODO Auto-generated catch block
-		// e.printStackTrace();
-		// };
-
-		/*
-		 * Field[] fs = Signature.class.getFields();
-		 * 
-		 * 
-		 * for ( Field f : fs ) { Class c = f.getType(); if ( Modifier.isPublic(
-		 * f.getModifiers() ) && Modifier.isStatic( f.getModifiers() ) ) {
-		 * 
-		 * if ( false && c == Character.TYPE ) {
-		 * System.out.println("case Signature." + f.getName() +
-		 * ": { return \"\"; } " );
-		 *//**
-		 * case Signature.C_BOOLEAN: { return "false"; }
-		 */
-		/*
-		 * } else if ( false && c == String.class) {
-		 * System.out.println("else if ( Signature." + f.getName() +
-		 * ".equals( typeSignature ) ) { return \"\";}" );
-		 *//**
-		 * // * else if ( Signature.SIG_BOOLEAN.equals( typeSignature ) ) {
-		 * return "false";}
-		 */
-		/*
-		 * } else { System.out.println( c + "\t" + f.getName() ); } }
-		 */
-
-	//	System.out.println(getDummyField("QPerson;"));
-	//	System.out.println(getDummyField("QSet<QString;>;"));
+	
+	/**
+	 * 删除最后一个符号
+	 * @param string
+	 * @return
+	 */
+	public static String delLastSymbol(String string) {
+		if ( null != string && string.length() > 1) {
+			int startIdx = 0, endIdx = string.length() - 1;
+			char lstChar = string.charAt( endIdx );
+			switch (lstChar) {
+			case '.':
+			case '，':
+			case '、':
+			case '；':
+			case '：':
+			case '·':
+			case 'ˉ':
+			case 'ˇ':
+			case '‘':
+			case '’':
+			case '“':
+			case '”':
+			case '＂':
+			case '＇':
+			case '｀':
+			case '〃':
+			case '。': {
+				return string.substring(startIdx, endIdx);
+				}
+			}
+			
+		}
+		return string;
 	}
 
 	/**
@@ -501,19 +500,22 @@ public final class StringUtil {
 		return null;
 	}
 
-	public static String trimQuot(String editorPath) {
-		if ( isEmpty( editorPath ) ) {
-			return editorPath;
+	public static String trimQuot(String value) {
+		if ( isEmpty( value ) ) {
+			return value;
 		}
-		char c = editorPath.charAt( 0 ) ;
+		char c = value.charAt( 0 ) ;
+		int len = value.length();
+		int beginIndex = 0, endIndex = len ;
 		if ( isQuot( c ) ) {
-			editorPath = editorPath.substring( 1 );
+			beginIndex = 1;
 		}
-		c = editorPath.charAt( editorPath.length() - 1 ) ;
+		
+		c = value.charAt( len - 1 ) ;
 		if ( isQuot( c ) ) {
-			editorPath = editorPath.substring( 0 , editorPath.length() - 1 );
+			endIndex = len - 1;
 		}
-		return editorPath;
+		return value.substring( beginIndex, endIndex );
 	}
 
 	static char[] QUOTS = { 
@@ -535,7 +537,7 @@ public final class StringUtil {
 		if ( !isEmpty( comment ) ) {
 			String replaced = null;
 			try {
-				replaced = comment.replaceAll( "@([a-zA-Z]+)([a-zA-Z\\s])+", "" );
+				replaced = comment.replaceAll( "@(\\w+)([@\\w\\s])+", "" );
 			} catch ( Throwable e ) {
 			}
 			if ( null != replaced ) {
@@ -545,14 +547,17 @@ public final class StringUtil {
 		}
 		return null;
 	}
+	
+	public static void main( String[] args ) {
+		System.out.println( 
+				filterJavaDoc( "fuck\n" +
+						"\t  @param args\n" + 
+						"\t  @throws Exception" )
+ ) ;
+	}
 
 	public static void appendln(StringBuffer buf, String string) {
 		buf.append( string );
-	}
-
-	public static void add(List<Map<String, String>> heads, String key,
-			String value) {
-		
 	}
 
 }

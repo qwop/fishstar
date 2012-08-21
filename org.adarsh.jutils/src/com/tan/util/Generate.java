@@ -45,7 +45,7 @@ public final class Generate {
 		
 		if (  PreferenceConstants.STR_STYLE_BY_GET.equals( style )  ) {
 			generateDummyCode( b,  name, comment );
-		}  else if (  PreferenceConstants.STR_STYLE3.equals( style )  ) {
+		}  else if (  PreferenceConstants.STR_STYLE_SYSOUT.equals( style )  ) {
 			generateDummyCode( b,  name, comment );
 		} else if ( null != typeSignature ) {
 			// 样式1 根据类型创建假数据
@@ -88,16 +88,16 @@ public final class Generate {
 		}
 		String methodSuffix = Character.toUpperCase(name.charAt(0)) +  name.substring(1);
 		
-		if (  PreferenceConstants.STR_STYLE3.equals( style )  ) { // sysout
+		if (  PreferenceConstants.STR_STYLE_SYSOUT.equals( style )  ) { // sysout
 			StringUtil.append(b,
-					INDENT , "// 获取" , comment , N  ,
-					INDENT , "System.out.println( \"", 
-						comment, ":\\t\" + src.get" , methodSuffix, "()" +
+					INDENT , "// 获取" , comment , ".",  N  ,
+					INDENT , "System.out.printf( \"%-20s %-10s\\n\", \"", 
+						comment, "\\t\" , src.get" , methodSuffix, "()" +
 							" );"  , N
 					);
 		} else {
 			StringUtil.append(b,
-					INDENT , "// 获取" , comment , N  ,
+					INDENT , "// 获取" , comment ,  ".", N  ,
 					INDENT , "src.get" , methodSuffix  , "();"  , N
 					);
 		}
