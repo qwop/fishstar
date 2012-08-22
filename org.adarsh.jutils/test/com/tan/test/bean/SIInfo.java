@@ -1167,12 +1167,5 @@ public class SIInfo implements Serializable
         this.strsptype = strsptype;
     }
 
-	public static void main( String[] args ) {
-		SIInfo src = new SIInfo();
-		// 获取private String strareaname;// 区域名称（所属区域）.
-		System.out.printf( "%-20s %-10s\n", "private String strareaname;// 区域名称（所属区域）\t" , src.getStrsharekey() );
-		// 获取关联： strspid; //合作伙伴ID 联系人信息.
-		System.out.printf( "%-20s %-10s\n", "关联： strspid; //合作伙伴ID 联系人信息\t" , src.getStrleaderman() );
-	}
 
 }
