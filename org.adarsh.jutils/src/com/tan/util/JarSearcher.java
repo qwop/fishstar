@@ -139,7 +139,7 @@ For additional assistance contact support@genuitec.com
 	}
 
 	private static void searchContent() {
-		final String path = "D:\\Eclipses\\MyEclipse\\Common\\plugins\\";
+		final String path = "D:\\Eclipse-Plugins\\myplugin-indigo\\eclipse\\plugins";
 		JarSearcher searcher = new JarSearcher(path);
 		System.out.println("Jar文件数:" + searcher.size());
 		boolean searchClass = false;
@@ -148,7 +148,7 @@ For additional assistance contact support@genuitec.com
 		searcher.setFileSuffixs( "MF"  );
 		searcher.setFileSuffixs( "properties", "xml", "txt", "ini" );
 		
-		searcher.setKeyWord( "For additional assistance contact" );
+		searcher.setKeyWord( "find bugs" );
 		searcher.process(searchClass);
 	}
 

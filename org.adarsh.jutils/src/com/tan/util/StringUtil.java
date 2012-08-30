@@ -564,7 +564,7 @@ public final class StringUtil {
 	}
 
 	public static void appendln(StringBuffer buf, String string) {
-		buf.append( string );
+		buf.append( string ).append( LN );
 	}
 
 }
