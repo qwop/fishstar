@@ -50,6 +50,7 @@
       <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.ui.workbench.texteditor"/>
       <import plugin="org.eclipse.core.filesystem" />
+      <import plugin="org.eclipse.jdt.launching"/>
    </requires>
    
    <extension
@@ -190,11 +191,15 @@
             <groupMarker name="constructor"/>
          </menu>
       </objectContribution>
-      <objectContribution
-            id="org.adarsh.jutils.contribution1"
+      
+      
+     	<objectContribution
+            id="com.tan.JavaElementActions"
+            adaptable="true"
             objectClass="org.eclipse.core.resources.IResource">
+            
          <menu
-               id="org.adarsh.jutils.menu1"
+               id="com.tan.jutils.TanUtils"
                label="TanUtils"
                path="additions">
             <separator
@@ -202,30 +207,47 @@
             </separator>
          </menu>
          <action
-               class="org.adarsh.jutils.popup.actions.AnalyseMethodOfAdcEJBSessionBean"
-               id="org.adarsh.jutils.newAction"
+               class="com.tan.jutils.popup.actions.AnalyseMethodOfAdcEJBSessionBean"
+               id="com.tan.jutils.AnalyseMethodOfAdcEJBSessionBean"
                label="分析【ADC】项目的 SessionBean 类方法"
-               menubarPath="org.adarsh.jutils.menu1/group1">
+               menubarPath="com.tan.jutils.tanutils/group1">
          </action>
          
+         <action
+               class="com.tan.jutils.popup.actions.GetLibAction"
+               icon="icons/runFindbugs.png"
+               id="com.tan.jutils.AnalyseMethodOfAdcEJBSessionBean1"
+               label="&amp;获取库路径"
+               menubarPath="com.tan.jutils.tanutils/group1"
+               tooltip="to find bugs1">
+          </action>
+               
+       <!--   <visibility>
+            <not>
+               <objectClass name="org.eclipse.jdt.core.IJavaProject">
+               </objectClass>
+            </not>
+         </visibility>
          
-        <!--<action
-               class="org.adarsh.jutils.popup.actions.ExportProjectAction"
-               id="org.adarsh.jutils.export.project.action"
+       <action
+               class="com.tan.jutils.popup.actions.ExportProjectAction"
+               id="com.tan.jutils.export.project.action"
                label="导出所有项目信息"
-               menubarPath="org.adarsh.jutils.menu1/group1">
+               menubarPath="com.tan.jutils.menu1/group1">
          </action> -->
 	 
       </objectContribution>
    </extension>
    
+   
+   
+   <!-- 配置页 -->
    <extension
          point="org.eclipse.ui.preferencePages">
       <page
             class="org.adarsh.jutils.preferences.JUtilsPreferencesPage"
             id="jutils"
             name="%page.name"/>
-            
 	  <!-- 自动生成配置项 -->
       <page
             class="com.tan.preferences.GenPreferencesPage"
