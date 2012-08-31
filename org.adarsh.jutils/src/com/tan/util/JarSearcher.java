@@ -148,7 +148,7 @@ For additional assistance contact support@genuitec.com
 		searcher.setFileSuffixs( "MF"  );
 		searcher.setFileSuffixs( "properties", "xml", "txt", "ini" );
 		
-		searcher.setKeyWord( "find bugs" );
+		searcher.setKeyWord( "Generate rebel.xml" );
 		searcher.process(searchClass);
 	}
 

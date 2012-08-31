@@ -1,6 +1,11 @@
 package com.tan.jutils.popup.actions;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+
 import org.adarsh.jutils.JUtilsPlugin;
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
@@ -11,7 +16,6 @@ import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.JavaModelException;
 import org.eclipse.jdt.internal.launching.JREContainer;
 import org.eclipse.jface.action.IAction;
-import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.jface.viewers.ISelection;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -22,6 +26,11 @@ import org.eclipse.ui.IWorkbenchPart;
 
 import com.tan.util.StringUtil;
 
+/**
+ * Get the jar information to the jars.txt.
+ * @author qwop
+ *
+ */
 public class GetLibAction implements IObjectActionDelegate {
 	/**
 	 * The preference store associated with the plugin.
@@ -71,23 +80,41 @@ public class GetLibAction implements IObjectActionDelegate {
 					pn = project.getName();
 					buf = new StringBuffer( pn );
 					try {
-						printProjectInfo(project);
+						buildJarsBuffer(project);
 					} catch (CoreException e) {
 						e.printStackTrace();
 					}
+					
+					IFile jarsFile = project.getFile( 
+//							EclipseUtil.findBestSourceFolderForRebelXml( javaProject )
+							project
+							.getProjectRelativePath()
+							.append("jars.txt")
+					);
+				    InputStream input = null;
+				    try
+				    {
+				      input = new ByteArrayInputStream(  buf.toString().getBytes("UTF-8") );
+				    } catch (UnsupportedEncodingException e) {
+				      e.printStackTrace();
+				    }
+				    if (jarsFile.exists())
+				      jarsFile.setContents(input, 1, null);
+				    else {
+				      jarsFile.create(input, true, null);
+				    }
+				    jarsFile.setCharset("UTF-8", null);
+			} catch (JavaModelException e1) {
+				e1.printStackTrace();
+			} catch (CoreException e) {
+				e.printStackTrace();
 			} finally {
-			}
-			
-				MessageDialog.openInformation(
-						shell,
-						"TanUtil提示",
-						buf.toString() );
-				System.out.println(  buf );
 				buf = null;
+			}
 		}
 	}
 
-	private void printProjectInfo(IProject project) throws CoreException,
+	private void buildJarsBuffer(IProject project) throws CoreException,
 			JavaModelException {
 		// Check if we have a Java project
 		if (project.isNatureEnabled("org.eclipse.jdt.core.javanature")) {
@@ -99,15 +126,14 @@ public class GetLibAction implements IObjectActionDelegate {
 	private void buildClasspathInfo()
 			throws JavaModelException {
 		// buf
-		IClasspathEntry referencedClasspaths[] = javaProject.getReferencedClasspathEntries();
+//		IClasspathEntry referencedClasspaths[] = javaProject.getReferencedClasspathEntries();
+//		boolean ignoreUnresolvedEntry = false;
+//		IClasspathEntry resolvedClasspaths[] = javaProject.getResolvedClasspath( ignoreUnresolvedEntry );
 		
 		IClasspathEntry rawClasspaths[] = javaProject.getRawClasspath();
 		
-		boolean ignoreUnresolvedEntry = false;
-		IClasspathEntry resolvedClasspaths[] = javaProject.getResolvedClasspath( ignoreUnresolvedEntry );
-		
-		add( referencedClasspaths, rawClasspaths, resolvedClasspaths );
-//		add( resolvedClasspaths );
+//		add( referencedClasspaths, rawClasspaths, resolvedClasspaths );
+		add( rawClasspaths );
 	}
 	
 
