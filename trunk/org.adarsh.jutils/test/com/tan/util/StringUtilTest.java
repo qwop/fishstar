@@ -271,6 +271,61 @@ public class StringUtilTest extends TestCase {
 		
 		System.out.println( value.replaceAll( "@([a-zA-Z]+)([a-zA-Z\\s])+", "" ).trim() );
 	}
+	
+	@Test
+	public void testJars() {
+			String str = 
+			"D:\\Eclipses\\MyEclipse\\Common\\binary\\com.sun.java.jdk.win32.x86_1.6.0.013\n" +
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.core.runtime_3.8.0.v20120521-2346.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.osgi_3.8.0.v20120529-1548.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.equinox.common_3.6.100.v20120522-1841.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.core.jobs_3.5.200.v20120521-2346.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.core.runtime.compatibility.registry_3.5.100.v20120521-2346\\runtime_registry_compatibility.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.equinox.registry_3.5.200.v20120522-1841.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.equinox.preferences_3.5.0.v20120522-1841.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.core.contenttype_3.4.200.v20120523-2004.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.equinox.app_1.3.100.v20120522-1841.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.core.resources_3.8.0.v20120522-2034.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.core.filebuffers_3.5.200.v20120523-1310.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.jdt_3.8.0.v201206081400.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.jdt.ui_3.8.0.v20120524-1551.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.jdt.core_3.8.1.v20120531-0637.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.jdt.compiler.apt_1.0.500.v20120522-1651.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.jdt.compiler.tool_1.0.101.v20120522-1651.jar\n" + 
+			"D:\\Eclipse-Plugins\\wb_v1.0.0_updatesite_for_eclipse3.7\\plugins\\org.eclipse.wb.jdt.fragment_1.0.0.r37x201106081531.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.jface.text_3.8.0.v20120531-0600.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.text_3.5.200.v20120523-1310.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.ui_3.103.0.v20120521-2329.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.swt_3.100.0.v4233d.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.swt.win32.win32.x86_3.100.0.v4233d.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.jface_3.8.0.v20120521-2329.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.core.commands_3.6.1.v20120521-2329.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.ui.workbench_3.103.0.v20120530-1824.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.e4.ui.workbench3_0.12.0.v20120521-2329.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.ui.ide_3.8.0.v20120521-2329.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.ui.workbench.texteditor_3.8.0.v20120523-1310.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.core.filesystem_1.3.200.v20120522-2012.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.jdt.launching_3.6.100.v20120523-1953.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.eclipse.ui.views_3.6.100.v20120521-2329.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.junit_4.10.0.v4_10_0_v20120426-0900\\junit.jar\n" + 
+			"E:\\Projects\\fishstar\\apache\\lib\\log4j-1.2.15.jar\n" + 
+			"E:\\Projects\\fishstar\\apache\\lib\\asm-all-3.2.jar\n" + 
+			"E:\\Projects\\fishstar\\apache\\lib\\commons-logging-1.1.1.jar\n" + 
+			"E:\\Projects\\fishstar\\apache\\lib\\dependency-0.4.jar\n" + 
+			"E:\\Projects\\fishstar\\apache\\lib\\easymock-3.0.jar\n" + 
+			"E:\\Projects\\fishstar\\apache\\lib\\jar_list.txt\n" + 
+			"E:\\Projects\\fishstar\\apache\\lib\\jdeb-0.7.jar\n" + 
+			"E:\\Projects\\fishstar\\apache\\lib\\log4j-1.2.15.jar\n" + 
+			"E:\\Projects\\fishstar\\apache\\lib\\servlet-api.jar\n" + 
+			"D:\\Eclipses\\eclipse-jee-juno-win32\\eclipse\\plugins\\org.hamcrest.core_1.1.0.v20090501071000.jar";
+				String[] paths = str.split( "\n" );
+				
+				
+				for ( final String path : paths ) {
+					System.out.println( StringUtil.toAnt( path ) );
+				}
+	}
+
 }
 
 /*$CPS$ This comment was generated by CodePro. Do not edit it.

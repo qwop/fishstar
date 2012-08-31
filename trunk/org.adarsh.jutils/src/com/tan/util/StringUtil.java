@@ -567,4 +567,28 @@ public final class StringUtil {
 		buf.append( string ).append( LN );
 	}
 
+	public static String toAnt(String path) {
+		if ( !isEmpty( path ) ) {
+			String oldPath = path;
+			path = path.toLowerCase();
+			
+			if ( path.endsWith( ".jar" ) ) {
+				String lstKey = "_";
+				int lstIdx = path.lastIndexOf( lstKey );
+				
+				if ( lstIdx < 0 ) {
+					lstKey = "-";
+					lstIdx = path.lastIndexOf( lstKey );
+				}
+				String substr = path.substring( lstIdx );
+				
+				if ( substr.matches( "[\\d\\.\\w-]+.jar" ) ) {
+//				if ( substr.matches( "[\\d]" ) ) {
+					return oldPath.substring( 0 , lstIdx ) + lstKey  + "*.jar";
+				}
+			}
+		}
+		return path;
+	}
+
 }
