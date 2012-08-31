@@ -7,7 +7,7 @@
                    
      Administrator                                                                
      ====================================================================== -->
-<project name="adc_config" default="default">
+<project name="adc_config" default="weblogic-fake">
 	<description>
             description
     </description>
