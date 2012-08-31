@@ -130,40 +130,55 @@ public class GetLibAction implements IObjectActionDelegate {
 			
 			if ( entry.getEntryKind() == IClasspathEntry.CPE_LIBRARY ) {
 				StringUtil.appendln( buf , 
-						entry.getPath().toFile().getAbsolutePath()
+						entry.getPath().toOSString()
 				);
 			}
 			
 			 if (entry.getEntryKind() == IClasspathEntry.CPE_CONTAINER) {
-                 IClasspathContainer classpathContainer = null;
-				try {
-					classpathContainer = JavaCore.getClasspathContainer(entry.getPath(), javaProject);
-				} catch (JavaModelException e) {
+                 IClasspathContainer container = null;
+				 try {
+					 container = JavaCore.getClasspathContainer(entry.getPath(), javaProject);
+				 } catch (JavaModelException e) {
 					e.printStackTrace();
-				}
+				 }
 				
-				
-                 if (classpathContainer != null ) {
-                	 if ( (classpathContainer instanceof JREContainer) ) {
-                		 JREContainer jreContainer = ( JREContainer ) classpathContainer;
-                		 IPath path = jreContainer.getPath();
-                		 StringUtil.appendln( buf, ("***********" + path.toOSString() ) );
+                 if (container != null  ) {
+                	 if ( (container instanceof JREContainer) ) {
+                		 JREContainer jreContainer = ( JREContainer ) container;
+                		 IClasspathEntry[] classpathEntries = jreContainer.getClasspathEntries();
+                		 for (IClasspathEntry iClasspathEntry : classpathEntries) {
+                             IPath path = iClasspathEntry.getPath();
+                             if ( isValidJavaHomePath(path) ) {
+                            	 StringUtil.appendln( buf,
+                            			 ( path.toFile().getParentFile().getParentFile().getParent() ) );
+                            	 
+                            	 break;
+                             }
+                         }
                 	 } else {
-                		  IClasspathEntry[] classpathEntries = classpathContainer.getClasspathEntries();
+                		  IClasspathEntry[] classpathEntries = container.getClasspathEntries();
                           for (IClasspathEntry iClasspathEntry : classpathEntries) {
                               IPath path = iClasspathEntry.getPath();
                               if (isValidPath(path)) {
-                             	 StringUtil.appendln( buf, (path.toOSString() ) );
+                             	 StringUtil.appendln( buf,
+                             			 ( path.toFile().getAbsolutePath() ) );
                               }
                           }
                 	 } // end for else .
-                 } // end for resolve the container.
+                } // end for resolve the container.
              }
 
 		}
 	}
 
-    /**
+    private boolean isValidJavaHomePath(IPath path) {
+        // segmentCount() > 1 is workaround for https://bugs.eclipse.org/bugs/show_bug.cgi?id=281189
+        // classpath contains unlikely one of root directories like /lib/ "as is"
+        return path != null && path.segmentCount() > 1 && path.toFile().exists();
+
+	}
+
+	/**
      * @param path may be null
      * @return true if the path is considered as valid for the classpath
      */
