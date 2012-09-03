@@ -72,8 +72,25 @@ public class GetLibAction implements IObjectActionDelegate {
 //		TreeSelection tree = (TreeSelection) seleciton;
 		StructuredSelection tree = (StructuredSelection) seleciton;
 		
-		IProject project = (IProject) tree.getFirstElement();
+		int size = tree.size();
+		if ( size == 1 ) {
+			IProject project = (IProject) tree.getFirstElement();
+			handleProject(project);
+		} else if ( size > 1 ) {
+			Object[] objs = tree.toArray();
+			if ( null != objs ) {
+				for ( int i = 0; i < objs.length; i++ ) {
+					if ( objs[ i ] instanceof IProject ) {
+						handleProject( ( IProject ) objs[ i ] );
+					}
+				}
+			}
+		}
 		
+		
+	}
+
+	private void handleProject(IProject project) {
 		if ( null != project ) {
 			String pn;
 			try {
