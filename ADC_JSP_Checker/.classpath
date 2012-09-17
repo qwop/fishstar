@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="D:/JAR/nekohtml-1.9.13/nekohtml.jar"/>
+	<classpathentry kind="lib" path="D:/JAR/nekohtml-1.9.13/lib/bcel-5.2.jar"/>
+	<classpathentry kind="lib" path="D:/JAR/nekohtml-1.9.13/lib/xerces-2.9.1/xercesImpl.jar"/>
+	<classpathentry kind="lib" path="D:/JAR/nekohtml-1.9.13/lib/xerces-2.9.1/xml-apis.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
