@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_jdst2" default="compile.module.jdst2">
+  <dirname property="module.jdst2.basedir" file="${ant.file.module_jdst2}"/>
+  
+  <property name="module.jdk.home.jdst2" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.jdst2" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.jdst2" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.jdst2" value="${compiler.args}"/>
+  
+  <property name="jdst2.output.dir" value="${module.jdst2.basedir}/out/production/jdst2"/>
+  <property name="jdst2.testoutput.dir" value="${module.jdst2.basedir}/out/test/jdst2"/>
+  
+  <path id="jdst2.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="jdst2.module.production.classpath">
+    <path refid="${module.jdk.classpath.jdst2}"/>
+  </path>
+  
+  <path id="jdst2.runtime.production.module.classpath">
+    <pathelement location="${jdst2.output.dir}"/>
+  </path>
+  
+  <path id="jdst2.module.classpath">
+    <path refid="${module.jdk.classpath.jdst2}"/>
+    <pathelement location="${jdst2.output.dir}"/>
+  </path>
+  
+  <path id="jdst2.runtime.module.classpath">
+    <pathelement location="${jdst2.testoutput.dir}"/>
+    <pathelement location="${jdst2.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.jdst2">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.jdst2">
+    <patternset refid="excluded.from.module.jdst2"/>
+  </patternset>
+  
+  <path id="jdst2.module.sourcepath">
+    <dirset dir="${module.jdst2.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.jdst2" depends="compile.module.jdst2.production,compile.module.jdst2.tests" description="Compile module jdst2"/>
+  
+  <target name="compile.module.jdst2.production" depends="register.custom.compilers" description="Compile module jdst2; production classes">
+    <mkdir dir="${jdst2.output.dir}"/>
+    <javac2 destdir="${jdst2.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.jdst2}/javac">
+      <compilerarg line="${compiler.args.jdst2}"/>
+      <bootclasspath refid="jdst2.module.bootclasspath"/>
+      <classpath refid="jdst2.module.production.classpath"/>
+      <src refid="jdst2.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.jdst2"/>
+    </javac2>
+    
+    <copy todir="${jdst2.output.dir}">
+      <fileset dir="${module.jdst2.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.jdst2.tests" depends="register.custom.compilers,compile.module.jdst2.production" description="compile module jdst2; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.jdst2" description="cleanup module">
+    <delete dir="${jdst2.output.dir}"/>
+    <delete dir="${jdst2.testoutput.dir}"/>
+  </target>
+</project>
