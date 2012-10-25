@@ -95,7 +95,8 @@ public class GetLibAction implements IObjectActionDelegate {
 			String pn;
 			try {
 					pn = project.getName();
-					buf = new StringBuffer( pn );
+//					buf = new StringBuffer( pn );
+					buf = new StringBuffer(  );
 					try {
 						buildJarsBuffer(project);
 					} catch (CoreException e) {
@@ -173,7 +174,7 @@ public class GetLibAction implements IObjectActionDelegate {
 			
 			if ( entry.getEntryKind() == IClasspathEntry.CPE_LIBRARY ) {
 				StringUtil.appendln( buf , 
-						entry.getPath().toOSString()
+						entry.getPath().toFile().getAbsolutePath()
 				);
 			}
 			
