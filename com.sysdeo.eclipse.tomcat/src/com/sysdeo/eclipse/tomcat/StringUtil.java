@@ -4,7 +4,7 @@ package com.sysdeo.eclipse.tomcat;
  * (c) Copyright Sysdeo SA 2001, 2002.
  * All Rights Reserved.
  */
- 
+
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
@@ -19,7 +19,7 @@ public class StringUtil {
 		String[] full = new String[part1.length + part2.length];
 		System.arraycopy(part1, 0, full, 0, part1.length);
 		System.arraycopy(part2, 0, full, part1.length, part2.length);
-		return full;	
+		return full;
 	}
 
 	/**
@@ -34,27 +34,61 @@ public class StringUtil {
 			if (! nlist.contains(part1[i]))
 				nlist.add(part1[i]);
 		}
-        
+
 		for (int i = 0; i < part2.length; i++) {
 			if (! nlist.contains(part2[i]))
 				nlist.add(part2[i]);
 		}
-        
-		return (String[])nlist.toArray(new String[0]);      
+
+		return (String[])nlist.toArray(new String[0]);
 	}
 
 
 	/**
-	 * See StringTokenizer for delim parameter format 
+	 * See StringTokenizer for delim parameter format
 	 */
 	public static String[] cutString(String str, String delim) {
 		ArrayList strings = new ArrayList();
 		StringTokenizer tokenizer = new StringTokenizer(str, delim);
 		while (tokenizer.hasMoreTokens()) {
-			strings.add( URLDecoder.decode( tokenizer.nextToken()) );	
+			strings.add( URLDecoder.decode( tokenizer.nextToken()) );
 		}
-		
+
 		return (String[])strings.toArray(new String[0]);
 	}
 
+	/**
+	 * 过滤字符串. 类似 String.replace("replaceMent", "content");
+	 *
+	 * @param value
+	 *            .
+	 * @param replaceMent
+	 *            .
+	 * @param content
+	 *            .
+	 * @return
+	 */
+	public static String replace(String value, String replaceMent,
+			String content) {
+		if (isEmpty(value)) {
+			return "";
+		}
+		int idx = value.indexOf(replaceMent);
+		if (idx >= 0) {
+			return value.substring(0, idx)
+					+ value.substring(idx + replaceMent.length());
+		}
+		return "";
+	}
+
+
+	/**
+	 * 判断字符串是否为空.
+	 *
+	 * @param v
+	 * @return
+	 */
+	public final static boolean isEmpty( final String v ) {
+		return v == null || v.trim().length() == 0;
+	}
 }

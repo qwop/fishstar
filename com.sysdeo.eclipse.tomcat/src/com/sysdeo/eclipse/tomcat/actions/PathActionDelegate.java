@@ -25,10 +25,10 @@ import com.tan.util.Editor;
 public class PathActionDelegate implements IWorkbenchWindowActionDelegate {
 	private IWorkbenchWindow window;
 	public static final String WINDOWS = "win32";
-	public static final String LINUX = "linux";	
+	public static final String LINUX = "linux";
 	private boolean isWindows;
 	private boolean isLogger = false; // Debug.
-	private String line;	
+	private String line;
 	private String systemBrowser = "explorer";
 	private String editplusPath = null;// "\"C:\\Program Files\\EditPlus 3\\EDITPLUS.EXE\"";
 
@@ -42,10 +42,10 @@ public class PathActionDelegate implements IWorkbenchWindowActionDelegate {
 			systemBrowser = "nautilus";
 		}
 		line = System.getProperty("line.separator", "\r\n");
-		
+
 		editplusPath = Editor.getEditplusPath();
 	}
-	
+
 	/*
 	 * @see IWorkbenchWindowActionDelegate#dispose()
 	 */
@@ -64,26 +64,26 @@ public class PathActionDelegate implements IWorkbenchWindowActionDelegate {
 	 */
 	public void run(IAction action) {
 		final String tomcatDir = TomcatLauncherPlugin.getDefault().getTomcatDir();
-		
-		if(TomcatLauncherPlugin.checkTomcatSettingsAndWarn()) {				
+
+		if(TomcatLauncherPlugin.checkTomcatSettingsAndWarn()) {
 			//TomcatLauncherPlugin.log(TomcatLauncherPlugin.getResourceString("msg.start"));
-			
-			// 1.	只打开配置文件 
-			// 2.	同时 定位文件夹 和 配置文件 
-			// 3.	只定位文件夹 
-			
+
+			// 1.	只打开配置文件
+			// 2.	同时 定位文件夹 和 配置文件
+			// 3.	只定位文件夹
+
 			if ( TomcatLauncherPlugin.getDefault().isOpenConfigFolder() ) {
 				explorerCommand( tomcatDir + File.separatorChar +  "conf" + File.separatorChar + "server.xml" );
 			}
-			
+
 			if ( TomcatLauncherPlugin.getDefault().isOpenConfigXml() ) {
 				openFileCommand( "\"" + tomcatDir + File.separatorChar +  "conf" + File.separatorChar + "server.xml\"" );
 				log(  "\"" + tomcatDir + File.separatorChar +  "conf" + File.separatorChar + "server.xml\""  );
 			}
 		}
 	}
-	
-	
+
+
 	private void explorerCommand(String location) {
 		StringBuffer command = new StringBuffer();
 		Runtime runtime = Runtime.getRuntime();
@@ -111,13 +111,13 @@ public class PathActionDelegate implements IWorkbenchWindowActionDelegate {
 			location = null;
 		}
 	}
-	
+
 	private void log( final Object msg ) {
 		if ( isLogger ) {
 			System.out.println( msg );
 		}
 	}
-	
+
 	private void openFileCommand( final String location ) {
 		StringBuffer command = new StringBuffer();
 		Runtime runtime = Runtime.getRuntime();
@@ -125,12 +125,12 @@ public class PathActionDelegate implements IWorkbenchWindowActionDelegate {
 			if ( isWindows ) {
 				command.append(editplusPath).append( " " )
 				.append(location);
-			} 
+			}
 			else {
 				command.append(systemBrowser)
 				.append(location);
 			}
-			
+
 			log( command );
 			runtime.exec(command.toString());
 		} catch (IOException e) {
@@ -139,7 +139,7 @@ public class PathActionDelegate implements IWorkbenchWindowActionDelegate {
 			e.printStackTrace();
 		} finally {
 			log(new Object[]{
-					 "command:", command,line 
+					 "command:", command,line
 			});
 			command = null;
 			runtime = null;
