@@ -11,8 +11,8 @@ import org.eclipse.jdt.core.JavaModelException;
  *
  */
 public final class Generate {
-	private final static String INDENT = "\t";
-	private final static String N = System.getProperty("line.separator", "\r\n");
+	public final static String INDENT = "\t";
+	public final static String N = System.getProperty("line.separator", "\r\n");
 	
 	/**
 	 * 根据Field类型生成对应的伪代码.		

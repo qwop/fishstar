@@ -1,8 +1,6 @@
 package com.tan.util;
 
 import java.text.MessageFormat;
-import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.regex.Pattern;
 
@@ -503,6 +501,32 @@ public final class StringUtil {
 				return " new short[]{1,2}  ";
 			}
 			}
+		}
+		return null;
+	}
+	
+	
+	/**
+	 * 根据 Field 的 type 签名生成对应的 null 伪代码.
+	 * 
+	 * @param signature
+	 * @param strings
+	 * @return
+	 */
+	public static String getDummyNull(String signature) {
+		if (isEmpty(signature)) {
+			return null;
+		}
+		if ( signature.length() == 1 ) { // 原生类型  primitive type.
+			char c = signature.charAt( 0 );
+			return null;
+		} else if (signature.charAt(0) == 'Q') { // 对象类型
+			signature = signature.replaceAll(";", "").replaceAll("<Q",
+					"<");
+			String type = signature.substring(1);
+			return "null";
+		} else if (signature.charAt(0) == '[') { // primitive 数组类型
+			return "null";
 		}
 		return null;
 	}

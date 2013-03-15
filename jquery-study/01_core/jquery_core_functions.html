@@ -23,18 +23,24 @@
 		first.append( "<li><h2>" + rad.val() + "</h2>" );
 		last.append( "<li><code> var rad = ( \"input:radio\", document.forms[0] ); </code>" );
 
-			//添加
-			$('a.addinf').live('click', function() {
-				var $this=$(this);
-				var $tr=$this.closest('tr');
-				var addTr=null;
-				addTr=$('<tr class="telephone"><th>办公电话<label>1</label>：</th><td><input class="voteInputA Input35"> － <input class="voteInputA Input35"> － <input class="voteInputA Input60"> － <input class="voteInputA Input35"><a class="delinf" href="javascript:void(0);">删除</a></td></tr>');
+		//添加
+		$('a.addinf').live('click', function() {
+			var $this=$(this);
+			var $tr=$this.closest('tr');
+			var addTr=null;
+			addTr=$('<tr class="telephone"><th>办公电话<label>1</label>：</th><td><input class="voteInputA Input35"> － <input class="voteInputA Input35"> － <input class="voteInputA Input60"> － <input class="voteInputA Input35"><a class="delinf" href="javascript:void(0);">删除</a></td></tr>');
 
-				if(addTr) {
-					$('tr.'+$tr.attr('class')).last().after(addTr);
-					addTr.find('th label').text($('tr.'+$tr.attr('class')).length-1);
-				}
-			});
+			if(addTr) {
+				$('tr.'+$tr.attr('class')).last().after(addTr);
+				addTr.find('th label').text($('tr.'+$tr.attr('class')).length-1);
+			}
+		});
+	
+		// 删除
+		$( 'a.delinf' ).live( 'click', function() {
+			var $tr = $( this ).closest( 'tr' );
+			$tr.remove();
+		} );
 
 
 
@@ -67,15 +73,11 @@
 
 </TABLE>
 
-
+	<p>one</p> 
 	
-	<table>
-		<tr>
-			<td><a href="#" class="addrea">添加</a></td>
-		</tr>
-	</table>
-
-	<p>one</p> <div><p class="point" >two</p></div> <p>three</p>
+	<div><p class="point" >two</p></div> 
+	
+	<p>three</p>
 
 
 	<form method="post" action="">

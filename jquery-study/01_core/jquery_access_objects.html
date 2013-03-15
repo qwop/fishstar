@@ -36,19 +36,23 @@
 		result.append( "<li>" + $( "ul" ).context.nodeName + "</li>" );
 		
 		// get get( index )
-		result.append( "<li>" + $( "input" ).get() /*get the arry */+ "</li>" );
+		result.append( "<li>" + $( "input" ).get() /*get the array */+ "</li>" );
 		result.append( "<li>" + $( "input" ).get( 0 ).type + "</li>" );
 
 		var code = $( "ol" ).last();
 		code.append( "<li> $( 'input' ).size() </li>" );
 		code.append( "<li> $( 'input' ).length </li>" );
 		code.append( "<li> $( 'form:input' ).selector </li>" );
+		code.append( "<li> $( 'ul' ).context </li>" );
+		code.append( "<li> $( 'ul' ).context.nodeName </li>" );
+		code.append( "<li> $( 'input' ).get() </li>" );
+		code.append( "<li> $( 'input' ).get( 0 ).type  </li>" );
 	}) ;
 	//-->
 	</script>
  </head>
 
- <body>
+ <body>
 	<h1>Jquery visited objects</h1>
 	each( callback) size() length selector context get get( index ) index( subject )
 

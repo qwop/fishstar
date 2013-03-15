@@ -85,7 +85,14 @@
                icon="icons/sysout.gif"
                menubarPath="generate.viewer/string"
                id="GetterVADBySysout.action"/>
-               
+         
+	 <!-- 2012/11/9 11:07:14 add by qwop, generate the destory method.-->
+       	<action
+               label="%GenDestoryByNull.label"
+               class="com.tan.vad.actions.GenDestoryByNull"
+               icon="icons/null.gif"
+               menubarPath="generate.viewer/string"
+               id="GenDestoryByNull.action"/>
                
         <!--generate html form by java bean--> 
        	<action
