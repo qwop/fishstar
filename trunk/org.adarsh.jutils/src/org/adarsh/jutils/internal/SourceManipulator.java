@@ -458,6 +458,34 @@ public class SourceManipulator {
 					+ " generated exception", e);
 		}
 	}
+	
+	
+	
+	/**
+	 * Writes the toString implementation alongwith it's JavaDoc into the
+	 * compilation unit.
+	 * 
+	 * @param compUnit
+	 *            the compilation unit (Java source file).
+	 * 
+	 * @throws JUtilsException
+	 *             in case of any errors during the operation.
+	 */
+	public static void createMethod(IType type, final String generated)
+			throws JUtilsException {
+		IProgressMonitor monitor = new NullProgressMonitor();
+		try {
+			type.createMethod(
+//					"public void dummyGetters() {\n" +
+					generated 
+//					"}\n"
+					, null, true, monitor);
+		} catch (JavaModelException e) {
+			throw new JUtilsException("Type " + type.getElementName()
+					+ " generated exception", e);
+		}
+	}
+	
 
 	/**
 	 * Writes the toString implementation alongwith it's JavaDoc into the
