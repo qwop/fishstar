@@ -10,11 +10,20 @@ namespace _12306
         static string _root;
         static string[] _updates;
         static string _pluginVersion;
-        static string OriginalScript = "12306\\12306_ticket_helper.user.js";
-        static string manifest_json =  "12306\\manifest.json";
+        static string default_output = "12306";
+        static string output = default_output;
+        static string OriginalScript = default_output + "\\12306_ticket_helper.user.js";
+        static string manifest_json = default_output + "\\manifest.json";
 
         static void Main(string[] args)
         {
+
+            if (null != args && args.Length > 0 && args[0].Trim().Length > 0)
+            {
+                output = args[0].Trim();
+                OriginalScript = OriginalScript.Replace(default_output + "\\", output + "\\");
+                manifest_json = manifest_json.Replace(default_output + "\\", output + "\\");
+            }
             _root = GetContainingFolder();
 
             Console.WriteLine("[INFO] 项目根目录是 " + _root);
@@ -23,11 +32,11 @@ namespace _12306
             _pluginVersion = GetVersion();
 
             Console.WriteLine("插件版本:" + _pluginVersion);
-            UpdateManifestQwop( System.IO.Path.Combine(_root, manifest_json) );
-         
+            UpdateManifestQwop(System.IO.Path.Combine(_root, manifest_json));
 
-            Console.WriteLine("====================================================");
-            Console.WriteLine("按任意键退出.....");
+
+            //          Console.WriteLine("====================================================");
+            //          Console.WriteLine("按任意键退出.....");
             Console.ReadKey();
 
         }
@@ -67,8 +76,8 @@ namespace _12306
         static string GetVersion()
         {
             Console.WriteLine("[INFO] 正在获得助手版本号……");
-             var txt = System.IO.File.ReadAllLines(GetOriginalScript(), System.Text.Encoding.UTF8);
-             var allTxt = System.IO.File.ReadAllText(GetOriginalScript(), System.Text.Encoding.UTF8);
+            var txt = System.IO.File.ReadAllLines(GetOriginalScript(), System.Text.Encoding.UTF8);
+            var allTxt = System.IO.File.ReadAllText(GetOriginalScript(), System.Text.Encoding.UTF8);
 
             System.Text.RegularExpressions.Match match = null;
             var versionReg = new System.Text.RegularExpressions.Regex(@"var\s+version\s*=\s*['""]([\.\d]+)['""]");
@@ -79,35 +88,35 @@ namespace _12306
             }
 
             var version = match.Groups[1].Value;
-            
 
-            
-           //  ModifyManifestVersion(System.IO.Path.Combine(_root, manifest_json ), version);
 
-           //  updates = ["+ 自动刷新按钮增加刷学生票", "* 更新兼容性代码", "* 查票逻辑更改，在普通查询下不再有声音和提示，在自动刷票下才有提示和声音", "* 修正当不能进行查询的时候，点击自动刷票后按钮显示不对的BUG", "* 修正按回车选择日期和站点的时候会导致开始查询的BUG", "* 修正点击自动刷票按钮以及在刷票过程中修改条件时，查询的条件无法保存的BUG", "* 高级工具区的显示或隐藏设置可以记录", "* 界面细节调整，简化文字使用量，变更部分文字说明，尝试简化界面"],
+
+            //  ModifyManifestVersion(System.IO.Path.Combine(_root, manifest_json ), version);
+
+            //  updates = ["+ 自动刷新按钮增加刷学生票", "* 更新兼容性代码", "* 查票逻辑更改，在普通查询下不再有声音和提示，在自动刷票下才有提示和声音", "* 修正当不能进行查询的时候，点击自动刷票后按钮显示不对的BUG", "* 修正按回车选择日期和站点的时候会导致开始查询的BUG", "* 修正点击自动刷票按钮以及在刷票过程中修改条件时，查询的条件无法保存的BUG", "* 高级工具区的显示或隐藏设置可以记录", "* 界面细节调整，简化文字使用量，变更部分文字说明，尝试简化界面"],
             //查找更新
 
+
+
+            /*  System.Text.RegularExpressions.Match m2 = null;
           
-            
-          /*  System.Text.RegularExpressions.Match m2 = null;
-          
-           var updatesReg = new System.Text.RegularExpressions.Regex(@"updates\s*=\s*\[(.+)""\]\,faqUrl");
-            txt.FirstOrDefault(s => (m2 = updatesReg.Match(s)).Success);
+             var updatesReg = new System.Text.RegularExpressions.Regex(@"updates\s*=\s*\[(.+)""\]\,faqUrl");
+              txt.FirstOrDefault(s => (m2 = updatesReg.Match(s)).Success);
    
-            if (m2 == null)
-            {
-                throw new Exception("[ERROR] 无法找到版本标记");
-            }
+              if (m2 == null)
+              {
+                  throw new Exception("[ERROR] 无法找到版本标记");
+              }
 
-            var updates = m2.Groups[1].Value;
-            Console.WriteLine("updates:" + updates);
+              var updates = m2.Groups[1].Value;
+              Console.WriteLine("updates:" + updates);
 
-            */
-          /*  System.Text.RegularExpressions.Regex.Replace(
-                txt,
-                @"[""']version[""']\s*:\s*['""][\.\d+]+['""]",
-                "\"version\": \"" + version + "\""
-                 ); */
+              */
+            /*  System.Text.RegularExpressions.Regex.Replace(
+                  txt,
+                  @"[""']version[""']\s*:\s*['""][\.\d+]+['""]",
+                  "\"version\": \"" + version + "\""
+                   ); */
             return version;
         }
 
@@ -126,7 +135,7 @@ namespace _12306
             var qwop_js = "[ \"12306_ticket_helper.user.js\" , \"tan.js\" ]";
             var manifest = System.IO.File.ReadAllText(filePath, System.Text.Encoding.UTF8);
             var src = System.IO.Path.Combine(_root, "tan.js");
-            var dest = System.IO.Path.Combine(_root, "12306\\tan.js");
+            var dest = System.IO.Path.Combine(_root, output + "\\tan.js");
 
             // js files.
             manifest = System.Text.RegularExpressions.Regex.Replace(
@@ -136,27 +145,29 @@ namespace _12306
                 "\"js\": " + qwop_js + ""
                  );
 
-           // default title
-           manifest = System.Text.RegularExpressions.Regex.Replace(
-                manifest,
-                @"[""']default_title[""']\s*:\s*['""](.+)['""]",
-                "\"default_title\": \"$1 modify by qwop\""
-            );
+            // default title
+            manifest = System.Text.RegularExpressions.Regex.Replace(
+                 manifest,
+                 @"[""']default_title[""']\s*:\s*['""](.+)['""]",
+                 "\"default_title\": \"$1 modify by qwop\""
+             );
 
 
-           // description
-           manifest = System.Text.RegularExpressions.Regex.Replace(
-                manifest,
-                @"[""']description[""']\s*:\s*['""](.+)['""]",
-                "\"description\": \"$1 modify by qwop\""
-            );
+            // description
+            manifest = System.Text.RegularExpressions.Regex.Replace(
+                 manifest,
+                 @"[""']description[""']\s*:\s*['""](.+)['""]",
+                 "\"description\": \"$1 modify by qwop\""
+             );
 
             System.IO.File.WriteAllText(filePath, manifest, System.Text.Encoding.UTF8);
-            if (System.IO.File.Exists(src)) {
+
+            if (System.IO.File.Exists(src))
+            {
                 Console.WriteLine("开始复制文件:tan.js");
-                System.IO.File.Copy(src, dest, true );
+                System.IO.File.Copy(src, dest, true);
             }
-            
+
         }
 
 
