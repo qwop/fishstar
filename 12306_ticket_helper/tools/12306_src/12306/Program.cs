@@ -160,6 +160,14 @@ namespace _12306
                  "\"description\": \"$1 modify by qwop\""
              );
 
+            // "name": "12306 订票助手 for Chrome",
+            // name
+            manifest = System.Text.RegularExpressions.Regex.Replace(
+                 manifest,
+                 @"[""']name[""']\s*:\s*['""](.+)['""]",
+                 "\"name\": \"$1 modify by qwop\""
+             );
+
             System.IO.File.WriteAllText(filePath, manifest, System.Text.Encoding.UTF8);
 
             if (System.IO.File.Exists(src))
