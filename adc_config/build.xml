@@ -69,7 +69,8 @@
 				</fileset>
 				
 				<manifest>
-					<attribute name="Main-Class" value="com.tan.Main" />
+					<!-- <attribute name="Main-Class" value="com.tan.Main" /> -->
+					<attribute name="Main-Class" value="com.tan.EarMain" />
 					<attribute name="SplashScreen-Image" value="splash.png" />
 				</manifest>
 			</jar>
