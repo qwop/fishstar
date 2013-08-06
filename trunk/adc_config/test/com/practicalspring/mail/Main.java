@@ -2,20 +2,14 @@ package com.practicalspring.mail;
 
 import java.util.Properties;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 
 public class Main {
 
-	public static void main(String[] args) {
-		/**
+/*	public static void main(String[] args) {
+		*//**
 		 * *** CHANGE THESE FOUR VARIABLE VALUES TO REFLECT YOUR ENVIRONMENT
 		 * *****
-		 */
+		 *//*
 		String user = "qwop"; // Newly created user on JAMES
 		String password = "qop"; // user password
 
@@ -45,5 +39,5 @@ public class Main {
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 }

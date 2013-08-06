@@ -1,1 +1,2 @@
-java -jar adc_config.jar com.tan.WorkshopFake
+cd workshop
+java -jar workshop_fake.jar com.tan.EarMain
