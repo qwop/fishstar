@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+// using System.Linq;
 using System.Text;
 
 namespace _12306
@@ -79,13 +79,33 @@ namespace _12306
             var txt = System.IO.File.ReadAllLines(GetOriginalScript(), System.Text.Encoding.UTF8);
             var allTxt = System.IO.File.ReadAllText(GetOriginalScript(), System.Text.Encoding.UTF8);
 
+            if (null == txt)
+            {
+                Console.WriteLine("读取文件失败，文件不存在或者不是一个有效的文件！");
+                return null;
+            }
+
             System.Text.RegularExpressions.Match match = null;
             var versionReg = new System.Text.RegularExpressions.Regex(@"var\s+version\s*=\s*['""]([\.\d]+)['""]");
+
+           
+            /*
             txt.FirstOrDefault(s => (match = versionReg.Match(s)).Success);
+            */
+            for (int i = 0; i < txt.Length; i++)
+            {
+               match =  versionReg.Match(txt[i]);
+
+               if (match != null) break;
+            }
+
+
             if (match == null)
             {
                 throw new Exception("[ERROR] 无法找到版本标记");
             }
+
+
 
             var version = match.Groups[1].Value;
 
