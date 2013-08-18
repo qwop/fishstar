@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> JQuery数组和对象的操作 </title>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+  <meta name="Generator" content="dolphin">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <script type="text/javascript" src="jquery/jquery-1.6.4.js"></script>
+
+	<!-- Load Chance -->
+	<script type="text/javascript" src="chance.js"></script>
+
+  <style type="text/css">
+	body {
+		font-family: Monaco;
+	}
+  </style>
+ </head>
+
+ <body>
+ <div style="float: left;">
+<textarea id="src" rows="800">
+Basics
+bool
+character
+floating
+integer
+natural
+string
+Text
+paragraph
+sentence
+syllable
+word
+Name
+first
+last
+name
+prefix
+Web
+color
+domain
+email
+fbid
+ip
+tld
+twitter
+Address
+address
+areacode
+city
+coordinates
+latitude
+longitude
+phone
+postal
+province
+state
+street
+zip
+Time
+ampm
+hour
+minute
+month
+timestamp
+year
+Finance
+cc
+cc_type
+dollar
+exp
+exp_month
+exp_year
+Helpers
+pick
+shuffle
+Miscellaneous
+dice
+guid
+hash
+hidden
+rpg
+capitalize
+</textarea>
+
+</div>	<script>
+	  // Use Chance
+	  function println( v ) {
+		document.write( "<b style='background-color: " +   
+			chance.color() + ";color: " +   
+			chance.color() + ";'>" + v + "</b>" + "<BR/>" );
+	  }
+	  function isUppserCase(c) { return c >= 'A' && c <= 'Z' ; }
+	  var c = document.getElementById( 'src' ).value;
+	  var lines = c.split( /\r*\n/ );
+	  for ( var i = 0;i < lines.length; i++ ) {
+		// lines[i].charAt( 0 );
+		if ( isUppserCase( lines[ i ].charAt( 0 ) ) ) {
+			document.write( "<h1>" + lines[ i ]  + "</h1>" );
+		} else {
+			document.write( "<b style='background-color:black;color:white;'>" + lines[ i ]  + ":</b>" + eval( 'chance.' + lines[i] + '();' ) + "</br>" );
+		}
+	  }
+		
+
+	  for ( var i in chance ) {
+		//	println( ' println( "' + i + ':" +  chance.' + i +  "() );"  );
+	  }
+	</script>
+ </body>
+</html>
