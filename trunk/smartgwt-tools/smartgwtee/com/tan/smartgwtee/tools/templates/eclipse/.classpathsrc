@@ -62,7 +62,7 @@
 	<classpathentry kind="var" path="SGWTEE_HOME/lib/isomorphic_tools.jar"/>
 	<classpathentry kind="var" path="SGWTEE_HOME/lib/isomorphic_web_services.jar"/>
 	<classpathentry kind="var" path="SGWTEE_HOME/lib/iText-2.0.8.jar"/>
-	<classpathentry kind="var" path="SGWTEE_HOME/lib/java-engine.jar"/>
+	<!-- <classpathentry kind="var" path="SGWTEE_HOME/lib/java-engine.jar"/> -->
 	<classpathentry kind="var" path="SGWTEE_HOME/lib/javassist-3.4.GA.jar"/>
 	<classpathentry kind="var" path="SGWTEE_HOME/lib/jdbc2_0-stdext.jar"/>
 	<classpathentry kind="var" path="SGWTEE_HOME/lib/jta-1.1.jar"/>
