@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<classpath>
+   <classpathentry kind="src" path="@srcFolder"/>@eclipseTestDir
+   <classpathentry kind="lib" path="@gwtUserPath"/>
+
+<!--   <classpathentry kind="lib" path="@gwtDevPath"/>
+   <classpathentry kind="lib" path="@gwtValidationPath"/>
+   <classpathentry kind="lib" path="@gwtValidationSourcesPath"/>
+-->
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="com.google.gwt.eclipse.core.GWT_CONTAINER"/>
+	<classpathentry kind="var" path="SMARTGWT_HOME/smartgwt-skins.jar"/>
+	<classpathentry kind="var" path="SMARTGWT_HOME/smartgwt.jar"/>
+	<classpathentry kind="var" path="JUNIT_HOME/junit.jar"/>
+
+   <classpathentry kind="output" path="@warFolder/WEB-INF/classes"/>
+@serverClasspathLibs
+</classpath>
