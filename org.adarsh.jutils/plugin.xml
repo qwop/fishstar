@@ -331,6 +331,18 @@
                toolbarPath="com.tan.actions.menu.group"
                id="com.tan.actions.KillTempAction">
          </action>         
+         
+        <!-- Jar搜寻器-->
+       	<action
+               label="%action.jarsearch.label"
+               icon="icons/folder_bug.png"
+               class="com.tan.actions.JarSearchAction"
+               tooltip="%action.jarsearch.tooltip"
+               menubarPath="com.tan.actions.menu/com.tan.actions.menu.group"
+               toolbarPath="com.tan.actions.menu.group"
+               id="com.tan.actions.JarSearchAction">
+         </action>   
+               
       </actionSet>
 
    </extension>

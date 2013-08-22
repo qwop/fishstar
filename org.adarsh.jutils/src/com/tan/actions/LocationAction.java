@@ -40,7 +40,6 @@ public class LocationAction implements IWorkbenchWindowActionDelegate {
 	public static final String WINDOWS = "win32";
 	public static final String LINUX = "linux";
 	private String systemBrowser = "explorer";
-	private String line;
 	private boolean isWindows;
 	private boolean isLogger = true; // Debug.
 	
@@ -53,9 +52,8 @@ public class LocationAction implements IWorkbenchWindowActionDelegate {
 		else if (LINUX.equalsIgnoreCase(os)) {
 			systemBrowser = "nautilus";
 		}
-		line = System.getProperty("line.separator", "\r\n");
 		log(new Object[]{
-				"操作系统:",os,line
+				"操作系统:",os,StringUtil.LN
 		});
 	}
 
@@ -92,9 +90,9 @@ public class LocationAction implements IWorkbenchWindowActionDelegate {
 				log(
 						new Object[]{
 								//(null == resource ? "NULL" : resource) ,
-								line,
-								"Resource:" , resource,line,
-								"Location:" , location,line,
+								StringUtil.LN,
+								"Resource:" , resource,StringUtil.LN,
+								"Location:" , location,StringUtil.LN,
 								"TreePath:" , path
 						}
 				);
@@ -155,7 +153,7 @@ public class LocationAction implements IWorkbenchWindowActionDelegate {
 			e.printStackTrace();
 		} finally {
 			log(new Object[]{
-					 "command:", command,line 
+					 "command:", command,StringUtil.LN 
 			});
 			command = null;
 			runtime = null;
