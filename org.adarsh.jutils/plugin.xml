@@ -321,6 +321,16 @@
                toolbarPath="com.tan.actions.menu.group"
                id="com.tan.actions.EditplusAction">
          </action>
+         
+       	<action
+               label="%action.killtemp.label"
+               icon="icons/folder_bug.png"
+               class="com.tan.actions.KillTempAction"
+               tooltip="%action.killtemp.tooltip"
+               menubarPath="com.tan.actions.menu/com.tan.actions.menu.group"
+               toolbarPath="com.tan.actions.menu.group"
+               id="com.tan.actions.KillTempAction">
+         </action>         
       </actionSet>
 
    </extension>
