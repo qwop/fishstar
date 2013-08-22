@@ -1,6 +1,5 @@
 package com.tan.util;
 
-import java.awt.BorderLayout;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
@@ -11,11 +10,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
-
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 
 /**
  * 查询jar文件中的class
@@ -34,11 +28,21 @@ public class JarSearcher {
 		lists = new ArrayList<File>();
 		init(dir);
 	}
+	
+	
+	public JarSearcher(final File dir) {
+		lists = new ArrayList<File>();
+		init(dir);
+	}
 
 	private void init(String dir) {
-		this.setDir(dir);
-		System.out.println("Dir:" + dir);
-		this.file = new File(dir);
+		init( new File( dir ) );
+	}
+	
+	private void init(File dir) {
+		appendln("Dir:" + dir);
+		this.file = dir;
+		this.setDir( dir.getAbsolutePath() );
 		file.listFiles(new FileFilter() {
 			public boolean accept(File path) {
 				if (path.isDirectory()) {
@@ -51,7 +55,7 @@ public class JarSearcher {
 			}
 		});
 		
-		System.out.println("\tJar文件数:" + size());
+		appendln("\tJar文件数:" + size());
 	}
 
 	public int size() {
@@ -106,7 +110,7 @@ public class JarSearcher {
 		if (!jarEntry.isDirectory() && isRightSuffix
 		) {
 			if (search(jarFile, jarEntry)) {
-				System.out.println(jarFile.getName() + "\t" + jarEntry);
+				appendln(jarFile.getName() + "\t" + jarEntry);
 			}
 		}
 	}
@@ -117,7 +121,7 @@ public class JarSearcher {
 			name.toLowerCase();
 			
 			if ( name.indexOf( keyWord ) >= 0 ) {
-				System.out.println(jarFile + "\t" + jarEntry);
+				appendln(jarFile + "\t" + jarEntry);
 			}
 		}
 	}
@@ -136,36 +140,9 @@ For additional assistance contact support@genuitec.com
 
 	 * @param args
 	 */
-	public static void main(String[] args) {
 		// most/isomorphic/skins/ToolSkinNative/load_skin.js
 		// com.isomorphic.taglib.LoadISCTag
-//		 temp();
-		
-		//1. Create the frame.
-		JFrame frame = new JFrame("FrameDemo");
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			SwingUtilities.updateComponentTreeUI(frame);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}	 
-
-		//2. Optional: What happens when the frame closes?
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		//3. Create components and put them in the frame.
-		//...create emptyLabel...
-//		frame.getContentPane().add(emptyLabel, BorderLayout.CENTER);
-		//4. Size the frame.
-		frame.add( new JList(), BorderLayout.AFTER_LAST_LINE );
-		frame.pack();
-		frame.setBounds( 100, 200, 300, 500);
-
-		//5. Show it.
-		frame.setVisible(true);
-	}
-
-	private static void temp() {
+	public static void main(String[] args) {
 		String 
 		path = "D:\\GWT\\smartgwtee-4.0p\\lib";
 		path = "D:\\GWT\\smartgwtee-4.0p\\samples\\showcase";
@@ -185,9 +162,19 @@ For additional assistance contact support@genuitec.com
 				"framework.datasources"
 //				"load_skin.js"
 		);
+		searcher.showResult();
 	}
 	
+	private void showResult() {
+		System.out.println( buf );
+	}
 
+	private StringBuffer buf = new StringBuffer();
+	
+	public String getResult() {
+		return buf.toString();
+	}
+	
 	public void searchfilename( final String...strings ) {
 		for ( final String str : strings ) {
 			searchfilename( str );
@@ -196,7 +183,7 @@ For additional assistance contact support@genuitec.com
 	
 	public void searchfilename( String str ) {
 		if ( !StringUtil.isEmpty( str ) ){
-			System.out.println("For filename:" + str);
+			appendln("For filename:" + str);
 			JarFile jarFile = null;
 			JarEntry jarEntry = null;
 			String oName,lName;
@@ -219,7 +206,8 @@ For additional assistance contact support@genuitec.com
 						// process the entry's stream.
 						lName = oName.toLowerCase();
 						if ( lName.indexOf( str ) >= 0  ) {
-							System.out.println( "\t" + file.getName() + "\t\t\t" + oName + "\t\t\t"+ file );
+//							appendln( "\t" + file.getName() + "\t\t\t" + oName + "\t\t\t"+ file );
+							appendln( "\t" + oName+ StringUtil.LN  + "\t" + file + StringUtil.LN );
 						}
 					} // 
 				}
@@ -228,7 +216,12 @@ For additional assistance contact support@genuitec.com
 		}
 	}
 
-	private void setKeyWord(final String keyWord) {
+	private void appendln(String string) {
+		buf.append( string );
+		buf.append( StringUtil.LN );
+	}
+
+	public void setKeyWord(final String keyWord) {
 		this.keyWord = keyWord.toLowerCase();
 	}
 
