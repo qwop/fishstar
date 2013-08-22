@@ -1,5 +1,6 @@
 package com.tan.util;
 
+import java.awt.BorderLayout;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
@@ -10,6 +11,11 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
+
+import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 
 /**
  * 查询jar文件中的class
@@ -31,6 +37,7 @@ public class JarSearcher {
 
 	private void init(String dir) {
 		this.setDir(dir);
+		System.out.println("Dir:" + dir);
 		this.file = new File(dir);
 		file.listFiles(new FileFilter() {
 			public boolean accept(File path) {
@@ -43,6 +50,8 @@ public class JarSearcher {
 				return false; // ignore the return segment.
 			}
 		});
+		
+		System.out.println("\tJar文件数:" + size());
 	}
 
 	public int size() {
@@ -128,28 +137,95 @@ For additional assistance contact support@genuitec.com
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		searchContent();
+		// most/isomorphic/skins/ToolSkinNative/load_skin.js
+		// com.isomorphic.taglib.LoadISCTag
+//		 temp();
 		
-	/*	final String root = "D:\\Eclipses\\MyEclipse\\Common\\plugins\\";
-		JarSearcher searcher = new JarSearcher(root);
-		System.out.println("Jar文件数:" + searcher.size());
-		boolean searchClass = true;
-		searcher.setKeyWord( "signedcontent" );
-		searcher.process(searchClass);*/
+		//1. Create the frame.
+		JFrame frame = new JFrame("FrameDemo");
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			SwingUtilities.updateComponentTreeUI(frame);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	 
+
+		//2. Optional: What happens when the frame closes?
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		//3. Create components and put them in the frame.
+		//...create emptyLabel...
+//		frame.getContentPane().add(emptyLabel, BorderLayout.CENTER);
+		//4. Size the frame.
+		frame.add( new JList(), BorderLayout.AFTER_LAST_LINE );
+		frame.pack();
+		frame.setBounds( 100, 200, 300, 500);
+
+		//5. Show it.
+		frame.setVisible(true);
 	}
 
-	private static void searchContent() {
-		final String path = "D:\\Eclipse-Plugins\\myplugin-indigo\\eclipse\\plugins";
-		JarSearcher searcher = new JarSearcher(path);
-		System.out.println("Jar文件数:" + searcher.size());
-		boolean searchClass = false;
+	private static void temp() {
+		String 
+		path = "D:\\GWT\\smartgwtee-4.0p\\lib";
+		path = "D:\\GWT\\smartgwtee-4.0p\\samples\\showcase";
+		path = "D:\\GWT\\smartgwtee-4.0p\\";
 		
+		
+		JarSearcher searcher = new JarSearcher(path);
 		
 		searcher.setFileSuffixs( "MF"  );
 		searcher.setFileSuffixs( "properties", "xml", "txt", "ini" );
 		
 		searcher.setKeyWord( "Generate rebel.xml" );
-		searcher.process(searchClass);
+//		searcher.process(searchClass);
+		searcher.searchfilename( 
+				"LoadISCTag",
+				"ToolSkinNative/load_skin.js",
+				"framework.datasources"
+//				"load_skin.js"
+		);
+	}
+	
+
+	public void searchfilename( final String...strings ) {
+		for ( final String str : strings ) {
+			searchfilename( str );
+		}
+	}
+	
+	public void searchfilename( String str ) {
+		if ( !StringUtil.isEmpty( str ) ){
+			System.out.println("For filename:" + str);
+			JarFile jarFile = null;
+			JarEntry jarEntry = null;
+			String oName,lName;
+			File file;
+			Enumeration<JarEntry> entries;
+			str = str.toLowerCase();
+			for (Iterator<File> iter = lists.iterator(); iter.hasNext();) {
+				file = (File) iter.next();
+				try {
+					jarFile = new JarFile(file);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+				if (null != jarFile) {
+					entries = jarFile.entries();
+					while (entries.hasMoreElements()) {
+						jarEntry = (JarEntry) entries.nextElement();
+						oName = jarEntry.getName();
+						// process the entry's stream.
+						lName = oName.toLowerCase();
+						if ( lName.indexOf( str ) >= 0  ) {
+							System.out.println( "\t" + file.getName() + "\t\t\t" + oName + "\t\t\t"+ file );
+						}
+					} // 
+				}
+			}
+		
+		}
 	}
 
 	private void setKeyWord(final String keyWord) {
