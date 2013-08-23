@@ -43,7 +43,6 @@
 		<!--
 		<fileset dir="${lib}" includes="**/*.jar" />
 		-->
-		
 		<fileset dir="${plugin-home}" id="id">
 			<include name="org.eclipse.core.runtime*.jar" />
 			<include name="org.eclipse.osgi*.jar" />

@@ -239,6 +239,9 @@ public class JarSearchMain extends JFrame {
 		"ini" 
 	};
 	
+
+	
+	
 	static List<String> names = new ArrayList<String>();
 	private JTextField textField;
 

@@ -40,6 +40,8 @@ import org.eclipse.wb.swt.SWTResourceManager;
 
 import com.tan.util.JarSearcher;
 import com.tan.util.StringUtil;
+import org.eclipse.swt.widgets.Table;
+import org.eclipse.swt.widgets.Spinner;
 
 public class JarSearchMainSWT {
 	public static int FRAME_WIDTH = 681 , FRAME_HEIGHT = 706;
@@ -270,10 +272,16 @@ public class JarSearchMainSWT {
 		});
 		FormData fd_btnCheckButton_1 = new FormData();
 		fd_btnCheckButton_1.top = new FormAttachment(composite, 5);
+		
+		table = new Table(composite, SWT.BORDER | SWT.FULL_SELECTION);
+		table.setHeaderVisible(true);
+		table.setLinesVisible(true);
 		fd_btnCheckButton_1.left = new FormAttachment(0, 309);
 		allSelBtn.setLayoutData(fd_btnCheckButton_1);
 		allSelBtn.setText("全选");
 		allSelBtn.setSelection( true );
+		
+		Spinner spinner = new Spinner(shlJarCreateBy, SWT.BORDER);
 	}
 	
 	
@@ -334,6 +342,7 @@ public class JarSearchMainSWT {
 	private StyledText resultText;
 	private Button nameRadio;
 	private Button contentRadio;
+	private Table table;
 
 	static class NameMouseAdapter extends MouseAdapter {
 		@Override
