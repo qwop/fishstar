@@ -1,6 +1,9 @@
 package com.tan.frames;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -19,6 +22,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
@@ -28,9 +32,6 @@ import javax.swing.border.EmptyBorder;
 
 import com.tan.util.JarSearcher;
 import com.tan.util.StringUtil;
-import java.awt.Font;
-import java.awt.Color;
-import javax.swing.JScrollPane;
 
 
 @SuppressWarnings("serial")
@@ -73,7 +74,14 @@ public class JarSearchMain extends JFrame {
 		SwingUtilities.updateComponentTreeUI( this 	);
 		
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setBounds(100, 100, 681, 706);
+
+		setBounds( 
+				Toolkit.getDefaultToolkit().getScreenSize().width/2 - FRAME_WIDTH/2 , 
+				Toolkit.getDefaultToolkit().getScreenSize().height - FRAME_HEIGHT - ( int ) ( FRAME_HEIGHT * 0.1 ), 
+				FRAME_WIDTH, 
+				FRAME_HEIGHT
+		);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -231,6 +239,8 @@ public class JarSearchMain extends JFrame {
 	
 	static List<String> names = new ArrayList<String>();
 	private JTextField textField;
+
+	public static int FRAME_WIDTH = 681 , FRAME_HEIGHT = 706;
 	
 	static class FileNameCheckBox extends JCheckBox {
 		private static final long serialVersionUID = -7154674746536282465L;
