@@ -341,9 +341,7 @@
                menubarPath="com.tan.actions.menu/com.tan.actions.menu.group"
                toolbarPath="com.tan.actions.menu.group"
                id="com.tan.actions.JarSearchAction">
-         </action>  
-               
+       	</action>
       </actionSet>
-
    </extension>
 </plugin>
