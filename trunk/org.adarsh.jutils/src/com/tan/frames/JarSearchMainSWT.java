@@ -28,6 +28,7 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.DirectoryDialog;
 import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Group;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
@@ -35,12 +36,11 @@ import org.eclipse.wb.swt.SWTResourceManager;
 
 import com.tan.util.JarSearcher;
 import com.tan.util.StringUtil;
-import org.eclipse.swt.widgets.Group;
 
 public class JarSearchMainSWT {
-
+	public static int FRAME_WIDTH = 681 , FRAME_HEIGHT = 706;
 	protected Shell shlJarCreateBy;
-	private Text inptText;
+	private Text inputText;
 
 	/**
 	 * Launch the application.
@@ -73,6 +73,7 @@ public class JarSearchMainSWT {
 	private Properties prop;
 	private Combo comboBox;
 	private File file;
+	private List<Button> CheckButtons;
 	/**
 	 * Create contents of the window.
 	 */
@@ -85,15 +86,15 @@ public class JarSearchMainSWT {
 
 		});
 		
-		shlJarCreateBy.setSize(643, 620);
+		shlJarCreateBy.setSize( FRAME_WIDTH, FRAME_HEIGHT );
 		shlJarCreateBy.setText("Jar文件搜寻器 create by tyj");
 		shlJarCreateBy.setLayout(new FormLayout());
 		
 		comboBox = new Combo(shlJarCreateBy, SWT.NONE);
 		FormData fd_comboBox = new FormData();
-		fd_comboBox.right = new FormAttachment(0, 605);
-		fd_comboBox.top = new FormAttachment(0, 25);
 		fd_comboBox.left = new FormAttachment(0, 30);
+		fd_comboBox.right = new FormAttachment(100, -30);
+		fd_comboBox.top = new FormAttachment(0, 10);
 		comboBox.setLayoutData(fd_comboBox);
 		comboBox.addSelectionListener(new SelectionAdapter() {
 
@@ -130,24 +131,30 @@ public class JarSearchMainSWT {
 		// qwop
 		
 		NameMouseAdapter adapter = new NameMouseAdapter();
-		for ( final String name : endsName ) {
+		
+		CheckButtons = new ArrayList<Button>();
+		for ( final String name : EXT_NAMES ) {
 			Button btnCheckButton = new Button(composite, SWT.CHECK);
 			btnCheckButton.setText( name );
+			btnCheckButton.setSelection( true );
 			btnCheckButton.addMouseListener( adapter );
+			CheckButtons.add( btnCheckButton );
 //			FileNameCheckBox box = new FileNameCheckBox(name, composite, SWT.CHECK); 
 		}
 		
-		inptText = new Text(shlJarCreateBy, SWT.BORDER);
+		inputText = new Text(shlJarCreateBy, SWT.BORDER);
 		FormData fd_inptText = new FormData();
-		fd_inptText.left = new FormAttachment(0, 30);
-		fd_inptText.right = new FormAttachment(0, 605);
-		inptText.setLayoutData(fd_inptText);
+		fd_inptText.right = new FormAttachment(comboBox, 0, SWT.RIGHT);
+		fd_inptText.left = new FormAttachment(comboBox, 0, SWT.LEFT);
+//		fd_inptText.bottom = new FormAttachment(100, -378);
+//		fd_inptText.left = new FormAttachment(0, 30);
+//		fd_inptText.right = new FormAttachment(0, 605);
+		inputText.setLayoutData(fd_inptText);
 		
 		Button btnNewButton = new Button(shlJarCreateBy, SWT.NONE);
 		FormData fd_btnNewButton = new FormData();
-		fd_btnNewButton.top = new FormAttachment(inptText, 6);
-		fd_btnNewButton.left = new FormAttachment(comboBox, 0, SWT.LEFT);
-		fd_btnNewButton.right = new FormAttachment(0, 605);
+		fd_btnNewButton.left = new FormAttachment(0, 30);
+		fd_btnNewButton.right = new FormAttachment(100, -30);
 		btnNewButton.setLayoutData(fd_btnNewButton);
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -158,13 +165,13 @@ public class JarSearchMainSWT {
 	    			 if ( dir.exists() && dir.isDirectory() ) {
 	    				 	resultText.setText( "" );
 	    					JarSearcher searcher = new JarSearcher( dir );
-	    					
 	    					searcher.setFileSuffixs( names.toArray( new String[] {} ) );
 	    					
 	    					if ( nameRadio.getSelection() ) {
-	    						String text = inptText.getText() ;
+	    						String text = inputText.getText() ;
 	    						if ( StringUtil.isEmpty( text ) ) {
 	    							resultText.setText( "请输入关键字" );
+	    							inputText.forceFocus();
 	    							return;
 	    						}
 	    						String[] spaces = text.split( "\\s+" );
@@ -172,8 +179,14 @@ public class JarSearchMainSWT {
 		    							spaces
 		    					);
 	    					} else if ( contentRadio.getSelection() ) {
+	    						String text = inputText.getText() ;
+	    						if ( StringUtil.isEmpty( text ) ) {
+	    							resultText.setText( "请输入关键字" );
+	    							inputText.forceFocus();
+	    							return;
+	    						}
 	    						boolean searchClass = false;
-	    						searcher.setKeyWord( inptText.getText() );
+	    						searcher.setKeyWord( text );
 	    						searcher.processContent(searchClass);
 	    					}
 	    					resultText.setText( searcher.getResult());
@@ -186,11 +199,12 @@ public class JarSearchMainSWT {
 		btnNewButton.setText("处理");
 		
 		ScrolledComposite scrolledComposite = new ScrolledComposite(shlJarCreateBy, SWT.BORDER | SWT.H_SCROLL | SWT.V_SCROLL);
+		fd_btnNewButton.bottom = new FormAttachment(100, -383);
 		FormData fd_scrolledComposite = new FormData();
-		fd_scrolledComposite.top = new FormAttachment(btnNewButton, 6);
+		fd_scrolledComposite.top = new FormAttachment(btnNewButton);
+		fd_scrolledComposite.bottom = new FormAttachment(100);
 		fd_scrolledComposite.left = new FormAttachment(0, 30);
-		fd_scrolledComposite.bottom = new FormAttachment(0, 568);
-		fd_scrolledComposite.right = new FormAttachment(0, 605);
+		fd_scrolledComposite.right = new FormAttachment(100, -30);
 		scrolledComposite.setLayoutData(fd_scrolledComposite);
 		scrolledComposite.setExpandHorizontal(true);
 		scrolledComposite.setExpandVertical(true);
@@ -202,25 +216,24 @@ public class JarSearchMainSWT {
 		scrolledComposite.setMinSize(resultText.computeSize(SWT.DEFAULT, SWT.DEFAULT));
 		
 		Label lblNewLabel = new Label(shlJarCreateBy, SWT.NONE);
-		fd_inptText.bottom = new FormAttachment(lblNewLabel, 27, SWT.BOTTOM);
 		fd_inptText.top = new FormAttachment(lblNewLabel, 6);
-		fd_composite.bottom = new FormAttachment(100, -405);
+		fd_composite.bottom = new FormAttachment(100, -495);
 		FormData fd_lblNewLabel = new FormData();
 		fd_lblNewLabel.top = new FormAttachment(composite, 30);
 		fd_lblNewLabel.left = new FormAttachment(comboBox, 0, SWT.LEFT);
-		fd_lblNewLabel.bottom = new FormAttachment(0, 223);
-		fd_lblNewLabel.right = new FormAttachment(0, 205);
+		fd_lblNewLabel.bottom = new FormAttachment(100, -442);
+		fd_lblNewLabel.right = new FormAttachment(100, -214);
 		lblNewLabel.setLayoutData(fd_lblNewLabel);
-		lblNewLabel.setText("请输入关键字：");
+		lblNewLabel.setText("请输入关键字(例 button canvas form grid)：");
 		
 		Group group = new Group(shlJarCreateBy, SWT.NONE);
 		fd_composite.top = new FormAttachment(group, 6);
 		group.setText("查找类型");
 		FormData fd_group = new FormData();
-		fd_group.bottom = new FormAttachment(100, -452);
-		fd_group.top = new FormAttachment(comboBox, 28);
-		fd_group.left = new FormAttachment(0, 30);
-		fd_group.right = new FormAttachment(0, 590);
+		fd_group.top = new FormAttachment(comboBox, 6);
+		fd_group.left = new FormAttachment(comboBox, 0, SWT.LEFT);
+		fd_group.bottom = new FormAttachment(100, -588);
+		fd_group.right = new FormAttachment(100, -30);
 		group.setLayoutData(fd_group);
 		
 		nameRadio = new Button(group, SWT.RADIO);
@@ -231,10 +244,26 @@ public class JarSearchMainSWT {
 		contentRadio = new Button(group, SWT.RADIO);
 		contentRadio.setBounds(332, 15, 120, 19);
 		contentRadio.setText("文件内容查找");
+		
+		final Button allSelBtn = new Button(shlJarCreateBy, SWT.CHECK);
+		allSelBtn.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				for ( final Button btn : CheckButtons ) {
+					btn.setSelection( allSelBtn.getSelection() );
+				}
+			}
+		});
+		FormData fd_btnCheckButton_1 = new FormData();
+		fd_btnCheckButton_1.top = new FormAttachment(composite, 5);
+		fd_btnCheckButton_1.left = new FormAttachment(0, 309);
+		allSelBtn.setLayoutData(fd_btnCheckButton_1);
+		allSelBtn.setText("全选");
+		allSelBtn.setSelection( true );
 	}
 	
 	
-	static String[] endsName =  {
+	static String[] EXT_NAMES =  {
 		"properties",
 		"classes",
 		"txt",
