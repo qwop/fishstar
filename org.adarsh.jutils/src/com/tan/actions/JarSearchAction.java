@@ -8,6 +8,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.IWorkbenchWindowActionDelegate;
 
 import com.tan.frames.JarSearchMain;
+import com.tan.frames.JarSearchMainSWT;
 
 
 /**
@@ -21,16 +22,8 @@ public class JarSearchAction implements IWorkbenchWindowActionDelegate {
 	}
 
 	public void run(IAction action) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JarSearchMain frame = new JarSearchMain();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+//		JarSearchMain.main( null );
+		JarSearchMainSWT.main( null );
 	}
 
 	public void selectionChanged(IAction action, ISelection selection) {

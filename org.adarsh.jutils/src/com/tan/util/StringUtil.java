@@ -615,4 +615,8 @@ public final class StringUtil {
 		return path;
 	}
 
+	public static boolean equals(Object sObj, Object obj) {
+		return false;
+	}
+
 }

@@ -209,7 +209,7 @@ public class JarSearchMain extends JFrame {
 	    					} else if ( contentRadio.isSelected() ) {
 	    						boolean searchClass = false;
 	    						searcher.setKeyWord( textField.getText() );
-	    						searcher.process(searchClass);
+	    						searcher.processContent(searchClass);
 	    					}
 	    					textPane.setText( searcher.getResult());
 	    			 }

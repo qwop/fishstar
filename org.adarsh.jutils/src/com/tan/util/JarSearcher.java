@@ -65,7 +65,7 @@ public class JarSearcher {
 		return lists.size();
 	}
 
-	public void process(boolean searchClass) {
+	public void processContent(boolean searchClass) {
 		JarFile jarFile = null;
 		JarEntry jarEntry = null;
 		String name;
