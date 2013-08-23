@@ -195,20 +195,22 @@ public class JarSearchMain extends JFrame {
 	    					JarSearcher searcher = new JarSearcher( dir );
 	    					
 	    					searcher.setFileSuffixs( names.toArray( new String[] {} ) );
+	    					String text = textField.getText() ;
+	    					if ( StringUtil.isEmpty( text ) ) {
+	    						textPane.setText( "请输入关键字" );
+	    						return;
+	    					}
 	    					
+	    					String[] spaces = text.split( "\\s+" );
 	    					if ( nameRadio.isSelected() ) {
-	    						String text = textField.getText() ;
-	    						if ( StringUtil.isEmpty( text ) ) {
-	    							textPane.setText( "请输入关键字" );
-	    							return;
-	    						}
-	    						String[] spaces = text.split( "\\s+" );
 		    					searcher.searchfilename( 
 		    							spaces
 		    					);
 	    					} else if ( contentRadio.isSelected() ) {
 	    						boolean searchClass = false;
-	    						searcher.setKeyWord( textField.getText() );
+	    						searcher.setKeyWords( 
+	    								spaces
+	    						);
 	    						searcher.processContent(searchClass);
 	    					}
 	    					textPane.setText( searcher.getResult());
