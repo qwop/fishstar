@@ -19,7 +19,7 @@ import java.util.jar.JarFile;
 public class JarSearcher {
 	private File file;
 	private List<File> lists;
-	private String keyWord;
+	private String[] keyWords;
 	private String[] fileSuffixs;
 	private String dir;
 	
@@ -120,8 +120,10 @@ public class JarSearcher {
 			name = name.replace('/', '.').replaceAll(".class", "");
 			name.toLowerCase();
 			
-			if ( name.indexOf( keyWord ) >= 0 ) {
-				appendln(jarFile + "\t" + jarEntry);
+			for ( String kw : keyWords ) {
+				if ( name.indexOf( kw ) >= 0 ) {
+					appendln(jarFile + "\t" + jarEntry);
+				}
 			}
 		}
 	}
@@ -154,7 +156,7 @@ For additional assistance contact support@genuitec.com
 		searcher.setFileSuffixs( "MF"  );
 		searcher.setFileSuffixs( "properties", "xml", "txt", "ini" );
 		
-		searcher.setKeyWord( "Generate rebel.xml" );
+		searcher.setKeyWords( "Generate rebel.xml" );
 //		searcher.process(searchClass);
 		searcher.searchfilename( 
 				"LoadISCTag",
@@ -221,9 +223,6 @@ For additional assistance contact support@genuitec.com
 		buf.append( StringUtil.LN );
 	}
 
-	public void setKeyWord(final String keyWord) {
-		this.keyWord = keyWord.toLowerCase();
-	}
 
 	private boolean search(JarFile jarFile, JarEntry jarEntry) {
 		int len = -1;
@@ -247,8 +246,10 @@ For additional assistance contact support@genuitec.com
 			in = null;
 		}
 		if (builder.length() > 0) {
-			if (builder.toString().toLowerCase().indexOf( keyWord ) >= 0) {
-				return true;
+			for ( String kw : keyWords ) {
+				if (builder.toString().toLowerCase().indexOf( kw ) >= 0) {
+					return true;
+				}
 			}
 			builder = null;
 		}
@@ -275,6 +276,16 @@ For additional assistance contact support@genuitec.com
 
 	public void setDir(String dir) {
 		this.dir = dir;
+	}
+
+
+	public void setKeyWords( String ... keywords ) {
+		if ( null != keywords && keywords.length > 0 ) {
+			for ( int i = 0; i < keywords.length; i++ ) {
+				keywords[i] = keywords[i].toLowerCase();
+			}
+			this.keyWords = keywords;
+		}
 	}
 
 }

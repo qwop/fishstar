@@ -41,6 +41,20 @@ import org.eclipse.swt.widgets.Display;
  * @author Dan Rubel
  */
 public class SWTResourceManager {
+	public static void main(String[] args) {
+		String value = " FUCK you  FUCK youFUCK you FUCK you  FUCK you";
+		value = value.toLowerCase();
+		int len = value.length();
+		int fromIndex = 0;
+		while ( fromIndex >= 0 && fromIndex < len - 1 ) {
+			int idx = value.indexOf( "fuck", fromIndex );
+			if ( idx < 0 ) {
+				break;
+			}
+			System.out.println( idx );
+			fromIndex = idx + "fuck".length() ;
+		}
+	}
 	////////////////////////////////////////////////////////////////////////////
 	//
 	// Color

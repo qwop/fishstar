@@ -7,11 +7,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Properties;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.ScrolledComposite;
+import org.eclipse.swt.custom.StyleRange;
 import org.eclipse.swt.custom.StyledText;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.DisposeListener;
@@ -19,6 +22,7 @@ import org.eclipse.swt.events.MouseAdapter;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.layout.FillLayout;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
@@ -167,29 +171,39 @@ public class JarSearchMainSWT {
 	    					JarSearcher searcher = new JarSearcher( dir );
 	    					searcher.setFileSuffixs( names.toArray( new String[] {} ) );
 	    					
+	    					String iText = inputText.getText() ;
+	    					if ( StringUtil.isEmpty( iText ) ) {
+	    						resultText.setText( "请输入关键字" );
+	    						inputText.forceFocus();
+	    						return;
+	    					}
+	    					String[] keywords = iText.split( "\\s+" );
+	    					
+	    					
 	    					if ( nameRadio.getSelection() ) {
-	    						String text = inputText.getText() ;
-	    						if ( StringUtil.isEmpty( text ) ) {
-	    							resultText.setText( "请输入关键字" );
-	    							inputText.forceFocus();
-	    							return;
-	    						}
-	    						String[] spaces = text.split( "\\s+" );
 		    					searcher.searchfilename( 
-		    							spaces
+		    							keywords
 		    					);
 	    					} else if ( contentRadio.getSelection() ) {
-	    						String text = inputText.getText() ;
-	    						if ( StringUtil.isEmpty( text ) ) {
-	    							resultText.setText( "请输入关键字" );
-	    							inputText.forceFocus();
-	    							return;
-	    						}
 	    						boolean searchClass = false;
-	    						searcher.setKeyWord( text );
+//	    						searcher.setKeyWord( keywords );
+	    						searcher.setKeyWords(
+	    								keywords
+	    						);
 	    						searcher.processContent(searchClass);
 	    					}
+	    					
 	    					resultText.setText( searcher.getResult());
+	    					
+	    					
+	    					///////////// set style rang  start.
+	    					String text = resultText.getText();
+							if (text.length() > 0) {
+								StyleRange[] ranges = createStyleRanges( keywords, text );
+								if ( null != ranges && ranges.length > 0  ) 
+									resultText.setStyleRanges(ranges);
+							}
+							///////////// set style rang  end.
 	    			 }
 	    		 } else {
 	    			 resultText.setText( "请选择或者添加文件夹，双击下拉框！" );
@@ -263,6 +277,52 @@ public class JarSearchMainSWT {
 	}
 	
 	
+	protected StyleRange[] createStyleRanges(String[] keywords, String text) {
+		if ( null != keywords && keywords.length > 0 && !StringUtil.isEmpty( text ) ) {
+			text = text.toLowerCase();
+			Color red = Display.getDefault().getSystemColor(SWT.COLOR_RED);
+			List<StyleRange> list = new ArrayList<StyleRange>();
+			for ( int i = 0; i < keywords.length; i++ ) {
+				keywords[i] = keywords[i].toLowerCase();
+				int len = text.length();
+				int fromIndex = 0;
+				while ( fromIndex >= 0 && fromIndex < len - 1 ) {
+					int idx = text.indexOf( keywords[i], fromIndex );
+					if ( idx < 0 ) {
+						break;
+					}
+					StyleRange sr = new StyleRange( idx,  keywords[i].length(), red, null);
+//					System.out.println( idx  + "\t" +  keywords[i].length() );
+					sr.fontStyle=sr.fontStyle|SWT.BOLD;
+					list.add( sr );
+					fromIndex = idx + keywords[i].length() ;
+				}
+			}
+			
+			Collections.sort(list, new Comparator<StyleRange> () {
+				@Override
+				public int compare(StyleRange r1, StyleRange r2) {
+					return r1.start - r2.start;
+				}
+			});
+			
+			///////////// test error invalid arguments start.
+//			list = new ArrayList<StyleRange>();
+//			// 1234
+//			// 1 - 4
+//			// 2 - 2
+//			list.add( new StyleRange( 10,  2, red, null) );
+//			list.add( new StyleRange( 5,  2, red, null) );
+			///////////// test error invalid arguments start.
+			
+			StyleRange[] array = list.toArray( new StyleRange[0] );
+			return array;
+		}
+		return null;
+	}
+	
+	
+
 	static String[] EXT_NAMES =  {
 		"properties",
 		"classes",
