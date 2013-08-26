@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+ <head>
+  <title> Test weibo </title>
+  <meta name="Generator" content="EditPlus">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+  <link rel="stylesheet" type="text/css" href="rudiments-0-38.css" media="all" />
+  <script type="text/javascript" src="jquery/jquery-1.6.4.js"></script>
+
+  <script type="text/javascript">
+  <!--
+
+  function normal(id,times)
+{
+	var obj=$("#"+id);
+	obj.css("background-color","#FFF");
+	if(times<0)
+	{
+		return;
+	}
+	times=times-1;
+	setTimeout("error('"+id+"',"+times+")",150);
+}
+
+function error(jqo,times)
+{
+	var id = "";
+	if ( jqo.val ) {
+		id = "" + new Date().getTime();
+		jqo.attr( "id", id );
+		jqo.focus();
+	} else {
+		id = jqo;
+	}
+	
+	var obj=$("#"+id);
+	obj.css("background-color","#F6CECE");
+	times=times-1;
+	setTimeout("normal('"+id+"',"+times+")",150);
+}
+
+
+	$( document ).ready( function() {
+			error( $( "#test" ), 10 );
+	} );
+  //-->
+  </script>
+ </head>
+
+ <body>
+  
+<div id="toolbar_wrapper">
+	<div class="toolbar">
+	<div class="tool_title"><b>分享到&nbsp;</b></div>
+	<div class="share"><a class="share_sina" title="分享到新浪微博" href="javascript:void((function(s,d,e,r,l,p,t,z,c){var%20f='http://v.t.sina.com.cn/share/share.php?appkey=858381728',u=z||d.location,p=['&amp;url=',e(u),'&amp;title=',e(t||d.title),'&amp;source=',e(r),'&amp;sourceUrl=',e(l),'&amp;content=',c||'gb2312','&amp;pic=',e(p||'')].join('');function%20a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=440,height=430,left=',(s.width-440)/2,',top=',(s.height-430)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else%20a();})(screen,document,encodeURIComponent,'','','','Tomcat - Java应用服务器: 推荐你使用好空间公司的JSP空间 Tomcat 服务器是一个免费的开放源代码的Web 应用服务器。 Tomcat是Apache 软件基金会（Apache Software Foundation）的Jakarta 项目中的...','','utf-8'));">新浪微博</a><a class="share_qq" title="分享到腾讯微博" href="javascript:(function(){window.open('http://v.t.qq.com/share/share.php?url='+encodeURIComponent(document.location)+'&amp;appkey=96f54f97c4de46e393c4835a266207f4&amp;site=&amp;title='+encodeURIComponent(document.title)+encodeURIComponent(': 推荐你使用好空间公司的JSP空间 Tomcat 服务器是一个免费的开放源代码的Web 应用服务器。 Tomcat是Apache 软件基金会（Apache Software Foundation）的Jakarta 项目中的...'),'', 'width=450, height=400, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, location=yes, resizable=no, status=no');}())">腾讯微博</a></div>
+	<div class="options">
+				<div class="soft_used">
+			<a id="soft_used_button" class="soft_used_button soft_used_button_n" title="取消使用经验" href="javascript:;">已用<span class="arrow_holder">&nbsp;&nbsp;&nbsp;</span></a>
+			<span id="p_used_count" class="soft_collect_count">+524</span>
+			<ul style="display: none;" id="soft_used_level" class="soft_used_level">
+				<li level="1">用过</li>
+				<li level="2">熟练</li>
+				<li level="3">精通</li>
+				<li class="level" level="0">取消</li>
+			</ul>
+		</div>
+				<div class="favorite">
+		<a id="favor_trigger" class="soft_collect " title="收藏此软件" href="javascript:;">收藏</a><span id="p_favor_count" class="soft_collect_count">+93</span>
+		</div>
+							</div>
+	</div>
+</div>
+
+
+
+<div id="Body" class="Body">
+		    	
+<p><strong>Tomcat</strong> 服务器是一个免费的开放源代码的Web 应用服务器。</p> 
+<p>Tomcat是Apache 软件基金会（Apache Software Foundation）的Jakarta 项目中的一个核心项目，由Apache、Sun 和其他一些公司及个人共同开发而成。由于有了Sun 的参与和支持，最新的Servlet 和JSP 规范总是能在Tomcat 中得到体现，Tomcat 5 支持最新的Servlet 2.4 和JSP 2.0 规范。因为Tomcat 技术先进、性能稳定，而且免费，因而深受Java 爱好者的喜爱并得到了部分软件开发商的认可，成为目前比较流行的Web 应用服务器。</p> 
+<p>Tomcat 很受广大程序员的喜欢，因为它运行时占用的系统资源小，扩展性好，支持负载平衡与邮件服务等开发应用系统常用的功能；而且它还在不断的改进和完善中，任何一个感兴趣的程序员都可以更改它或在其中加入新的功能。<br><br>Tomcat 是一个小型的轻量级应用服务器，在中小型系统和并发访问用户不是很多的场合下被普遍使用，是开发和调试JSP 程序的首选。对于一个初学者来说，可以这样认为，当在一台机器上配置好Apache 服务器，可利用它响应对HTML 页面的访问请求。实际上Tomcat 部分是Apache 服务器的扩展，但它是独立运行的，所以当你运行tomcat 时，它实际上作为一个与Apache 独立的进程单独运行的。</p> 
+<p>这里的诀窍是，当配置正确时，Apache 为HTML页面服务，而Tomcat 实际上运行JSP 页面和Servlet。另外，Tomcat和IIS、Apache等Web服务器一样，具有处理HTML页面的功能，另外它还是一个Servlet和JSP容器，独立的Servlet容器是Tomcat的默认模式。不过，Tomcat处理静态HTML的能力不如Apache服务器。</p> 
+<p><strong>在线文档：</strong><a href="http://www.osctools.net/apidocs/apidoc?api=tomcat-7.0-doc" target="_blank">http://www.osctools.net/apidocs/apidoc?api=tomcat-7.0-doc</a></p>
+		    			</div>
+
+	<textarea name="" id="test" cols="50" rows="1000"></textarea>
+
+ </body>
+</html>
