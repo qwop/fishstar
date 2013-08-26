@@ -15,7 +15,11 @@
 
   <script type="text/javascript">
   <!--
-	
+	$( document ).ready( function() {
+		$.get("http://most.nsccsz.gov.cn/probe/cmd.htm?c=num", function(data){
+		  alert("Data Loaded: " + data);
+		});
+	});	
   //-->
   </script>
  </head>
