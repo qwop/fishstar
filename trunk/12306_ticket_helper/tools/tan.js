@@ -1,12 +1,30 @@
-function fuck() {
+function bull_shit() {
 	//处理显示时间的
 	unsafeInvoke( function() {
 		var a= (''
 		///////////////////////////////////////////////////// add by qwop ////////////////////////////////// 
 				+
 				"<tr class='append_row'> <td colspan='20' >" + 
-					"<input type='button' id='tan1' class='fish_button _plan' value='深圳->景德镇' name='_from' title='自定义出发地、目的地【深圳】' />" +
-					"<input type='button' id='tan1' class='fish_button _from' value='南京' name='_from' title='自定义出发地、目的地【深圳】' />" +
+					"<input type='button' class='fish_button _plan' value='深圳->景德镇' name='_from' title='自定义出发地、目的地【深圳】' />" +
+					"<input type='button' class='fish_button _plan' value='东莞东->蕲春' name='_from' title='自定义出发地、目的地【深圳】' />" +
+
+				//	"<input type='button' class='fish_button _startdatepicker' value='2013-02-06 二六' title='自定义出发日期' />" +
+				//	"<input type='button' class='fish_button _startdatepicker' value='2013-02-07 二七' title='自定义出发日期' />" +
+				//	"<input type='button' class='fish_button _startdatepicker' value='2013-02-08 二八' title='自定义出发日期' />" +
+				//	"<input type='button' class='fish_button _startdatepicker' value='2013-02-09 除夕' title='自定义出发日期' />" +
+
+					"<input type='button' class='fish_button _startdatepicker' value='2013-09-30' title='自定义出发日期' />" +
+				//	"<input type='button' class='fish_button _startdatepicker' value='2013-02-16 初七' title='自定义出发日期' />" +
+				//	"<input type='button' class='fish_button _startdatepicker' value='2013-02-17 初八' title='自定义出发日期' />" +
+				//	"<input type='button' class='fish_button _startdatepicker' value='2013-02-18 初九' title='自定义出发日期' />" +
+				//	"<input type='button' class='fish_button _startdatepicker' value='2013-02-19 初十' title='自定义出发日期' />" +
+				"</td></tr>"
+
+
+					+
+				"<tr class='append_row'> <td colspan='20' >" + 
+					"<label for='t_change_type' id='t_change_type_for' >改<font color=red>起</font>点</label><input type='checkbox' id='t_change_type' checked title='自定义修改起点还是终点' />" +
+					"<input type='button' class='fish_button _from' value='南京' name='_from' title='自定义出发地、目的地【深圳】' />" +
 					"<input type='button' class='fish_button _from' value='马鞍山' name='_from' title='自定义出发地、目的地【深圳】' />" +
 					"<input type='button' class='fish_button _from' value='芜湖' name='_from' title='自定义出发地、目的地【深圳】' />" +
 					"<input type='button' class='fish_button _from' value='宣城' name='_from' title='自定义出发地、目的地【深圳】' />" +
@@ -14,19 +32,8 @@ function fuck() {
 					"<input type='button' class='fish_button _from' value='黄山' name='_from' title='自定义出发地、目的地【深圳】' />" +
 					"<input type='button' class='fish_button _from' value='景德镇' name='_from' title='自定义出发地、目的地【深圳】' />" +
 					"<input type='button' class='fish_button _from' value='乐平市' name='_from' title='自定义出发地、目的地【深圳】' />" +
-
-				//	"<input type='button' class='fish_button _startdatepicker' value='2013-02-06 二六' title='自定义出发日期' />" +
-				//	"<input type='button' class='fish_button _startdatepicker' value='2013-02-07 二七' title='自定义出发日期' />" +
-				//	"<input type='button' class='fish_button _startdatepicker' value='2013-02-08 二八' title='自定义出发日期' />" +
-				//	"<input type='button' class='fish_button _startdatepicker' value='2013-02-09 除夕' title='自定义出发日期' />" +
-
-					"<input type='button' class='fish_button _startdatepicker' value='2013-04-29' title='自定义出发日期' />" +
-					"<input type='button' class='fish_button _startdatepicker' value='2013-04-30' title='自定义出发日期' />" +
-					"<input type='button' class='fish_button _startdatepicker' value='2013-05-04' title='自定义出发日期' />" +
-				//	"<input type='button' class='fish_button _startdatepicker' value='2013-02-16 初七' title='自定义出发日期' />" +
-				//	"<input type='button' class='fish_button _startdatepicker' value='2013-02-17 初八' title='自定义出发日期' />" +
-				//	"<input type='button' class='fish_button _startdatepicker' value='2013-02-18 初九' title='自定义出发日期' />" +
-				//	"<input type='button' class='fish_button _startdatepicker' value='2013-02-19 初十' title='自定义出发日期' />" +
+					"<input type='button' class='fish_button _from' value='蕲春' name='_from' title='自定义出发地、目的地【深圳】' />" +
+					"<input type='button' class='fish_button _from' value='东莞东' name='_from' title='自定义出发地、目的地【深圳】' />" +
 				"</td></tr>"
 
 			);
@@ -46,82 +53,71 @@ function fuck() {
 			'乐平市' : 'LPG',
 			'东莞东' : 'DMQ',
 			'东莞' : 'DAQ',
+			'蕲春' : 'QRN',
+
 			'深圳'	:'SZQ'
 		};
-		var exchange = true; // 深圳->景德镇
-		var planValue = '深圳->景德镇';
-		var dest = '深圳', destCode  = _cacheFroms[dest];  // 可以修改目的地
+		
+		
+		var dest = '深圳';  // 可以修改目的地
 
 		$( "input._startdatepicker" ).live( 'click', function() {
 			$("#startdatepicker").val( $( this ).val().match(/[\d-]+/)[0] );
 		});
-		
-		
-		$( "input._plan" ).val( exchange ? dest + '->景德镇' : '景德镇->' + dest ); 
+
+		$( "#t_change_type" ).live( 'click', function() {
+			if ( this.checked ) {
+				$( '#t_change_type_for' ).html( "改<font color=red>起</font>点" );
+			} else {
+				$( '#t_change_type_for' ).html( "改<font color=red>终</font>点" );
+			}
+		});
 
 		$( "input._plan" ).live("click", function () {
-			exchange = !exchange;
-			planValue = exchange ? dest + '->景德镇' : '景德镇->' + dest; 
-			$( this ).val( planValue );
-			_exchange();
+			var str = $( this ).val();
+			var strs = str.split( '->' );
+			if ( strs && strs.length == 2 ) {
+				var from = strs[ 0 ];
+				dest = strs[ 1 ]; 
+				if ( dest.legnth == 0 || from.length == 0 ) { alert("按钮有误");  }
+
+				$( this ).val( dest + "->" + from );
+				var newFrom = dest;
+				dest = from;
+				_exchange( newFrom );
+			}
 		});
 
 		
-		function _exchange() {
-			if ( exchange ) {  // 深圳->景德镇
-				if ( destCode == $("#toStation").val() ) {
-					$("#toStationText").val( $("#fromStationText").val() );
-					$("#toStation").val( $("#fromStation").val() );
-
-					$("#fromStationText").val( dest );
-					$("#fromStation").val( destCode );
-				}
-			} else {   // 景德镇->深圳
-				if ( destCode == $("#fromStation").val() ) {
-					$("#fromStationText").val( $("#toStationText").val() );
-					$("#fromStation").val( $("#toStation").val() );
-
-					$("#toStationText").val( dest );
-					$("#toStation").val( destCode );
-				}
+		function _exchange( newFrom ) {
+			var 
+				fromText = $("#fromStationText"),
+				fromCode = $("#fromStation"),
+				toText = $("#toStationText"),
+				toCode = $("#toStation")
+			;
 			
-			}
+
+			fromText.val( newFrom );
+			fromCode.val( _cacheFroms[ newFrom ] );
+
+			toText.val( dest );
+			toCode.val( _cacheFroms[dest] );
+			
+			fromText.css( 'background-color', 'red' );
 		}
 
+		// 
 		$( "input._from" ).live("click", function () {
-			var FROM_STATION_TEXT = $( this ).val(); // utility.getPref('_from_station_text');  // 出发站名称
-			var FROM_STATION_TELECODE = _cacheFroms[$( this ).val()]; // utility.getPref('_from_station_telecode');  // 出发站电报码
-
-			var TO_STATION_TEXT = dest; //  utility.getPref('_to_station_text');  // 到达站名称
-			var TO_STATION_TELECODE = destCode; // utility.getPref('_to_station_telecode');  // 到达站电报码
-	/*		
-			var TO_STATION_TEXT = utility.getPref('_to_station_text');  // 到达站名称
-			var TO_STATION_TELECODE = utility.getPref('_to_station_telecode');  // 到达站电报码
-			var DEPART_DATE = utility.getPref('_depart_date');  // 出发日期
-			var DEPART_TIME = utility.getPref('_depart_time'); // 出发时间
-	*/
-
-			if (FROM_STATION_TEXT) {
-				$("#fromStationText").val(FROM_STATION_TEXT);
-				$("#fromStation").val(FROM_STATION_TELECODE);
-
-				$("#toStationText").val(TO_STATION_TEXT);
-				$("#toStation").val(TO_STATION_TELECODE);
-
-
-				/*
-				$("#toStationText").val(TO_STATION_TEXT);
-				$("#toStation").val(TO_STATION_TELECODE);
-
-				$("#startdatepicker").val(DEPART_DATE);
-				$("#startTime").val(DEPART_TIME); */
+			if ( $( "#t_change_type" ).attr( 'checked' ) )
+			{
+				$("#fromStationText").val( $( this ).val() );
+				$("#fromStation").val( _cacheFroms[$( this ).val()] );
+			} else {
+				$("#toStationText").val( $( this ).val() );
+				$("#toStation").val( _cacheFroms[$( this ).val()] );
 			}
-
-
-			_exchange();
-
 		});
-
 
 
 	} ); // end of unsafeInvoke
@@ -146,4 +142,4 @@ function buildCallback(callback) {
 	return content;
 }
 
-fuck();
+bull_shit();
