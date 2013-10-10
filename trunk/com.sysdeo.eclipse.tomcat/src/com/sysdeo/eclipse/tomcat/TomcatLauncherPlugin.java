@@ -185,7 +185,17 @@ public class TomcatLauncherPlugin extends AbstractUIPlugin {
 		return resourceBundle;
 	}
 
+	public void setTomcatDir( final String dir ) {
+		IPreferenceStore pref =	TomcatLauncherPlugin.getDefault().getPreferenceStore();
+		pref.setValue( TOMCAT_PREF_HOME_KEY , dir );
+	}
+	
 
+	public void setTomcatBase( final String dir ) {
+		IPreferenceStore pref =	TomcatLauncherPlugin.getDefault().getPreferenceStore();
+		pref.setValue( TOMCAT_PREF_BASE_KEY , dir );
+	}
+	
 	public String getTomcatDir() {
 		IPreferenceStore pref =	TomcatLauncherPlugin.getDefault().getPreferenceStore();
 		return pref.getString( TOMCAT_PREF_HOME_KEY );

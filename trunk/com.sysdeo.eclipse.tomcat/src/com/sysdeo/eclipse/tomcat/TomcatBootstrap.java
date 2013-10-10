@@ -17,6 +17,7 @@ import java.util.List;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
@@ -316,11 +317,62 @@ public abstract class TomcatBootstrap {
 	}
 
 	protected String getTomcatDir() {
-		return TomcatLauncherPlugin.getDefault().getTomcatDir();
+		String dir =  TomcatLauncherPlugin.getDefault().getTomcatDir();
+		File file = new File( dir );
+		File canonicalFile = null;
+		try {
+			canonicalFile = file.getCanonicalFile();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		if ( null != canonicalFile && canonicalFile.isDirectory() && file.exists() ) {
+			dir =  canonicalFile.getAbsolutePath() ;
+			TomcatLauncherPlugin.getDefault().setTomcatDir( dir );
+			return dir;
+		} else {
+			file = new File( ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString() + File.separator + dir );
+			String canonicalPath = null;
+			try {
+				canonicalPath = file.getCanonicalPath();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
+			if ( null != canonicalPath ) {
+				canonicalFile = new File( canonicalPath );
+				if ( canonicalFile.isDirectory() ) {
+					TomcatLauncherPlugin.getDefault().setTomcatDir( canonicalFile.getAbsolutePath() );
+					return canonicalPath;
+				}
+			}
+		}
+		return dir;
+	}
+	
+	public static void main(String[] args) {
+		try {
+			File f = new File(
+					"D:\\Eclipses\\pleiades-e4.2-ultimate-jre_20130303\\pleiades\\workspace" + 
+				    File.separator + 
+				    "../tomcat/6.0"
+				    );
+			System.out.println(f.getCanonicalPath());
+			String canonicalPath = new File("../tomcat/6.0").getCanonicalPath();
+			System.out.println(canonicalPath);
+			System.out.println(new File(canonicalPath).isDirectory());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	protected String getTomcatBase() {
-		return TomcatLauncherPlugin.getDefault().getTomcatBase();
+		String tomcatBase =  TomcatLauncherPlugin.getDefault().getTomcatBase();
+		File binFile = new File( tomcatBase, "bin" );
+		if ( !binFile.exists() || !binFile.isDirectory() ) {
+			tomcatBase =  getTomcatDir();
+		}
+		TomcatLauncherPlugin.getDefault().setTomcatBase( tomcatBase );
+		return tomcatBase;
 	}
 
 	private String[] addPreferenceProjectListToClasspath(String[] previouscp) {
