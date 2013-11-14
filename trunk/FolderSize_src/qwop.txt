@@ -1,0 +1,12 @@
+	LPNMLISTVIEW pnmlv = (LPNMLISTVIEW)pnmh;
+	PFNLVCOMPARE compareFunc = pnmlv->iSubItem == 0 ? compareIndex : compareSize;
+	ListView_SortItems(m_lv, compareFunc, 0);
+	
+	
+	
+		// add by qwop.
+	ListView_SortItems( m_hWndPost, compareSize, 0 );
+	
+	
+	// qwop test.
+	MessageBox( L"FUCK" );
