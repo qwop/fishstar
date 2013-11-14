@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx</Extensions>
+    </Filter>
+    <Filter Include="Cache">
+      <UniqueIdentifier>{d23031a3-f939-42ef-9a29-134a35415b81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Main Service">
+      <UniqueIdentifier>{0ac93148-1312-4231-abc8-40cf6ab36435}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{a7a96100-0e51-4cc3-afdf-1be6a1e9a2e6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="FolderSizeService.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="FolderSizeService_ca.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="FolderSizeService_en.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="FolderSizeService_es.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="FolderSizeService_fr.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="FolderSizeService_hu.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="FolderSizeService_it.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="FolderSizeService_ja.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="FolderSizeService_nl.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="FolderSizeService_pl.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="FolderSizeService_ru.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="FolderSizeService_sv.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Cache.cpp">
+      <Filter>Cache</Filter>
+    </ClCompile>
+    <ClCompile Include="CacheManager.cpp">
+      <Filter>Cache</Filter>
+    </ClCompile>
+    <ClCompile Include="Folder.cpp">
+      <Filter>Cache</Filter>
+    </ClCompile>
+    <ClCompile Include="FolderManager.cpp">
+      <Filter>Cache</Filter>
+    </ClCompile>
+    <ClCompile Include="Monitor.cpp">
+      <Filter>Cache</Filter>
+    </ClCompile>
+    <ClCompile Include="Path.cpp">
+      <Filter>Cache</Filter>
+    </ClCompile>
+    <ClCompile Include="PerformanceMonitor.cpp">
+      <Filter>Cache</Filter>
+    </ClCompile>
+    <ClCompile Include="Scanner.cpp">
+      <Filter>Cache</Filter>
+    </ClCompile>
+    <ClCompile Include="EventLog.cpp">
+      <Filter>Main Service</Filter>
+    </ClCompile>
+    <ClCompile Include="FolderSizeService.cpp">
+      <Filter>Main Service</Filter>
+    </ClCompile>
+    <ClCompile Include="Pipe.cpp">
+      <Filter>Main Service</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Main Service</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Pipe.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Settings.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Cache.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="CacheManager.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="Folder.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="FolderManager.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="Monitor.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="Path.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="PerformanceMonitor.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="Scanner.h">
+      <Filter>Cache</Filter>
+    </ClInclude>
+    <ClInclude Include="EventLog.h">
+      <Filter>Main Service</Filter>
+    </ClInclude>
+    <ClInclude Include="FolderSizeSvc.h">
+      <Filter>Main Service</Filter>
+    </ClInclude>
+    <ClInclude Include="Pipe.h">
+      <Filter>Main Service</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Main Service</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Main Service</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\FolderInfo.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Pipe.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Settings.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
