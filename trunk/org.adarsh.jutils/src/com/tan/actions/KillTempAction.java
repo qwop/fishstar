@@ -141,8 +141,8 @@ public class KillTempAction implements IWorkbenchWindowActionDelegate {
 	public static void delete( File file ) {
 		if ( file.isFile() ) {
 			System.out.println("Delete file:"  + file );
-			file.delete();
-			COUNT++;
+			if ( file.delete() )
+				COUNT++;
 		}
 		else if ( file.isDirectory() ) {
 			File[] files = file.listFiles();
@@ -150,8 +150,8 @@ public class KillTempAction implements IWorkbenchWindowActionDelegate {
 				delete( f ); 
 			}
 			System.out.println("Delete dir:"  + file ); 
-			file.delete();
-			COUNT++;
+			if ( file.delete() )
+				COUNT++;
 		} 
 	}
 	
