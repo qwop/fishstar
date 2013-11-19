@@ -3,6 +3,7 @@ package com.tan.actions;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Locale;
 
 import org.adarsh.jutils.internal.SourceManipulator;
@@ -41,7 +42,7 @@ public class LocationAction implements IWorkbenchWindowActionDelegate {
 	public static final String LINUX = "linux";
 	private String systemBrowser = "explorer";
 	private boolean isWindows;
-	private boolean isLogger = true; // Debug.
+	private boolean isLogger = false; // Debug.
 	
 	public LocationAction() {
 		String os = System.getProperty("osgi.os");
@@ -52,9 +53,12 @@ public class LocationAction implements IWorkbenchWindowActionDelegate {
 		else if (LINUX.equalsIgnoreCase(os)) {
 			systemBrowser = "nautilus";
 		}
+		
+		/*
 		log(new Object[]{
 				"操作系统:",os,StringUtil.LN
 		});
+		*/
 	}
 
 	public void run(IAction action) {
@@ -91,8 +95,8 @@ public class LocationAction implements IWorkbenchWindowActionDelegate {
 						new Object[]{
 								//(null == resource ? "NULL" : resource) ,
 								StringUtil.LN,
-								"Resource:" , resource,StringUtil.LN,
-								"Location:" , location,StringUtil.LN,
+								"资源:" , resource,StringUtil.LN,
+								"路径:" , location,StringUtil.LN,
 								"TreePath:" , path
 						}
 				);
@@ -146,15 +150,17 @@ public class LocationAction implements IWorkbenchWindowActionDelegate {
 				.append(location)
 				.append("\"");
 			}
+			
+			log(new Object[]{
+					 "命令行:", command,StringUtil.LN 
+			});
+			
 			runtime.exec(command.toString());
 		} catch (IOException e) {
 			MessageDialog.openError(window.getShell(),
 					"jExploer Error", "Can't open " + location);
 			e.printStackTrace();
 		} finally {
-			log(new Object[]{
-					 "command:", command,StringUtil.LN 
-			});
 			command = null;
 			runtime = null;
 			location = null;
@@ -170,7 +176,7 @@ public class LocationAction implements IWorkbenchWindowActionDelegate {
 		IEditorPart editorPart = window.getActivePage().getActiveEditor();
 		IEditorInput editorInput = editorPart.getEditorInput();
 		IFile file = null;
-		if (editorInput instanceof org.eclipse.ui.part.FileEditorInput) {
+		if (editorInput instanceof org.eclipse.ui.part.FileEditorInput) {//com.google.gwt.eclipse.core.editors.java.GWTJavaEditor@211fc4dd  org.eclipse.ui.part.FileEditorInput(/SmartGwtDemo/src/com/demo/gwt/client/ContentPanel.java)
 			FileEditorInput fileEditorInput = (FileEditorInput) editorInput;
 			file = fileEditorInput.getFile();
 		}
@@ -190,33 +196,59 @@ public class LocationAction implements IWorkbenchWindowActionDelegate {
 		if (suspect != null) {
 			project = suspect.getJavaProject();
 		}*/
-		Workspace workspace = (Workspace) ResourcesPlugin.getWorkspace();
+		Workspace currentWorkspace = (Workspace) ResourcesPlugin.getWorkspace();
 		IProject project = file.getProject();
 		String projectName = project.getName();
-		IPath xx = project.getFullPath();
-		ResourceInfo resource = workspace.getResourceInfo(xx, true, false);
-		URI uri = resource.getFileStoreRoot().computeURI(xx);
-		String workspacePath = uri.getPath();
-		String projectPath = xx.toString();
-		int idx = workspacePath.indexOf(projectPath);
+		IPath projectFullPath = project.getFullPath();
+		ResourceInfo resource = currentWorkspace.getResourceInfo(projectFullPath, true, false);
+		URI uri = resource.getFileStoreRoot().computeURI(projectFullPath);
+		log( new Object[]{ "【URI】", uri });
+		// workspace's project path.
+		String wpProjectPath = uri2dir(uri);
+		String projectPath = projectFullPath.toString();
+		int idx = wpProjectPath.indexOf(projectPath);
 		if (idx >= 0) {
-			workspacePath = workspacePath.substring(0, idx);
+			wpProjectPath = wpProjectPath.substring(0, idx);
 		}
-
-		String path = workspacePath + file.getFullPath().toOSString();
+		String path = wpProjectPath + file.getFullPath().toOSString();
 		if (path.charAt(0) == '/') {
 			path = path.substring(1);
 		}
-		path = path.replace('/', File.separatorChar).replace('\\',
-				File.separatorChar);
+		path = path.replace('/', File.separatorChar).replace('\\', File.separatorChar);
 		if (isFile(path)) {
 			command(path);
 		} else {// 项目名和项目路径名不同.
 			path = StringUtil.replace(path, projectName + File.separatorChar, "");
-			if (isFile(path)) {
-				command(path);
-			}
 		}
+		
+		// d:\svn\src/cn/gov/most/nsccsz/client/data/CommandTreeNode.java
+		if (isFile(path)) {
+			command(path);
+		} else {
+			log( new Object[]{ "【", path,"】", "不是一个有效的路径" });
+		}
+	}
+
+	private static String uri2dir(URI uri) {
+		String path = uri.getPath();
+		File file = new File ( path );
+		if ( file.isDirectory() ) {
+			return file.getAbsolutePath();
+		} else {
+			file = new File( uri.toString().replaceFirst("file:/", "") );
+			if ( file.isDirectory() ) return file.getAbsolutePath();
+		}
+		return path;
+	}
+	
+	public static void main(String[] args) {
+		try {
+			System.out.println( uri2dir( new URI(  "file:/d:/svn/most.src/most") ));
+		} catch (URISyntaxException e) {
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 	private boolean isFile(final String location) {
@@ -231,6 +263,7 @@ public class LocationAction implements IWorkbenchWindowActionDelegate {
 				for (int i = 0; i < objects.length; i++) {
 					buf.append(objects[i]);
 				}
+				MessageDialog.openInformation( null ,"提示"  , buf.toString());
 				System.out.println(buf);
 				buf = null;
 			}
