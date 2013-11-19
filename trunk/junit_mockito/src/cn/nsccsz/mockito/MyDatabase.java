@@ -1,7 +1,8 @@
 package cn.nsccsz.mockito;
 
-public interface MyDatabase {
+public interface MyDatabase
+{
 
-	void query(String string);
+    void query(String string);
 
 }
