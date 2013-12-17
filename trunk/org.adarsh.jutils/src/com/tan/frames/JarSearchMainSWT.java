@@ -103,8 +103,6 @@ public class JarSearchMainSWT {
 		fd_comboBox.top = new FormAttachment(0, 10);
 		comboBox.setLayoutData(fd_comboBox);
 		comboBox.addSelectionListener(new SelectionAdapter() {
-
-			@Override
 			public void widgetSelected(SelectionEvent e) {
 				int selectionIndex = comboBox.getSelectionIndex();
 				String item = comboBox.getItem( selectionIndex );
@@ -118,7 +116,6 @@ public class JarSearchMainSWT {
 		
 		
 		comboBox.addMouseListener(new MouseAdapter() {
-			@Override
 			public void mouseDoubleClick(MouseEvent e) {
 				DirectoryDialog dialog = new DirectoryDialog( shlJarCreateBy, SWT.NONE );
 				final String value = dialog.open();
@@ -163,7 +160,6 @@ public class JarSearchMainSWT {
 		fd_btnNewButton.right = new FormAttachment(100, -30);
 		btnNewButton.setLayoutData(fd_btnNewButton);
 		btnNewButton.addMouseListener(new MouseAdapter() {
-			@Override
 			public void mouseUp(MouseEvent e) {
 				final Object item = comboBox.getText();
 	    		 if ( null != item ) {
@@ -263,7 +259,6 @@ public class JarSearchMainSWT {
 		
 		final Button allSelBtn = new Button(shlJarCreateBy, SWT.CHECK);
 		allSelBtn.addSelectionListener(new SelectionAdapter() {
-			@Override
 			public void widgetSelected(SelectionEvent e) {
 				for ( final Button btn : CheckButtons ) {
 					btn.setSelection( allSelBtn.getSelection() );
@@ -308,7 +303,6 @@ public class JarSearchMainSWT {
 			}
 			
 			Collections.sort(list, new Comparator<StyleRange> () {
-				@Override
 				public int compare(StyleRange r1, StyleRange r2) {
 					return r1.start - r2.start;
 				}
@@ -345,7 +339,6 @@ public class JarSearchMainSWT {
 	private Table table;
 
 	static class NameMouseAdapter extends MouseAdapter {
-		@Override
 		public void mouseUp(MouseEvent event) {
 			Button comp = (Button) event.getSource();
 

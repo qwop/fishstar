@@ -5,33 +5,40 @@ import java.io.FileFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 /**
  * 查询jar文件中的class
- * @author tanyuanji
+ * @author qwop
  *
  */
 public class JarSearcher {
 	private File file;
-	private List<File> lists;
+	private List<File> list;
+	public List<File> getList() {
+		return list;
+	}
+
 	private String[] keyWords;
 	private String[] fileSuffixs;
 	private String dir;
 	
 	
 	public JarSearcher(final String dir) {
-		lists = new ArrayList<File>();
+		list = new ArrayList<File>();
 		init(dir);
 	}
 	
 	
 	public JarSearcher(final File dir) {
-		lists = new ArrayList<File>();
+		list = new ArrayList<File>();
 		init(dir);
 	}
 
@@ -49,7 +56,7 @@ public class JarSearcher {
 					path.listFiles(this);
 				} else if (path.isFile()
 						&& path.getName().toLowerCase().endsWith(".jar")) {
-					lists.add(path);
+					list.add(path);
 				}
 				return false; // ignore the return segment.
 			}
@@ -59,10 +66,10 @@ public class JarSearcher {
 	}
 
 	public int size() {
-		if (null == lists) {
+		if (null == list) {
 			return 0;
 		}
-		return lists.size();
+		return list.size();
 	}
 
 	public void processContent(boolean searchClass) {
@@ -71,7 +78,7 @@ public class JarSearcher {
 		String name;
 		File file;
 		Enumeration<JarEntry> entries;
-		for (Iterator<File> iter = lists.iterator(); iter.hasNext();) {
+		for (Iterator<File> iter = list.iterator(); iter.hasNext();) {
 			file = (File) iter.next();
 			try {
 				jarFile = new JarFile(file);
@@ -145,6 +152,40 @@ For additional assistance contact support@genuitec.com
 		// most/isomorphic/skins/ToolSkinNative/load_skin.js
 		// com.isomorphic.taglib.LoadISCTag
 	public static void main(String[] args) {
+		JarSearcher searcher = new JarSearcher( "D:\\JavaDevelopment\\eclipse3.7x86\\plugins" );
+		searcher.alayseEclipsePlugin( );
+		searcher.showResult();
+		
+	
+		
+//		temp();
+	}
+
+	private Set<String> fileNameSet;
+	
+	private void alayseEclipsePlugin() {
+		fileNameSet = new HashSet<String>();
+		String name ;
+		String eclipsePrefix = "org.eclipse.";
+		for ( final File f : list   ) {
+			name = f.getName();
+			if ( !StringUtil.isEmpty( name ) ) {
+				if ( name.startsWith( eclipsePrefix ) ) {
+					// fileNameSet.add( name.substring( 0, name.indexOf( ".", eclipsePrefix.length() + 1 )));
+				}
+				else {
+					fileNameSet.add( f.getName() );
+				}
+			} 
+		}
+		
+		for ( final String str : fileNameSet ) {
+			appendln( str );
+		}
+	}
+
+
+	private static void temp() {
 		String 
 		path = "D:\\GWT\\smartgwtee-4.0p\\lib";
 		path = "D:\\GWT\\smartgwtee-4.0p\\samples\\showcase";
@@ -192,7 +233,7 @@ For additional assistance contact support@genuitec.com
 			File file;
 			Enumeration<JarEntry> entries;
 			str = str.toLowerCase();
-			for (Iterator<File> iter = lists.iterator(); iter.hasNext();) {
+			for (Iterator<File> iter = list.iterator(); iter.hasNext();) {
 				file = (File) iter.next();
 				try {
 					jarFile = new JarFile(file);
