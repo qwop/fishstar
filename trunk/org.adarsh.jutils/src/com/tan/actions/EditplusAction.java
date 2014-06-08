@@ -83,7 +83,7 @@ public class EditplusAction implements IWorkbenchWindowActionDelegate {
 		editplusPath = configEditorPath;
 		
 		if ( StringUtil.isEmpty( editplusPath ) ) {
-			editplusPath = Editor.getEditplusPath();
+			editplusPath = new Editor().getEditplusPath();
 			checkEditplusRight( editplusPath );
 		}
 		
