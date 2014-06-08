@@ -77,7 +77,7 @@ public class GetterSetterPreferencesPage extends FieldEditorPreferencePage
 	 * {@inheritDoc}
 	 */
 	public void init(IWorkbench workbench) {
-		this.editorPath = Editor.getEditplusPath();
+		this.editorPath = new Editor().getEditplusPath();
 		this.explorer = "";
 		
 		super.setPreferenceStore(this.prefStore);

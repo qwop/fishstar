@@ -9,21 +9,30 @@ public class Editor {
 	private static String EDITPLUS_PATH = null; // 缓存 Editplus路径.
 	
 	final static String[] ABSOLUTE_PATHS = {
-		"HKEY_CLASSES_ROOT\\Applications\\EDITPLUS.EXE\\shell\\open\\command"
+		"HKEY_CLASSES_ROOT\\Applications\\EDITPLUS.EXE\\shell\\open\\command",
+		"HKCR\\*\\ShellEx\\ContextMenuHandlers\\EditPlus 3",
 	}; //注册表的绝对项
 	final static String DATA_TYPE = "REG_SZ"; //注册表的值的数据类型
-	final static String[] EIDTPLUS_KYE_WORDS = { "EDITPLUS.EXE",
+	final static String[] EIDTPLUS_KYE_WORDS = { 
+		"EDITPLUS.EXE",
+		"EDITPLUS_zh.EXE",
 			"EDITPLUS1.EXE", "EDITPLUS2.EXE", "EDITPLUS3.EXE", "EDITPLUS4.EXE",
-			"EDITPLUS5.EXE", "EDITPLUS6.EXE" }; //查找Editplus注册表的关键字.
+			"EDITPLUS5.EXE", "EDITPLUS6.EXE"
+			}; //查找Editplus注册表的关键字.
+	
+	
+	private String id;
+	
 	/**
 	 * @param args
 	 * @throws Exception
 	 */
 	public static void main(String[] args) throws Exception {
-		System.out.println(getEditplusPath());
+		Editor editor = new Editor();
+		System.out.println( editor.getEditplusPath());
 	}
 
-	public static String getEditplusPath() {
+	public  String getEditplusPath() {
 		EDITPLUS_PATH = guess();
 		
 		if (EDITPLUS_PATH != null) {
@@ -37,6 +46,11 @@ public class Editor {
 					if ( null != EDITPLUS_PATH )   {
 						return EDITPLUS_PATH;
 					}
+				}
+				
+				String template = "HKEY_CLASSES_ROOT\\CLSID\\" + id + "\\InProcServer32";
+				if ( EDITPLUS_PATH == null ) {
+					EDITPLUS_PATH = (  analyse(readCmd( template )) );
 				}
 			}
 		}
@@ -100,7 +114,35 @@ public class Editor {
 		return null;
 	}
 
-	final static String analyse(final String data) {
+	final  String analyse(final String data) {
+		
+		// load id if exist.
+		if ( null != data ) {
+			String spaces[] = data.split( "\\s+" );
+			for ( final String s : spaces ) {
+				if ( s.matches ("^\\{[\\dA-Z.-]+\\}$") ) {
+					id = s;
+					//System.err.println( id );
+				} 
+			}
+		}
+		
+		// check file path.
+		int idx = data.indexOf( "REG_SZ    " );
+		if ( idx >= 0 ) {
+			String path = ( data.substring( idx + 10 ).trim());
+			File file = new File( path );
+			if ( file.isFile() ) {
+				for (int i = 0; i < EIDTPLUS_KYE_WORDS.length; i++) {
+					File editplusFile = new File( file.getParent(), EIDTPLUS_KYE_WORDS[i] );
+					if ( editplusFile.exists() && editplusFile.isFile() ) {
+						return editplusFile.getAbsolutePath();
+					}
+				}
+			}
+		}
+		
+		// load dir's 
 		final String dataUpperCase = data.toUpperCase();
 		int start = dataUpperCase.indexOf(DATA_TYPE) + DATA_TYPE.length();
 		if (start < 0) {
@@ -154,7 +196,8 @@ public class Editor {
 				}
 			}
 		}
-		return StringUtil.replace(buf.toString(), path, "").trim();
+		return buf.toString().replace( path, "" ).trim();
+//		return StringUtil.replace(buf.toString(), path, "").trim();
 	}
 
 }
