@@ -84,7 +84,10 @@ public class EditplusAction implements IWorkbenchWindowActionDelegate {
 		
 		if ( StringUtil.isEmpty( editplusPath ) ) {
 			editplusPath = new Editor().getEditplusPath();
-			checkEditplusRight( editplusPath );
+			if ( checkEditplusRight( editplusPath ) ) {
+				// add by qwop 2013 06 08
+				SourceManipulator.PREF_STORE.setValue( PreferenceConstants.EDITOR_PATH, editplusPath);
+			}
 		}
 		
 	}
